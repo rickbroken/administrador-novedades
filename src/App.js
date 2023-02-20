@@ -7,7 +7,7 @@ import ActualizacionDeCNRC from './componentes/ActualizacionDeCNRC';
 import * as XLSX from 'xlsx';
 
 function App() {
-  const [linea, setLinea] = useState([]);
+  const [linea, setLinea] = useState([{}]);
 
   const [tipoDoc, setTipoDoc] = useState("");
   const [identificacion, setIdentificacion] = useState("");
@@ -59,6 +59,7 @@ function App() {
         ...obj,
         A_id: "",
         B_entidad: "EPSI06",
+        M_tipoDoc: tipoDoc,
         D_identificacion: identificacion,
         E_priApellido: priApellido,
         F_segApellido: segApellido,
@@ -66,8 +67,7 @@ function App() {
         H_segNombre: segNombre,
         I_fechaNacimiento: fechaNacimiento,
         J_departamento: departamento,
-        K_municipio: municipio,
-        M_tipoDoc: tipoDoc,
+        K_municipio: municipio
       }));
     });
   }, [tipoDoc, identificacion, priApellido, segApellido, priNombre, segNombre, fechaNacimiento, departamento, municipio]);
@@ -102,10 +102,26 @@ function App() {
     exportToXLSX(sheet, 'data.xlsx');
   }
 
+
   
   return (
     <div className='container'>
       <form onSubmit={(e)=>{handleSubmit(e)}}>
+      <div>
+          <label htmlFor="tipoNovedad">Novedad a realizar: </label>
+          <select
+            id="tipoNovedad"
+            name="tipoNovedad"
+            onChange={(e)=>{handleTipoNovedad(e)}}
+            value={tipoNovedad}
+          >
+            <option value="">Seleccione el tipo de novedad:</option>
+            <option value="Cambio de DP y MP">Cambio de DP y MP</option>
+            <option value="Actualizacion de documento">Actualizacion de documento</option>
+            <option value="Actualizacion de CN a RC">Actualizacion de CN a RC</option>
+          </select>
+          <hr/>
+        </div>
         <div>
           <label htmlFor="tpIdentificacion">Tipo de documento: </label>
           <select
@@ -205,28 +221,16 @@ function App() {
             <option value="Puerto Gaitan">Puerto Gaitan</option>
           </select>
         </div>
-        <div>
-        <hr/>
-          <label htmlFor="tipoNovedad">Novedad a realizar: </label>
-          <select
-            id="tipoNovedad"
-            name="tipoNovedad"
-            onChange={(e)=>{handleTipoNovedad(e)}}
-            value={tipoNovedad}
-          >
-            <option value="">Seleccione el tipo de novedad:</option>
-            <option value="Cambio de DP y MP">Cambio de DP y MP</option>
-            <option value="Actualizacion de documento">Actualizacion de documento</option>
-            <option value="Actualizacion de CN a RC">Actualizacion de CN a RC</option>
-          </select>
-        </div>
+        
         {
           tipoNovedad === "Cambio de DP y MP" ? (
             <CambioMunicipio setLinea={setLinea} />
           ) : tipoNovedad === "Actualizacion de documento" ? (
             <ActualizacionDeDocumento setLinea={setLinea} />
           ) : tipoNovedad === "Actualizacion de CN a RC" ? (
-            <ActualizacionDeCNRC setLinea={setLinea} />
+            <>
+              <ActualizacionDeCNRC setLinea={setLinea} linea={linea} />
+            </>
           ) : null // Retornar un valor por defecto si no se cumple ninguna condición
         }
         

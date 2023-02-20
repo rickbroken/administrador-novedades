@@ -1,7 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
+
 const ActualizacionDeCNRC = ({ setLinea })=>{
+
     const [tipoDocumento, setTipoDocumento] = useState("");
     const [identificacion, setIdentificacion] = useState("");
     const [fechaNacimiento, setFechaNacimiento] = useState("");
@@ -61,7 +63,9 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
           Q_V4: "",
           R_V5: "",
           S_V6: "",
-          T_V7: ""
+          T_V7: "",
+          M_tipoDoc: tipoDocumento,
+          D_identificacion: identificacion
         },
         {
           ...prevlinea[2],
@@ -73,11 +77,15 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
           R_V5: "",
           S_V6: "",
           T_V7: "",
+          M_tipoDoc: tipoDocumento,
+          D_identificacion: identificacion,
           G_priNombre: priNombree,
           H_segNombre: segNombree
         }
       ]);
     }, [tipoDocumento,identificacion,fechaNacimiento,tipoCausal,priNombree,segNombree,priApellidoo,segApellidoo]);
+    
+
     
     return(
         <>

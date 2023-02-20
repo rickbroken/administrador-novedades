@@ -27,14 +27,14 @@ const CambioMunicipio = ({ setLinea })=>{
       setLinea(prevlinea => [
         {
           ...prevlinea[0],
-          tpNovedad: "N1",
-          V1: tipoDocumento,
-          V2: identificacion,
-          V3: fechaNacimiento,
-          V4: tipoCausal,
-          V5: "",
-          V6: "",
-          V7: ""
+          L_tpNovedad: "N1",
+          N_V1: tipoDocumento,
+          O_V2: identificacion,
+          P_V3: fechaNacimiento,
+          Q_V4: tipoCausal,
+          R_V5: "",
+          S_V6: "",
+          T_V7: ""
         }
       ]);
     }, [tipoDocumento,identificacion,fechaNacimiento,tipoCausal]);

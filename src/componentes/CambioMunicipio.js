@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-const CambioMunicipio = ({ setLinea, linea })=>{
+const CambioMunicipio = ({ setLinea })=>{
     const [departamentoNuevo, setDepartamentoNuevo] = useState("");
     const [municipioNuevo, setMunicipioNuevo] = useState("");
     const [centroSalud, setCentroSalud] = useState("");
@@ -23,25 +23,25 @@ const CambioMunicipio = ({ setLinea, linea })=>{
       setLinea(prevlinea => [
         {
           ...prevlinea[0],
-          tpNovedad: "N4",
-          V1: departamentoNuevo,
-          V2: municipioNuevo,
-          V3: "",
-          V4: "",
-          V5: "",
-          V6: "",
-          V7: ""
+          L_tpNovedad: "N4",
+          N_V1: departamentoNuevo,
+          O_V2: municipioNuevo,
+          P_V3: "",
+          Q_V4: "",
+          R_V5: "",
+          S_V6: "",
+          T_V7: ""
         },
         {
         ...prevlinea[1],
-          tpNovedad: "N25",
-          V1: centroSalud,
-          V2: "",
-          V3: "",
-          V4: "",
-          V5: "",
-          V6: "",
-          V7: ""
+          L_tpNovedad: "N25",
+          N_V1: centroSalud,
+          O_V2: "",
+          P_V3: "",
+          Q_V4: "",
+          R_V5: "",
+          S_V6: "",
+          T_V7: ""
         }
 
       ]);
