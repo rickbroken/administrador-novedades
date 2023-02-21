@@ -27,7 +27,7 @@ const CambioMunicipio = ({ setLinea })=>{
       setLinea(prevlinea => [
         {
           ...prevlinea[0],
-          L_tpNovedad: "N1",
+          L_tpNovedad: "N01",
           N_V1: tipoDocumento,
           O_V2: identificacion,
           P_V3: fechaNacimiento,
@@ -41,55 +41,57 @@ const CambioMunicipio = ({ setLinea })=>{
     
     return(
         <>
-          <div>
-          <hr/>
-            <label htmlFor="tipoDocumento">Tipo de documento: </label>
-            <select
-              id="tipoDocumento"
-              name="tipoDocumento"
-              onChange={(e)=>{handleTipoDocumento(e)}}
-              value={tipoDocumento}
-            >
-              <option value="">Seleccione el tipo de documento:</option>
-              <option value="CN">CN</option>
-              <option value="RC">RC</option>
-              <option value="TI">TI</option>
-              <option value="CC">CC</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="identificacion">Numero de Documento: </label>
-            <input
-              id="identificacion"
-              name="identificacion"
-              onChange={(e)=>{handleIdentificacion(e)}}
-              value={identificacion}
-              placeholder="Escriba el numero de documento"
-            />
-          </div>
-          <div>
-            <label htmlFor="fechaNacimiento">Fecha de Nacimiento: </label>
-            <input
-              type="date"
-              id="fechaNacimiento"
-              name="fechaNacimiento"
-              onChange={(e)=>{handleFechaNacimiento(e)}}
-              value={fechaNacimiento}
-            />
-          </div>
-          <div>
-            <label htmlFor="tipoCausal">Tipo de causal: </label>
-            <select
-              id="tipoCausal"
-              name="tipoCausal"
-              onChange={(e)=>{handleTipoCausal(e)}}
-              value={tipoCausal}
-            >
-              <option value="">Seleccione el tipo de causal:</option>
-              <option value="0">0</option>
-              <option value="1">1</option>
-            </select>
-          </div>
+          <fieldset>
+            <legend align="right">Novedad: N01</legend>
+            <div>
+              <label htmlFor="tipoDocumento">Tipo de documento: </label>
+              <select
+                id="tipoDocumento"
+                name="tipoDocumento"
+                onChange={(e)=>{handleTipoDocumento(e)}}
+                value={tipoDocumento}
+              >
+                <option value="">Seleccione el tipo de documento:</option>
+                <option value="CN">CN</option>
+                <option value="RC">RC</option>
+                <option value="TI">TI</option>
+                <option value="CC">CC</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="identificacion">Numero de Documento: </label>
+              <input
+                id="identificacion"
+                name="identificacion"
+                onChange={(e)=>{handleIdentificacion(e)}}
+                value={identificacion}
+                placeholder="Escriba el numero de documento"
+              />
+            </div>
+            <div>
+              <label htmlFor="fechaNacimiento">Fecha de Nacimiento: </label>
+              <input
+                type="date"
+                id="fechaNacimiento"
+                name="fechaNacimiento"
+                onChange={(e)=>{handleFechaNacimiento(e)}}
+                value={fechaNacimiento}
+              />
+            </div>
+            <div>
+              <label htmlFor="tipoCausal">Tipo de causal: </label>
+              <select
+                id="tipoCausal"
+                name="tipoCausal"
+                onChange={(e)=>{handleTipoCausal(e)}}
+                value={tipoCausal}
+              >
+                <option value="">Seleccione el tipo de causal:</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+              </select>
+            </div>
+          </fieldset>
         </>
     )
 }

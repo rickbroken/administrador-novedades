@@ -1,20 +1,20 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { handleMunicipio2 } from '../funciones/Municipios.js';
+import { handleDepartamento2 } from '../funciones/Departamentos.js';
+import Municipios from "./Muicipios.js";
+import Departamentos from "./Departamento.js";
 
 const CambioMunicipio = ({ setLinea })=>{
-    const [departamentoNuevo, setDepartamentoNuevo] = useState("");
-    const [municipioNuevo, setMunicipioNuevo] = useState("");
+    const [departamento, setDepartamento] = useState("");
+    const [municipio, setMunicipio] = useState("");
     const [centroSalud, setCentroSalud] = useState("");
 
+    const [departamento2, setDepartamento2] = useState("");
+    const [municipio2, setMunicipio2] = useState("");
 
 
-    const handleDepartamentoNuevo= (e)=>{
-      setDepartamentoNuevo(e.target.value);
-    }
-    const handleMunicipioNuevo= (e)=>{
-      setMunicipioNuevo(e.target.value);
-      
-    }
+
     const handleCentroSalud= (e)=>{
       setCentroSalud(e.target.value);
     }
@@ -23,9 +23,9 @@ const CambioMunicipio = ({ setLinea })=>{
       setLinea(prevlinea => [
         {
           ...prevlinea[0],
-          L_tpNovedad: "N4",
-          N_V1: departamentoNuevo,
-          O_V2: municipioNuevo,
+          L_tpNovedad: "N04",
+          N_V1: departamento,
+          O_V2: municipio,
           P_V3: "",
           Q_V4: "",
           R_V5: "",
@@ -45,48 +45,53 @@ const CambioMunicipio = ({ setLinea })=>{
         }
 
       ]);
-    }, [departamentoNuevo,municipioNuevo,centroSalud]);
+    }, [departamento,municipio,centroSalud]);
     
     return(
         <>
-          <div>
-          <hr/>
-            <label htmlFor="departamentoNuevo">Nuevo Departamento: </label>
-            <select
-              id="departamentoNuevo"
-              name="departamentoNuevo"
-              onChange={(e)=>{handleDepartamentoNuevo(e)}}
-              value={departamentoNuevo}
-            >
-              <option value="">Seleccione un departamento</option>
-              <option value="Tolima">Tolima</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="municipioNuevo">Nuevo Municipio: </label>
-            <select
-              id="municipioNuevo"
-              name="municipioNuevo"
-              onChange={(e)=>{handleMunicipioNuevo(e)}}
-              value={municipioNuevo}
-            >
-              <option value="">Seleccione un municipio</option>
-              <option value="Ortega">Ortega</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="centro_salud">Centro de Salud: </label>
-            <select
-              id="centro_salud"
-              name="centro_salud"
-              onChange={(e)=>{handleCentroSalud(e)}}
-              value={centroSalud}
-            >
-              <option value="">Seleccione un centro de salud</option>
-              <option value="Previs IPS">Previs IPS</option>
-              <option value="Matsuludani IPS">Matsuludani IPS</option>
-            </select>
-          </div>
+          <fieldset>
+            <legend align="right">Novedad: N04</legend>
+            <div>
+              <label htmlFor="departamentoNuevo">Nuevo Departamento: </label>
+              <select
+                id="departamentoNuevo"
+                name="departamentoNuevo"
+                onChange={(e)=>handleDepartamento2(e, setDepartamento, setDepartamento2)}
+                value={departamento2}
+              >
+                <option value="">Seleccione un departamento</option>
+                <Departamentos />
+              </select>
+            </div>
+            <div>
+              <label htmlFor="municipioNuevo">Nuevo Municipio: </label>
+              <select
+                id="municipioNuevo"
+                name="municipioNuevo"
+                onChange={(e)=>{handleMunicipio2(e, setMunicipio, setMunicipio2)}}
+                value={municipio2}
+              >
+                <option value="">Seleccione un municipio</option>
+                <Municipios />
+              </select>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend align="right">Novedad: N25</legend>
+            <div>
+              <label htmlFor="centro_salud">Centro de Salud: </label>
+              <select
+                id="centro_salud"
+                name="centro_salud"
+                onChange={(e)=>{handleCentroSalud(e)}}
+                value={centroSalud}
+              >
+                <option value="">Seleccione un centro de salud</option>
+                <option value="Previs IPS">Previs IPS</option>
+                <option value="Matsuludani IPS">Matsuludani IPS</option>
+              </select>
+            </div>
+          </fieldset>
         </>
     )
 }
