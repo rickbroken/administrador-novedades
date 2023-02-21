@@ -28,6 +28,7 @@ import N17 from './componentes/N17';
 import N19 from './componentes/N19';
 import N21 from './componentes/N21';
 import N25 from './componentes/N25';
+import N31 from './componentes/N31';
 
 
 function App() {
@@ -190,6 +191,7 @@ function App() {
             <option value="N19">N19 - Cambiar zona del afiliado</option>
             <option value="N21">N21 - Tipo de poblacion especial</option>
             <option value="N25">N25 - Cambio de IPS Primaria</option>
+            <option value="N31">N31 - Reactivacion del cabeza de familia en la misma EPS</option>
           </select>
           <hr/>
         </div>
@@ -338,6 +340,8 @@ function App() {
             <N21 setLinea={setLinea} linea={linea} />
           ) : tipoNovedad === "N25" ? (
             <N25 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N31" ? (
+            <N31 setLinea={setLinea} linea={linea} />
           ) : "" // Retornar un valor por defecto si no se cumple ninguna condición
         }
         
