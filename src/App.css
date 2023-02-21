@@ -1,7 +1,7 @@
 hr {
     box-sizing: border-box;
     height:5px;
-    background-color: rgb(88, 27, 255);
+    background-color: rgba(88, 27, 255, 0.726);
     border: none;
     border-radius: 2px;
     margin-top: 30px;

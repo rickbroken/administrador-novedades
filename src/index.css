@@ -40,12 +40,12 @@ select {
 }
 input:focus,
 select:focus {
-  outline: 1px solid #6c63ff;
+  outline: 2px solid #6c63ff;
 }
 input:active,
 select:active {
-  border: 1px solid #6c63ff;
-  outline: 1px solid #6c63ff;
+  border: 2px solid #6c63ff;
+  outline: 2px solid #6c63ff;
 }
 select {
   appearance: none;

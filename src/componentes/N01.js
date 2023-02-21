@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import TiposDocumentos from "./TiposDocumentos";
 
-const CambioMunicipio = ({ setLinea })=>{
+const N01 = ({ setLinea })=>{
     const [tipoDocumento, setTipoDocumento] = useState("");
     const [identificacion, setIdentificacion] = useState("");
     const [fechaNacimiento, setFechaNacimiento] = useState("");
@@ -52,10 +53,7 @@ const CambioMunicipio = ({ setLinea })=>{
                 value={tipoDocumento}
               >
                 <option value="">Seleccione el tipo de documento:</option>
-                <option value="CN">CN</option>
-                <option value="RC">RC</option>
-                <option value="TI">TI</option>
-                <option value="CC">CC</option>
+                <TiposDocumentos />
               </select>
             </div>
             <div>
@@ -96,4 +94,4 @@ const CambioMunicipio = ({ setLinea })=>{
     )
 }
 
-export default CambioMunicipio;
+export default N01;

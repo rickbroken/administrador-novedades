@@ -1,17 +1,33 @@
 import React from 'react';
 import './App.css';
 import { useState, useEffect } from "react";
-import CambioMunicipio from './componentes/CambioMunicipio';
-import ActualizacionDeDocumento from './componentes/ActualizacionDeDocumento';
-import ActualizacionDeCNRC from './componentes/ActualizacionDeCNRC';
-import * as XLSX from 'xlsx';
-import './funciones/Municipios.js'
 import { handleMunicipio2 } from './funciones/Municipios.js';
 import { handleDepartamento2 } from './funciones/Departamentos.js';
-import Municipios from './componentes/Muicipios';
+import CambioMunicipio from './componentes/CambioMunicipio';
+import ActualizacionDeCNRC from './componentes/ActualizacionDeCNRC';
+import * as XLSX from 'xlsx';
+import MunicipiosTolima from './componentes/MuicipiosTolima';
+import MunicipiosMeta from './componentes/MuicipiosMeta';
 import Departamentos from './componentes/Departamento';
-import ActualizacionNombres from './componentes/ActualizacionNombres';
-import ActualizacionApellidos from './componentes/ActualizacionApellidos';
+import TiposDocumentos from './componentes/TiposDocumentos';
+import N01 from './componentes/N01';
+import N02 from './componentes/N02';
+import N03 from './componentes/N03';
+import N04 from './componentes/N04';
+import N05 from './componentes/N05';
+import N06 from './componentes/N06';
+import N07 from './componentes/N07';
+import N08 from './componentes/N08';
+import N09 from './componentes/N09';
+import N10 from './componentes/N10';
+import N11 from './componentes/N11';
+import N12 from './componentes/N12';
+import N13 from './componentes/N13';
+import N14 from './componentes/N14';
+import N17 from './componentes/N17';
+import N19 from './componentes/N19';
+import N21 from './componentes/N21';
+import N25 from './componentes/N25';
 
 
 function App() {
@@ -91,7 +107,7 @@ function App() {
   }
 
 
-  
+
   useEffect(() => {
     setLinea(linea => {
       return linea.map(obj => ({
@@ -154,11 +170,26 @@ function App() {
             value={tipoNovedad}
           >
             <option value="">Seleccione el tipo de novedad:</option>
-            <option value="Cambio de DP y MP">Cambio de DP y MP</option>
-            <option value="Actualizacion de documento">Actualizacion de documento</option>
-            <option value="Actualizacion de CN a RC">Actualizacion de CN a RC</option>
-            <option value="Actualizacion de Nombres">Actualizacion de Nombres</option>
-            <option value="Actualizacion de Apellidos">Actualizacion de Apellidos</option>
+            <option value="Cambio de DP y MP">Cambio de DP y MP "N04-N25"</option>
+            <option value="Actualizacion de CN a RC">Actualizacion de CN a RC "N01-N02-N03"</option>
+            <option value="N01">N01 - Actualizacion de documento</option>
+            <option value="N02">N02 - Actualizacion de Nombres</option>
+            <option value="N03">N03 - Actualizacion de Apellidos</option>
+            <option value="N04">N04 - Actualizacion de Municipio</option>
+            <option value="N05">N05 - Actualizacion de segundo cotz a cotizante principal</option>
+            <option value="N06">N06 - Adicion de relacion con un aporte o react. en la misma entidad</option>
+            <option value="N07">N07 - Inclucion de adiliado a un group familiar, camvio de condicion de beneficiario</option>
+            <option value="N08">N08 - Actualizacion de beneficiario a otro tipo de beneficiario o cot principal</option>
+            <option value="N09">N09 - Retiro por Muerte</option>
+            <option value="N10">N10 - Actualizacion de relacion laboral</option>
+            <option value="N11">N11 - Finalizacion de relacion con un aporte</option>
+            <option value="N12">N12 - Condicion de discapacidad</option>
+            <option value="N13">N13 - Novedad de retiro en BDUA</option>
+            <option value="N14">N14 - Estado de Afiliacion</option>
+            <option value="N17">N17 - Cambiar tipo sexo del afiliado</option>
+            <option value="N19">N19 - Cambiar zona del afiliado</option>
+            <option value="N21">N21 - Tipo de poblacion especial</option>
+            <option value="N25">N25 - Cambio de IPS Primaria</option>
           </select>
           <hr/>
         </div>
@@ -170,11 +201,8 @@ function App() {
             onChange={(e)=>{handleTipoDoc(e)}}
             value={tipoDoc}
           >
-            <option value="">TP</option>
-            <option value="CN">CN</option>
-            <option value="RC">RC</option>
-            <option value="TI">TI</option>
-            <option value="CC">CC</option>
+            <option value="">Seleccione el tipo de documento:</option>
+            <TiposDocumentos />
           </select>
         </div>
         <div>
@@ -249,6 +277,7 @@ function App() {
             <Departamentos />
           </select>
         </div>
+
         <div>
           <label htmlFor="municipio">Municipio: </label>
           <select
@@ -258,21 +287,57 @@ function App() {
             value={municipio2}
           >
             <option value="">Seleccione un municipio</option>
-            <Municipios />
+          {
+            departamento === "73" ? (
+              <MunicipiosTolima />
+            ) : departamento === "50" ? (
+              <MunicipiosMeta />
+            ) : "" // Retornar un valor por defecto si no se cumple ninguna condición
+          }
           </select>
         </div>
         
         {
           tipoNovedad === "Cambio de DP y MP" ? (
             <CambioMunicipio setLinea={setLinea} />
-          ) : tipoNovedad === "Actualizacion de documento" ? (
-            <ActualizacionDeDocumento setLinea={setLinea} />
+          ) : tipoNovedad === "N01" ? (
+            <N01 setLinea={setLinea} />
           ) : tipoNovedad === "Actualizacion de CN a RC" ? (
             <ActualizacionDeCNRC setLinea={setLinea} linea={linea} />
-          ) : tipoNovedad === "Actualizacion de Nombres" ? (
-            <ActualizacionNombres setLinea={setLinea} linea={linea} />
-          ) : tipoNovedad === "Actualizacion de Apellidos" ? (
-            <ActualizacionApellidos setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N02" ? (
+            <N02 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N03" ? (
+            <N03 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N09" ? (
+            <N09 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N05" ? (
+            <N05 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N04" ? (
+            <N04 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N06" ? (
+            <N06 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N07" ? (
+            <N07 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N08" ? (
+            <N08 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N10" ? (
+            <N10 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N11" ? (
+            <N11 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N12" ? (
+            <N12 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N13" ? (
+            <N13 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N14" ? (
+            <N14 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N17" ? (
+            <N17 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N19" ? (
+            <N19 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N21" ? (
+            <N21 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N25" ? (
+            <N25 setLinea={setLinea} linea={linea} />
           ) : "" // Retornar un valor por defecto si no se cumple ninguna condición
         }
         

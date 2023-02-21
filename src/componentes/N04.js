@@ -5,19 +5,13 @@ import { handleDepartamento2 } from '../funciones/Departamentos.js';
 import Municipios from "./MuicipiosTolima.js";
 import Departamentos from "./Departamento.js";
 
-const CambioMunicipio = ({ setLinea })=>{
+const N04 = ({ setLinea })=>{
     const [departamento, setDepartamento] = useState("");
     const [municipio, setMunicipio] = useState("");
-    const [centroSalud, setCentroSalud] = useState("");
 
     const [departamento2, setDepartamento2] = useState("");
     const [municipio2, setMunicipio2] = useState("");
 
-
-
-    const handleCentroSalud= (e)=>{
-      setCentroSalud(e.target.value);
-    }
 
     useEffect(()=>{
       setLinea(prevlinea => [
@@ -31,21 +25,9 @@ const CambioMunicipio = ({ setLinea })=>{
           R_V5: "",
           S_V6: "",
           T_V7: ""
-        },
-        {
-        ...prevlinea[1],
-          L_tpNovedad: "N25",
-          N_V1: centroSalud,
-          O_V2: "",
-          P_V3: "",
-          Q_V4: "",
-          R_V5: "",
-          S_V6: "",
-          T_V7: ""
         }
-
       ]);
-    }, [departamento,municipio,centroSalud]);
+    }, [departamento,municipio]);
     
     return(
         <>
@@ -76,24 +58,8 @@ const CambioMunicipio = ({ setLinea })=>{
               </select>
             </div>
           </fieldset>
-          <fieldset>
-            <legend align="right">Novedad: N25</legend>
-            <div>
-              <label htmlFor="centro_salud">Centro de Salud: </label>
-              <select
-                id="centro_salud"
-                name="centro_salud"
-                onChange={(e)=>{handleCentroSalud(e)}}
-                value={centroSalud}
-              >
-                <option value="">Seleccione un centro de salud</option>
-                <option value="Previs IPS">Previs IPS</option>
-                <option value="Matsuludani IPS">Matsuludani IPS</option>
-              </select>
-            </div>
-          </fieldset>
         </>
     )
 }
 
-export default CambioMunicipio;
+export default N04;

@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 
-const ActualizacionDeCNRC = ({ setLinea })=>{
+const N02 = ({ setLinea })=>{
 
     const [priNombre, setPriNombre] = useState("");
     const [segNombre, setSegNombre] = useState("");
@@ -65,4 +65,4 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
     )
 }
 
-export default ActualizacionDeCNRC;
+export default N02;

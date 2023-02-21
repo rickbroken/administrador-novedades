@@ -3,7 +3,6 @@ import React from "react";
 const Municipios = () => {
   return(
 		<>
-			<option value="Puerto Gaitan">Puerto Gaitan</option>
 			<option value="Ibague">Ibague</option>
 			<option value="Alpujarra">Alpujarra</option>
 			<option value="Alvarado">Alvarado</option>
