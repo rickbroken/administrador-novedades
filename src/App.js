@@ -7,8 +7,12 @@ import ActualizacionDeCNRC from './componentes/ActualizacionDeCNRC';
 import * as XLSX from 'xlsx';
 
 function App() {
+  //definimos el estado de linea que a su vez se guarda en un array-
+  //dentro los objetos
   const [linea, setLinea] = useState([{}]);
 
+
+  //Definimos los estados que se guardaran en en el estado de linea
   const [tipoDoc, setTipoDoc] = useState("");
   const [identificacion, setIdentificacion] = useState("");
   const [priNombre, setPriNombre] = useState("");
@@ -20,6 +24,127 @@ function App() {
   const [municipio, setMunicipio] = useState("");
   const [tipoNovedad, setTipoNovedad] = useState("");
 
+
+  //Definimos los estados para los departamento y municipios para-
+  //compararlos y transformar de str a codigo de depart y municipio
+  const [departamento2, setDepartamento2] = useState("");
+  const [municipio2, setMunicipio2] = useState("");
+
+  
+  const handleDepartamento2 = (e) => {
+    setDepartamento2(e.target.value);
+    if(e.target.value === "Meta"){
+      setDepartamento('50');
+    } else if(e.target.value === "Tolima"){
+      setDepartamento('73')
+    }
+  }
+
+  const handleMunicipio2 = (e) => {
+    setMunicipio2(e.target.value);
+    if(e.target.value === "Ibague"){
+      setMunicipio('001');
+    } else if(e.target.value === "Alpujarra"){
+      setMunicipio('024')
+    } else if(e.target.value === "Alvarado"){
+      setMunicipio('026')
+    } else if(e.target.value === "Ambalema"){
+      setMunicipio('030')
+    } else if(e.target.value === "Anzoategui"){
+      setMunicipio('043')
+    } else if(e.target.value === "Armero (Guayabal)"){
+      setMunicipio('055')
+    } else if(e.target.value === "Ataco"){
+      setMunicipio('067')
+    } else if(e.target.value === "Cajamarca"){
+      setMunicipio('124')
+    } else if(e.target.value === "Carmen Apicala"){
+      setMunicipio('148')
+    } else if(e.target.value === "Casabianca"){
+      setMunicipio('152')
+    } else if(e.target.value === "Chaparral"){
+      setMunicipio('168')
+    } else if(e.target.value === "Coello"){
+      setMunicipio('200')
+    } else if(e.target.value === "Coyaima"){
+      setMunicipio('217')
+    } else if(e.target.value === "Cunday"){
+      setMunicipio('226')
+    } else if(e.target.value === "Dolores"){
+      setMunicipio('236')
+    } else if(e.target.value === "Espinal"){
+      setMunicipio('268')
+    } else if(e.target.value === "Falan"){
+      setMunicipio('270')
+    } else if(e.target.value === "Flandes"){
+      setMunicipio('275')
+    } else if(e.target.value === "Fresno"){
+      setMunicipio('283')
+    } else if(e.target.value === "Guamo"){
+      setMunicipio('319')
+    } else if(e.target.value === "Herveo"){
+      setMunicipio('347')
+    } else if(e.target.value === "Honda"){
+      setMunicipio('349')
+    } else if(e.target.value === "Icononzo"){
+      setMunicipio('352')
+    } else if(e.target.value === "Lerida"){
+      setMunicipio('408')
+    } else if(e.target.value === "Libano"){
+      setMunicipio('411')
+    } else if(e.target.value === "Mariquita"){
+      setMunicipio('443')
+    } else if(e.target.value === "Melgar"){
+      setMunicipio('449')
+    } else if(e.target.value === "Murillo"){
+      setMunicipio('461')
+    } else if(e.target.value === "Natagaima"){
+      setMunicipio('483')
+    } else if(e.target.value === "Ortega"){
+      setMunicipio('504')
+    } else if(e.target.value === "Palocabildo"){
+      setMunicipio('520')
+    } else if(e.target.value === "Piedras"){
+      setMunicipio('547')
+    } else if(e.target.value === "Planadas"){
+      setMunicipio('555')
+    } else if(e.target.value === "Prado"){
+      setMunicipio('563')
+    } else if(e.target.value === "Purificacion"){
+      setMunicipio('585')
+    } else if(e.target.value === "Rioblanco"){
+      setMunicipio('616')
+    } else if(e.target.value === "Roncesvalles"){
+      setMunicipio('622')
+    } else if(e.target.value === "Rovira"){
+      setMunicipio('624')
+    } else if(e.target.value === "Saldaña"){
+      setMunicipio('671')
+    } else if(e.target.value === "San Antonio"){
+      setMunicipio('675')
+    } else if(e.target.value === "San Luis"){
+      setMunicipio('678')
+    } else if(e.target.value === "Santa Isabel"){
+      setMunicipio('686')
+    } else if(e.target.value === "Suarez"){
+      setMunicipio('770')
+    } else if(e.target.value === "Valle de San Juan"){
+      setMunicipio('854')
+    } else if(e.target.value === "Venadillo"){
+      setMunicipio('861')
+    } else if(e.target.value === "Villahermosa"){
+      setMunicipio('870')
+    } else if(e.target.value === "Villarrica"){
+      setMunicipio('873')
+    } else if(e.target.value === "Puerto Gaitan"){
+      setMunicipio('568')
+    }
+  }
+  
+
+
+
+  //Definimos las funciones que cambiaran el estado de los inputs
   const handleTipoDoc= (e)=>{
     setTipoDoc(e.target.value);
   }
@@ -27,30 +152,46 @@ function App() {
     setIdentificacion(e.target.value);
   }
   const handlePriNombre= (e)=>{
-    setPriNombre(e.target.value);
+    const value = e.target.value.toUpperCase();
+    setPriNombre(value);
   }
   const handleSegNombre= (e)=>{
-    setSegNombre(e.target.value);
+    const value = e.target.value.toUpperCase();
+    setSegNombre(value);
   }
   const handlePriApellido= (e)=>{
-    setPriApellido(e.target.value);
+    const value = e.target.value.toUpperCase();
+    setPriApellido(value);
   }
   const handleSegApellido= (e)=>{
-    setSegApellido(e.target.value);
+    const value = e.target.value.toUpperCase();
+    setSegApellido(value);
   }
-  
   const handleFechaNacimiento= (e)=>{
     setFechaNacimiento(e.target.value);
-  }
-  const handleDepartamento= (e)=>{
-    setDepartamento(e.target.value);
   }
   const handleMunicipio= (e)=>{
     setMunicipio(e.target.value);
   }
 
+  
+
+  console.log(departamento);
+
+
+
   const handleTipoNovedad= (e)=>{
     setTipoNovedad(e.target.value);
+    setLinea([{}]);
+    setTipoDoc('')
+    setIdentificacion('');
+    setPriNombre('');
+    setSegNombre('');
+    setPriApellido('');
+    setSegApellido('');
+    setFechaNacimiento('');
+    setDepartamento('');
+    setMunicipio('');
   }
 
   useEffect(() => {
@@ -76,7 +217,6 @@ function App() {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    
     handleExport();
   };
 
@@ -86,7 +226,7 @@ function App() {
 
 
 
-  
+  //Funciones para convertir el estado de linea a excel utilizando XLSX
   function convertToSheet(data) {
     const sheet = XLSX.utils.json_to_sheet(data);
     return sheet;
@@ -202,11 +342,12 @@ function App() {
           <select
             id="departamento"
             name="departamento"
-            onChange={(e)=>{handleDepartamento(e)}}
-            value={departamento}
+            onChange={(e)=>{handleDepartamento2(e)}}
+            value={departamento2}
           >
             <option value="">Seleccione un departamento</option>
             <option value="Meta">Meta</option>
+            <option value="Tolima">Tolima</option>
           </select>
         </div>
         <div>
@@ -214,11 +355,58 @@ function App() {
           <select
             id="municipio"
             name="municipio"
-            onChange={(e)=>{handleMunicipio(e)}}
-            value={municipio}
+            onChange={(e)=>{handleMunicipio2(e)}}
+            value={municipio2}
           >
             <option value="">Seleccione un municipio</option>
             <option value="Puerto Gaitan">Puerto Gaitan</option>
+            <option value="Ibague">Ibague</option>
+            <option value="Alpujarra">Alpujarra</option>
+            <option value="Alvarado">Alvarado</option>
+            <option value="Ambalema">Ambalema</option>
+            <option value="Anzoategui">Anzoategui</option>
+            <option value="Armero (Guayabal)">Armero (Guayabal)</option>
+            <option value="Ataco">Ataco</option>
+            <option value="Cajamarca">Cajamarca</option>
+            <option value="Carmen Apicala">Carmen Apicala</option>
+            <option value="Casabianca">Casabianca</option>
+            <option value="Chaparral">Chaparral</option>
+            <option value="Coello">Coello</option>
+            <option value="Coyaima">Coyaima</option>
+            <option value="Cunday">Cunday</option>
+            <option value="Dolores">Dolores</option>
+            <option value="Espinal">Espinal</option>
+            <option value="Falan">Falan</option>
+            <option value="Flandes">Flandes</option>
+            <option value="Fresno">Fresno</option>
+            <option value="Guamo">Guamo</option>
+            <option value="Herveo">Herveo</option>
+            <option value="Honda">Honda</option>
+            <option value="Icononzo">Icononzo</option>
+            <option value="Lerida">Lerida</option>
+            <option value="Libano">Libano</option>
+            <option value="Mariquita">Mariquita</option>
+            <option value="Melgar">Melgar</option>
+            <option value="Murillo">Murillo</option>
+            <option value="Natagaima">Natagaima</option>
+            <option value="Ortega">Ortega</option>
+            <option value="Palocabildo">Palocabildo</option>
+            <option value="Piedras">Piedras</option>
+            <option value="Planadas">Planadas</option>
+            <option value="Prado">Prado</option>
+            <option value="Purificacion">Purificacion</option>
+            <option value="Rioblanco">Rioblanco</option>
+            <option value="Roncesvalles">Roncesvalles</option>
+            <option value="Rovira">Rovira</option>
+            <option value="Saldaña">Saldaña</option>
+            <option value="San Antonio">San Antonio</option>
+            <option value="San Luis">San Luis</option>
+            <option value="Santa Isabel">Santa Isabel</option>
+            <option value="Suarez">Suarez</option>
+            <option value="Valle de San Juan">Valle de San Juan</option>
+            <option value="Venadillo">Venadillo</option>
+            <option value="Villahermosa">Villahermosa</option>
+            <option value="Villarrica">Villarrica</option>
           </select>
         </div>
         

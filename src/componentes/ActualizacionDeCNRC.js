@@ -99,10 +99,7 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
               value={tipoDocumento}
             >
               <option value="">Seleccione el tipo de documento:</option>
-              <option value="CN">CN</option>
               <option value="RC">RC</option>
-              <option value="TI">TI</option>
-              <option value="CC">CC</option>
             </select>
           </div>
           <div>
