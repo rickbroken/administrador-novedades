@@ -5,7 +5,7 @@ import { handleMunicipio2 } from './funciones/Municipios.js';
 import { handleDepartamento2 } from './funciones/Departamentos.js';
 import CambioMunicipio from './componentes/CambioMunicipio';
 import ActualizacionDeCNRC from './componentes/ActualizacionDeCNRC';
-import * as XLSX from 'xlsx';
+//import * as XLSX from 'xlsx';
 import MunicipiosTolima from './componentes/MuicipiosTolima';
 import MunicipiosMeta from './componentes/MuicipiosMeta';
 import Departamentos from './componentes/Departamentos';
@@ -40,12 +40,15 @@ import Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import moment from 'moment';
 
+//Desactivar advertencias en consola de momentJs
+moment.suppressDeprecationWarnings = true;
+
 
 function App() {
   //definimos el estado de linea que a su vez se guarda en un array-
   //dentro los objetos
   const [linea, setLinea] = useState([{}]);
-
+  
 
   //Organizar las columnas de los objetos de linea, alfabeticamente
   const LineaOrganizada = linea.map(obj =>
@@ -53,8 +56,8 @@ function App() {
   );
   
   //Damos formato a la decha de novedad, el valor varia dependiendo el dia actual
-  const fechaHoySinFormato = moment();
-  const fechaDeHoy = fechaHoySinFormato.format('DD/MM/YYYY');
+  //const fechaHoySinFormato = moment();
+  //const fechaDeHoy = fechaHoySinFormato.format('DD/MM/YYYY');
 
   //Definimos el nombre de el archivo .cvs que se exporta
   const fileName = 'LineasNS.csv';
@@ -95,7 +98,7 @@ function App() {
     const fechaMoment2 = moment(fecha2);
     const fechaFormateada2 = fechaMoment2.format("DD/MM/YYYY");
     setFechaNovedadFormateada(fechaFormateada2);
-  },[fechaNacimiento,fechaNovedad]);
+  },[fechaNacimiento,fechaNovedad,setFecha,setFechaNovedadFormateada]);
 
 
   //Definimos las funciones que cambiaran el estado de los inputs
@@ -206,20 +209,20 @@ function App() {
 
 
   //Funciones para convertir el estado de linea a excel utilizando XLSX
-  function convertToSheet(data) {
-    const sheet = XLSX.utils.json_to_sheet(data);
-    return sheet;
-  }
-  function exportToXLSX(sheet, filename) {
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, sheet, 'Sheet1');
-    XLSX.writeFile(wb, filename);
-  }
-  function handleExport() {
-    const data = linea;
-    const sheet = convertToSheet(data);
-    exportToXLSX(sheet, 'data.xlsx');
-  }
+  //function convertToSheet(data) {
+  //  const sheet = XLSX.utils.json_to_sheet(data);
+  //  return sheet;
+  //}
+  //function exportToXLSX(sheet, filename) {
+  //  const wb = XLSX.utils.book_new();
+  //  XLSX.utils.book_append_sheet(wb, sheet, 'Sheet1');
+  //  XLSX.writeFile(wb, filename);
+  //}
+  //function handleExport() {
+  //  const data = linea;
+  //  const sheet = convertToSheet(data);
+  //  exportToXLSX(sheet, 'data.xlsx');
+  //}
 
 
   

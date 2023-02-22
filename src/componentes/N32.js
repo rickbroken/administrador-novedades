@@ -44,7 +44,7 @@ const N32 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoDocumento,identificacion,tipoAfiliado,tipoParentesco,tipoDiscapacidad]);
+    }, [tipoDocumento,identificacion,tipoAfiliado,tipoParentesco,tipoDiscapacidad,setLinea]);
     
     return(
         <>

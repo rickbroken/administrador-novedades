@@ -34,7 +34,7 @@ const N11 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoDocumento,identificacion,tipoCotizante]);
+    }, [tipoDocumento,identificacion,tipoCotizante,setLinea]);
     
     return(
         <>

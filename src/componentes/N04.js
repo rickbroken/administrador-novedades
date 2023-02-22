@@ -28,7 +28,7 @@ const N04 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [departamento,municipio]);
+    }, [departamento,municipio,setLinea]);
     
     return(
         <>

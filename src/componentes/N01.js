@@ -49,7 +49,7 @@ const N01 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoDocumento,identificacion,fecha,tipoCausal]);
+    }, [tipoDocumento,identificacion,fecha,tipoCausal,setLinea]);
     
     return(
         <>

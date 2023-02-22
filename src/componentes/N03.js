@@ -33,7 +33,7 @@ const N03 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [priApellido,segApellido]);
+    }, [priApellido,segApellido,setLinea]);
     
 
     

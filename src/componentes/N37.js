@@ -25,7 +25,7 @@ const N37 = ({ setLinea })=>{
         }
 
       ]);
-    }, [tipoEtnia]);
+    }, [tipoEtnia,setLinea]);
     
     return(
         <>

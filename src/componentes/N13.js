@@ -40,7 +40,7 @@ const N13 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoCausalTerminacion,fecha]);
+    }, [tipoCausalTerminacion,fecha,setLinea]);
     
     return(
         <>

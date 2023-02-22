@@ -98,7 +98,7 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
           H_segNombre: segNombre
         }
       ]);
-    }, [tipoDocumento,identificacion,fecha,tipoCausal,priNombre,segNombre,priApellido,segApellido]);
+    }, [tipoDocumento,identificacion,fecha,tipoCausal,priNombre,segNombre,priApellido,segApellido,setLinea]);
     
 
     

@@ -27,7 +27,7 @@ const N17 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoSexo]);
+    }, [tipoSexo,setLinea]);
     
 
     

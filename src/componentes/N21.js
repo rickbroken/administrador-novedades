@@ -45,7 +45,7 @@ const N21 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [grupoPoblacional,subGrupoSisben,tipoPoblacionEspecial,tipoNivelSisben]);
+    }, [grupoPoblacional,subGrupoSisben,tipoPoblacionEspecial,tipoNivelSisben,setLinea]);
     
 
     

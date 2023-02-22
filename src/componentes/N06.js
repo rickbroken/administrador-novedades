@@ -40,7 +40,7 @@ const N01 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoDocumento,identificacion,idAportante,actividadEconomica]);
+    }, [tipoDocumento,identificacion,idAportante,actividadEconomica,setLinea]);
     
     return(
         <>

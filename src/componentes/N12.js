@@ -25,7 +25,7 @@ const N12 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoDiscapacidad]);
+    }, [tipoDiscapacidad,setLinea]);
     
     return(
         <>

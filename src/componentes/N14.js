@@ -32,7 +32,7 @@ const N14 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [estadoAfiliacion,causalTerminacion]);
+    },[estadoAfiliacion,causalTerminacion,setLinea]);
     
 
     

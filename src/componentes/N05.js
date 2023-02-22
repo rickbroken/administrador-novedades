@@ -30,7 +30,7 @@ const N05 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoDocumento,identificacion]);
+    }, [tipoDocumento,identificacion,setLinea]);
     
     return(
         <>

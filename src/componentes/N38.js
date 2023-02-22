@@ -26,7 +26,7 @@ const N38 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [comunidad]);
+    }, [comunidad,setLinea]);
     
 
     

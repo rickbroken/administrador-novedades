@@ -43,7 +43,7 @@ const N07 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoDocumento,identificacion,tipoAfiliado,tipoParentesco,actividadEconomica]);
+    }, [tipoDocumento,identificacion,tipoAfiliado,tipoParentesco,actividadEconomica,setLinea]);
     
     return(
         <>

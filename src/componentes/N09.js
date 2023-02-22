@@ -35,7 +35,7 @@ const N09 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [fecha]);
+    }, [fecha,setLinea]);
     
 
     

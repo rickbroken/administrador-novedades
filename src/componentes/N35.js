@@ -44,7 +44,7 @@ const N35 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoDocumento,identificacion,fecha]);
+    }, [tipoDocumento,identificacion,fecha,setLinea]);
     
     return(
         <>

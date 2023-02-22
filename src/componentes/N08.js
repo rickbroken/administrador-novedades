@@ -38,7 +38,7 @@ const N08 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoDocumento,identificacion,tipoCotizante,actividadEconomica]);
+    }, [tipoDocumento,identificacion,tipoCotizante,actividadEconomica,setLinea]);
     
     return(
         <>

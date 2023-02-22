@@ -38,7 +38,7 @@ const N33 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [fecha,causalTerminacion]);
+    }, [fecha,causalTerminacion,setLinea]);
     
 
     

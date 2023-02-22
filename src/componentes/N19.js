@@ -27,7 +27,7 @@ const N19 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoZona]);
+    }, [tipoZona,setLinea]);
     
 
     

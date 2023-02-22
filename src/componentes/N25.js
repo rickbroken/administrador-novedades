@@ -25,7 +25,7 @@ const N25 = ({ setLinea })=>{
         }
 
       ]);
-    }, [centroSalud]);
+    }, [centroSalud,setLinea]);
     
     return(
         <>

@@ -56,7 +56,7 @@ const N10 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoDocumento,identificacion,tipoCotizante,actividadEconomica,fecha,tipoNuevoCotizante]);
+    }, [tipoDocumento,identificacion,tipoCotizante,actividadEconomica,fecha,tipoNuevoCotizante,setLinea]);
     
     return(
         <>

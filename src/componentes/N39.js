@@ -34,7 +34,7 @@ const N39 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [departamento,municipio,causalPortabilidad]);
+    }, [departamento,municipio,causalPortabilidad,setLinea]);
     
     return(
         <>

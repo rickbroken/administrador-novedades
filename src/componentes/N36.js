@@ -49,7 +49,7 @@ const N36 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoAfiliado,grupoPoblacional,subGrupoSisben,tipoPoblacionEspecial,tipoNivelSisben]);
+    }, [tipoAfiliado,grupoPoblacional,subGrupoSisben,tipoPoblacionEspecial,tipoNivelSisben,setLinea]);
     
 
     

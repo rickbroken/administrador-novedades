@@ -65,7 +65,7 @@ const CambioMunicipio = ({ setLinea })=>{
         }
 
       ]);
-    }, [departamento,municipio,centroSalud]);
+    }, [departamento,municipio,centroSalud,setLinea]);
     
     return(
         <>

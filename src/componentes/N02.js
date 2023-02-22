@@ -32,7 +32,7 @@ const N02 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [priNombre,segNombre]);
+    }, [priNombre,segNombre,setLinea]);
     
 
     
