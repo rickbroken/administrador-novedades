@@ -96,6 +96,8 @@ export const handleMunicipio2 = (e, setMunicipio, setMunicipio2) => {
       setMunicipio('873')
     } else if(e.target.value === "Puerto Gaitan"){
       setMunicipio('568')
+    } else if(e.target.value === "Risaralda"){
+      setMunicipio('001')
     }
   };
   

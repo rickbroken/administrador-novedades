@@ -1,10 +1,20 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import moment from "moment";
 
 
 const N09 = ({ setLinea })=>{
 
     const [fechaMuerte, setFechaMuerte] = useState("");
+
+    //Formateamos el valor por defecto de el input date, a DD/MM/YYYY
+    const [fecha, setFecha] = useState();
+    useEffect(()=>{
+      const fecha = fechaMuerte; //Varia el nombre del state segun el estado del componente
+      const fechaMoment = moment(fecha);
+      const fechaFormateada = fechaMoment.format("DD/MM/YYYY");
+      setFecha(fechaFormateada);
+    },[fechaMuerte]);
 
 
 
@@ -16,7 +26,7 @@ const N09 = ({ setLinea })=>{
         {
           ...prevlinea[0],
           L_tpNovedad: "N09",
-          N_V1: fechaMuerte,
+          N_V1: fecha,
           O_V2: "",
           P_V3: "",
           Q_V4: "",
@@ -25,7 +35,7 @@ const N09 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [fechaMuerte]);
+    }, [fecha]);
     
 
     

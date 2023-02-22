@@ -36,13 +36,28 @@ import N36 from './componentes/N36';
 import N37 from './componentes/N37';
 import N38 from './componentes/N38';
 import N39 from './componentes/N39';
-
+import Papa from 'papaparse';
+import { saveAs } from 'file-saver';
+import moment from 'moment';
 
 
 function App() {
   //definimos el estado de linea que a su vez se guarda en un array-
   //dentro los objetos
   const [linea, setLinea] = useState([{}]);
+
+
+  //Organizar las columnas de los objetos de linea, alfabeticamente
+  const LineaOrganizada = linea.map(obj =>
+    Object.fromEntries(Object.entries(obj).sort())
+  );
+  
+  //Damos formato a la decha de novedad, el valor varia dependiendo el dia actual
+  const fechaHoySinFormato = moment();
+  const fechaDeHoy = fechaHoySinFormato.format('DD/MM/YYYY');
+
+  //Definimos el nombre de el archivo .cvs que se exporta
+  const fileName = 'LineasNS.csv';
 
 
   //Definimos los estados que se guardaran en en el estado de linea
@@ -63,6 +78,16 @@ function App() {
   //compararlos y transformar de str a codigo de depart y municipio
   const [departamento2, setDepartamento2] = useState("");
   const [municipio2, setMunicipio2] = useState("");
+
+
+  //Formateamos el valor por defecto de el input date, a DD/MM/YYYY
+  const [fecha, setFecha] = useState();
+  useEffect(()=>{
+    const fecha = fechaNacimiento; //Varia el nombre del state segun el estado del componente
+    const fechaMoment = moment(fecha);
+    const fechaFormateada = fechaMoment.format("DD/MM/YYYY");
+    setFecha(fechaFormateada);
+  },[fechaNacimiento]);
 
 
   //Definimos las funciones que cambiaran el estado de los inputs
@@ -88,9 +113,12 @@ function App() {
     const value = e.target.value.toUpperCase();
     setSegApellido(value);
   }
+  
+  
   const handleFechaNacimiento= (e)=>{
     setFechaNacimiento(e.target.value);
   }
+
   const handleRegimenAfiliado = (e) => {
     setRegimenAfiliado(e.target.value);
   }
@@ -127,29 +155,43 @@ function App() {
         ...obj,
         A_id: "",
         B_entidad: regimenAfiliado,
-        M_tipoDoc: tipoDoc,
+        C_tipoDoc: tipoDoc,
         D_identificacion: identificacion,
         E_priApellido: priApellido,
         F_segApellido: segApellido,
         G_priNombre: priNombre,
         H_segNombre: segNombre,
-        I_fechaNacimiento: fechaNacimiento,
+        I_fechaNacimiento: fecha,
         J_departamento: departamento,
-        K_municipio: municipio
+        K_municipio: municipio,
+        M_fechaNovedad: fechaDeHoy
       }));
     });
-  }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, priNombre, segNombre, fechaNacimiento, departamento, municipio]);
+  }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, priNombre, segNombre, fecha, departamento, municipio]);
 
   
+  function convertToCSV(objArray, fileName) {
+    const csv = Papa.unparse({
+      data: objArray,
+      header: false
+    });
+  
+    // Eliminar el encabezado del CSV
+    const csvWithoutHeader = csv.substring(csv.indexOf('\n') + 1);
+  
+    const blob = new Blob([csvWithoutHeader], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, fileName);
+  
+    return csv;
+  }
+  
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleExport();
+    //handleExport();
+    convertToCSV(LineaOrganizada, fileName);
   };
-
-
-  useEffect(() => {
-    console.log("linea actualizada:", linea);
-  }, [linea]);
 
 
 
@@ -224,7 +266,7 @@ function App() {
           >
             <option value="">Seleccione un regimen</option>
             <option value="EPSI06">Subsidiado</option>
-            <option value="EPSC06">Contributivo</option>
+            <option value="EPSIC6">Contributivo</option>
           </select>
         </div>
         <div>
@@ -391,7 +433,8 @@ function App() {
           ) : "" // Retornar un valor por defecto si no se cumple ninguna condición
         }
         
-        
+        {/*<pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>*/}
+
         <button type="submit">Enviar</button>
         <button type="reset" onClick={()=>{
             setTipoNovedad('');

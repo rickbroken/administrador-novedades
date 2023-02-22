@@ -1,12 +1,23 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import TiposDocumentos from "./TiposDocumentos";
+import moment from "moment";
 
 const N35 = ({ setLinea })=>{
     const [tipoDocumento, setTipoDocumento] = useState("");
     const [identificacion, setIdentificacion] = useState("");
     const [fechaAfiliacion, setFechaAfiliacion] = useState("");
 
+
+
+    //Formateamos el valor por defecto de el input date, a DD/MM/YYYY
+    const [fecha, setFecha] = useState();
+    useEffect(()=>{
+      const fecha = fechaAfiliacion; //Varia el nombre del state segun el estado del componente
+      const fechaMoment = moment(fecha);
+      const fechaFormateada = fechaMoment.format("DD/MM/YYYY");
+      setFecha(fechaFormateada);
+    },[fechaAfiliacion]);
 
 
     const handleTipoDocumento= (e)=>{
@@ -26,14 +37,14 @@ const N35 = ({ setLinea })=>{
           L_tpNovedad: "N35",
           N_V1: tipoDocumento,
           O_V2: identificacion,
-          P_V3: fechaAfiliacion,
+          P_V3: fecha,
           Q_V4: "",
           R_V5: "",
           S_V6: "",
           T_V7: ""
         }
       ]);
-    }, [tipoDocumento,identificacion,fechaAfiliacion]);
+    }, [tipoDocumento,identificacion,fecha]);
     
     return(
         <>

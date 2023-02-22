@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import TipoIps from "./TipoIps";
 
 const N25 = ({ setLinea })=>{
     const [centroSalud, setCentroSalud] = useState("");
@@ -39,8 +40,7 @@ const N25 = ({ setLinea })=>{
                 value={centroSalud}
               >
                 <option value="">Seleccione un centro de salud</option>
-                <option value="Previs IPS">Previs IPS</option>
-                <option value="Matsuludani IPS">Matsuludani IPS</option>
+                <TipoIps />
               </select>
             </div>
           </fieldset>

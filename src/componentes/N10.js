@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import TiposDocumentos from "./TiposDocumentos";
 import TipoCotizante from "./TipoCotizante";
+import moment from "moment";
 
 const N10 = ({ setLinea })=>{
     const [tipoDocumento, setTipoDocumento] = useState("");
@@ -12,6 +13,15 @@ const N10 = ({ setLinea })=>{
     const [tipoNuevoCotizante, setTipoNuevoCotizante] = useState("");
 
 
+
+    //Formateamos el valor por defecto de el input date, a DD/MM/YYYY
+    const [fecha, setFecha] = useState();
+    useEffect(()=>{
+      const fecha = fechaVinculacion; //Varia el nombre del state segun el estado del componente
+      const fechaMoment = moment(fecha);
+      const fechaFormateada = fechaMoment.format("DD/MM/YYYY");
+      setFecha(fechaFormateada);
+    },[fechaVinculacion]);
 
     const handleTipoDocumento= (e)=>{
       setTipoDocumento(e.target.value);
@@ -40,13 +50,13 @@ const N10 = ({ setLinea })=>{
           N_V1: tipoDocumento,
           O_V2: identificacion,
           P_V3: tipoCotizante,
-          Q_V4: fechaVinculacion,
+          Q_V4: fecha,
           R_V5: actividadEconomica,
           S_V6: tipoNuevoCotizante,
           T_V7: ""
         }
       ]);
-    }, [tipoDocumento,identificacion,tipoCotizante,actividadEconomica,fechaVinculacion,tipoNuevoCotizante]);
+    }, [tipoDocumento,identificacion,tipoCotizante,actividadEconomica,fecha,tipoNuevoCotizante]);
     
     return(
         <>

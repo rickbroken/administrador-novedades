@@ -1,11 +1,22 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import TipoCausalTerminacion from "./TipoCausalTerminacion";
+import moment from "moment";
+
 
 const N13 = ({ setLinea })=>{
     const [tipoCausalTerminacion, setTipoCausalTerminacion] = useState("");
     const [fechaInicio, setFechaInicio] = useState("");
 
+
+    //Formateamos el valor por defecto de el input date, a DD/MM/YYYY
+    const [fecha, setFecha] = useState();
+    useEffect(()=>{
+      const fecha = fechaInicio; //Varia el nombre del state segun el estado del componente
+      const fechaMoment = moment(fecha);
+      const fechaFormateada = fechaMoment.format("DD/MM/YYYY");
+      setFecha(fechaFormateada);
+    },[fechaInicio]);
 
 
     const handleTipoCausalTerminacion= (e)=>{
@@ -21,7 +32,7 @@ const N13 = ({ setLinea })=>{
           ...prevlinea[0],
           L_tpNovedad: "N13",
           N_V1: tipoCausalTerminacion,
-          O_V2: fechaInicio,
+          O_V2: fecha,
           P_V3: "",
           Q_V4: "",
           R_V5: "",
@@ -29,7 +40,7 @@ const N13 = ({ setLinea })=>{
           T_V7: ""
         }
       ]);
-    }, [tipoCausalTerminacion,fechaInicio]);
+    }, [tipoCausalTerminacion,fecha]);
     
     return(
         <>

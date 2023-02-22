@@ -1,12 +1,23 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import TiposDocumentos from "./TiposDocumentos";
+import moment from "moment";
 
 const N01 = ({ setLinea })=>{
     const [tipoDocumento, setTipoDocumento] = useState("");
     const [identificacion, setIdentificacion] = useState("");
     const [fechaNacimiento, setFechaNacimiento] = useState("");
     const [tipoCausal, setTipoCausal] = useState("");
+
+    //Formateamos el valor por defecto de el input date, a DD/MM/YYYY
+    const [fecha, setFecha] = useState();
+    useEffect(()=>{
+      const fecha = fechaNacimiento; //Varia el nombre del state segun el estado del componente
+      const fechaMoment = moment(fecha);
+      const fechaFormateada = fechaMoment.format("DD/MM/YYYY");
+      setFecha(fechaFormateada);
+    },[fechaNacimiento]);
+
 
 
 
@@ -31,14 +42,14 @@ const N01 = ({ setLinea })=>{
           L_tpNovedad: "N01",
           N_V1: tipoDocumento,
           O_V2: identificacion,
-          P_V3: fechaNacimiento,
+          P_V3: fecha,
           Q_V4: tipoCausal,
           R_V5: "",
           S_V6: "",
           T_V7: ""
         }
       ]);
-    }, [tipoDocumento,identificacion,fechaNacimiento,tipoCausal]);
+    }, [tipoDocumento,identificacion,fecha,tipoCausal]);
     
     return(
         <>

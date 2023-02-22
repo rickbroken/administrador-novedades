@@ -1,5 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import moment from 'moment';
+
 
 
 const ActualizacionDeCNRC = ({ setLinea })=>{
@@ -13,6 +15,14 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
     const [priApellido, setPriApellido] = useState("");
     const [segApellido, setSegApellido] = useState("");
 
+    //Formateamos el valor por defecto de el input date, a DD/MM/YYYY
+    const [fecha, setFecha] = useState();
+    useEffect(()=>{
+      const fecha = fechaNacimiento; //Varia el nombre del state segun el estado del componente
+      const fechaMoment = moment(fecha);
+      const fechaFormateada = fechaMoment.format("DD/MM/YYYY");
+      setFecha(fechaFormateada);
+    },[fechaNacimiento]);
 
 
     const handleTipoDocumento= (e)=>{
@@ -25,6 +35,7 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
     const handleFechaNacimiento= (e)=>{
       setFechaNacimiento(e.target.value);
     }
+    
     const handleTipoCausal= (e)=>{
       setTipoCausal(e.target.value);
     }
@@ -52,7 +63,7 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
           L_tpNovedad: "N01",
           N_V1: tipoDocumento,
           O_V2: identificacion,
-          P_V3: fechaNacimiento,
+          P_V3: fecha,
           Q_V4: tipoCausal,
           R_V5: "",
           S_V6: "",
@@ -68,7 +79,7 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
           R_V5: "",
           S_V6: "",
           T_V7: "",
-          M_tipoDoc: tipoDocumento,
+          C_tipoDoc: tipoDocumento,
           D_identificacion: identificacion
         },
         {
@@ -81,13 +92,13 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
           R_V5: "",
           S_V6: "",
           T_V7: "",
-          M_tipoDoc: tipoDocumento,
+          C_tipoDoc: tipoDocumento,
           D_identificacion: identificacion,
           G_priNombre: priNombre,
           H_segNombre: segNombre
         }
       ]);
-    }, [tipoDocumento,identificacion,fechaNacimiento,tipoCausal,priNombre,segNombre,priApellido,segApellido]);
+    }, [tipoDocumento,identificacion,fecha,tipoCausal,priNombre,segNombre,priApellido,segApellido]);
     
 
     
