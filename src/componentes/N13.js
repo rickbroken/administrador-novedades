@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import TipoCausalTerminacion from "./TipoCausalTerminacion";
 
-const N12 = ({ setLinea })=>{
+const N13 = ({ setLinea })=>{
     const [tipoCausalTerminacion, setTipoCausalTerminacion] = useState("");
     const [fechaInicio, setFechaInicio] = useState("");
 
@@ -19,7 +19,7 @@ const N12 = ({ setLinea })=>{
       setLinea(prevlinea => [
         {
           ...prevlinea[0],
-          L_tpNovedad: "N12",
+          L_tpNovedad: "N13",
           N_V1: tipoCausalTerminacion,
           O_V2: fechaInicio,
           P_V3: "",
@@ -34,7 +34,7 @@ const N12 = ({ setLinea })=>{
     return(
         <>
           <fieldset>
-            <legend align="right">Novedad: N12</legend>
+            <legend align="right">Novedad: N13</legend>
             <div>
               <label htmlFor="tipoCausalTerminacion">Selecione Tipo causal determinacion: </label>
               <select
@@ -62,4 +62,4 @@ const N12 = ({ setLinea })=>{
     )
 }
 
-export default N12;
+export default N13;

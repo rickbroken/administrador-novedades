@@ -1,9 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { handleMunicipio2 } from '../funciones/Municipios.js';
-import { handleDepartamento2 } from '../funciones/Departamentos.js';
-import Municipios from "./MuicipiosTolima.js";
-import Departamentos from "./Departamento.js";
+import { handleMunicipio2 } from '../funciones/Municipios';
+import { handleDepartamento2 } from '../funciones/Departamentos';
+import Departamentos from "./Departamentos";
+import MunicipiosTolima from './MuicipiosTolima';
+import MunicipiosMeta from './MuicipiosMeta';
+import TipoIps from "./TipoIps";
 
 const CambioMunicipio = ({ setLinea })=>{
     const [departamento, setDepartamento] = useState("");
@@ -13,9 +15,7 @@ const CambioMunicipio = ({ setLinea })=>{
     const [departamento2, setDepartamento2] = useState("");
     const [municipio2, setMunicipio2] = useState("");
 
-
-
-    const handleCentroSalud= (e)=>{
+    const handleCentroSalud = (e) => {
       setCentroSalud(e.target.value);
     }
 
@@ -72,23 +72,28 @@ const CambioMunicipio = ({ setLinea })=>{
                 value={municipio2}
               >
                 <option value="">Seleccione un municipio</option>
-                <Municipios />
+                {
+                  departamento === "73" ? (
+                    <MunicipiosTolima />
+                  ) : departamento === "50" ? (
+                    <MunicipiosMeta />
+                  ) : "" // Retornar un valor por defecto si no se cumple ninguna condición
+                }
               </select>
             </div>
           </fieldset>
           <fieldset>
             <legend align="right">Novedad: N25</legend>
             <div>
-              <label htmlFor="centro_salud">Centro de Salud: </label>
+              <label htmlFor="centrosalud">Centro de Salud: </label>
               <select
-                id="centro_salud"
-                name="centro_salud"
-                onChange={(e)=>{handleCentroSalud(e)}}
+                id="centrosalud"
+                name="centrosalud"
+                onChange={(e)=>handleCentroSalud(e)}
                 value={centroSalud}
               >
                 <option value="">Seleccione un centro de salud</option>
-                <option value="Previs IPS">Previs IPS</option>
-                <option value="Matsuludani IPS">Matsuludani IPS</option>
+                <TipoIps />
               </select>
             </div>
           </fieldset>

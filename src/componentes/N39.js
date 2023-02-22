@@ -5,35 +5,53 @@ import { handleDepartamento2 } from '../funciones/Departamentos.js';
 import MunicipiosTolima from './MuicipiosTolima';
 import MunicipiosMeta from './MuicipiosMeta';
 import Departamentos from "./Departamentos.js";
+import TipoCausalPortabilidad from "./TipoCausalPortabilidad.js";
 
-const N04 = ({ setLinea })=>{
+const N39 = ({ setLinea })=>{
+    const [causalPortabilidad, setCausalPortabilidad] = useState("");
     const [departamento, setDepartamento] = useState("");
     const [municipio, setMunicipio] = useState("");
 
     const [departamento2, setDepartamento2] = useState("");
     const [municipio2, setMunicipio2] = useState("");
 
+    const handleCausalPortabilidad = (e) => {
+      setCausalPortabilidad(e.target.value);
+    }
+
 
     useEffect(()=>{
       setLinea(prevlinea => [
         {
           ...prevlinea[0],
-          L_tpNovedad: "N04",
-          N_V1: departamento,
-          O_V2: municipio,
-          P_V3: "",
+          L_tpNovedad: "N39",
+          N_V1: causalPortabilidad,
+          O_V2: departamento,
+          P_V3: municipio,
           Q_V4: "",
           R_V5: "",
           S_V6: "",
           T_V7: ""
         }
       ]);
-    }, [departamento,municipio]);
+    }, [departamento,municipio,causalPortabilidad]);
     
     return(
         <>
           <fieldset>
-            <legend align="right">Novedad: N04</legend>
+            <legend align="right">Novedad: N39</legend>
+            <div>
+              <label htmlFor="causalPortabilidad">Causal de Portabilidad: </label>
+              <select
+                id="causalPortabilidad"
+                name="causalPortabilidad"
+                onChange={(e)=>handleCausalPortabilidad(e)}
+                value={causalPortabilidad}
+              >
+                <option value="">Seleccione la cusal</option>
+                <TipoCausalPortabilidad />
+              </select>
+            </div>
             <div>
               <label htmlFor="departamentoNuevo">Nuevo Departamento: </label>
               <select
@@ -56,12 +74,12 @@ const N04 = ({ setLinea })=>{
               >
                 <option value="">Seleccione un municipio</option>
                 {
-                  departamento === "73" ? (
-                    <MunicipiosTolima />
-                  ) : departamento === "50" ? (
-                    <MunicipiosMeta />
-                  ) : "" // Retornar un valor por defecto si no se cumple ninguna condición
-                }
+            departamento === "73" ? (
+              <MunicipiosTolima />
+            ) : departamento === "50" ? (
+              <MunicipiosMeta />
+            ) : "" // Retornar un valor por defecto si no se cumple ninguna condición
+          }
               </select>
             </div>
           </fieldset>
@@ -69,4 +87,4 @@ const N04 = ({ setLinea })=>{
     )
 }
 
-export default N04;
+export default N39;

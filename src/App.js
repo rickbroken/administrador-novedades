@@ -8,7 +8,7 @@ import ActualizacionDeCNRC from './componentes/ActualizacionDeCNRC';
 import * as XLSX from 'xlsx';
 import MunicipiosTolima from './componentes/MuicipiosTolima';
 import MunicipiosMeta from './componentes/MuicipiosMeta';
-import Departamentos from './componentes/Departamento';
+import Departamentos from './componentes/Departamentos';
 import TiposDocumentos from './componentes/TiposDocumentos';
 import N01 from './componentes/N01';
 import N02 from './componentes/N02';
@@ -29,6 +29,14 @@ import N19 from './componentes/N19';
 import N21 from './componentes/N21';
 import N25 from './componentes/N25';
 import N31 from './componentes/N31';
+import N32 from './componentes/N32';
+import N33 from './componentes/N33';
+import N35 from './componentes/N35';
+import N36 from './componentes/N36';
+import N37 from './componentes/N37';
+import N38 from './componentes/N38';
+import N39 from './componentes/N39';
+
 
 
 function App() {
@@ -38,6 +46,7 @@ function App() {
 
 
   //Definimos los estados que se guardaran en en el estado de linea
+  const [regimenAfiliado, setRegimenAfiliado] = useState("");
   const [tipoNovedad, setTipoNovedad] = useState("");
   const [tipoDoc, setTipoDoc] = useState("");
   const [identificacion, setIdentificacion] = useState("");
@@ -55,7 +64,6 @@ function App() {
   const [departamento2, setDepartamento2] = useState("");
   const [municipio2, setMunicipio2] = useState("");
 
-  
 
   //Definimos las funciones que cambiaran el estado de los inputs
   const handleTipoDoc= (e)=>{
@@ -83,6 +91,9 @@ function App() {
   const handleFechaNacimiento= (e)=>{
     setFechaNacimiento(e.target.value);
   }
+  const handleRegimenAfiliado = (e) => {
+    setRegimenAfiliado(e.target.value);
+  }
 
   
   //Funcion para limpiar el formulario
@@ -97,6 +108,7 @@ function App() {
     setFechaNacimiento('');
     setDepartamento('');
     setMunicipio('');
+    setRegimenAfiliado('');
   }
 
 
@@ -114,7 +126,7 @@ function App() {
       return linea.map(obj => ({
         ...obj,
         A_id: "",
-        B_entidad: "EPSI06",
+        B_entidad: regimenAfiliado,
         M_tipoDoc: tipoDoc,
         D_identificacion: identificacion,
         E_priApellido: priApellido,
@@ -126,7 +138,7 @@ function App() {
         K_municipio: municipio
       }));
     });
-  }, [tipoDoc, identificacion, priApellido, segApellido, priNombre, segNombre, fechaNacimiento, departamento, municipio]);
+  }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, priNombre, segNombre, fechaNacimiento, departamento, municipio]);
 
   
   const handleSubmit = (e) => {
@@ -176,7 +188,7 @@ function App() {
             <option value="N01">N01 - Actualizacion de documento</option>
             <option value="N02">N02 - Actualizacion de Nombres</option>
             <option value="N03">N03 - Actualizacion de Apellidos</option>
-            <option value="N04">N04 - Actualizacion de Municipio</option>
+            <option value="N04">N04 - Actualizacion de Municipio o departamento</option>
             <option value="N05">N05 - Actualizacion de segundo cotz a cotizante principal</option>
             <option value="N06">N06 - Adicion de relacion con un aporte o react. en la misma entidad</option>
             <option value="N07">N07 - Inclucion de adiliado a un group familiar, camvio de condicion de beneficiario</option>
@@ -192,8 +204,28 @@ function App() {
             <option value="N21">N21 - Tipo de poblacion especial</option>
             <option value="N25">N25 - Cambio de IPS Primaria</option>
             <option value="N31">N31 - Reactivacion del cabeza de familia en la misma EPS</option>
+            <option value="N32">N32 - Conformación grupo familiar en régimen subsidiado, activación de beneficiarios y add</option>
+            <option value="N33">N33 - Novedad de retiro retroactiva en la misma entidad</option>
+            <option value="N35">N35 - Actualización o corrección fecha de afiliación</option>
+            <option value="N36">N36 - Cambio de Beneficiario o Adicional a Cabeza de familia</option>
+            <option value="N37">N37 - Novedad de Etnia</option>
+            <option value="N38">N38 - Comunidad indígena o nombre del resguardo</option>
+            <option value="N39">N39 - Condicion de portabilidad del afiliado</option>
           </select>
           <hr/>
+        </div>
+        <div>
+          <label htmlFor="regimenAfiliado">Regimen del afiliado: </label>
+          <select
+            id="regimenAfiliado"
+            name="regimenAfiliado"
+            onChange={(e)=>handleRegimenAfiliado(e)}
+            value={regimenAfiliado}
+          >
+            <option value="">Seleccione un regimen</option>
+            <option value="EPSI06">Subsidiado</option>
+            <option value="EPSC06">Contributivo</option>
+          </select>
         </div>
         <div>
           <label htmlFor="tpIdentificacion">Tipo de documento: </label>
@@ -342,6 +374,20 @@ function App() {
             <N25 setLinea={setLinea} linea={linea} />
           ) : tipoNovedad === "N31" ? (
             <N31 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N32" ? (
+            <N32 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N33" ? (
+            <N33 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N35" ? (
+            <N35 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N36" ? (
+            <N36 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N37" ? (
+            <N37 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N38" ? (
+            <N38 setLinea={setLinea} linea={linea} />
+          ) : tipoNovedad === "N39" ? (
+            <N39 setLinea={setLinea} linea={linea} />
           ) : "" // Retornar un valor por defecto si no se cumple ninguna condición
         }
         
