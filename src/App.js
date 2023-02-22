@@ -62,6 +62,7 @@ function App() {
 
   //Definimos los estados que se guardaran en en el estado de linea
   const [regimenAfiliado, setRegimenAfiliado] = useState("");
+  const [fechaNovedad, setFechaNovedad] = useState("");
   const [tipoNovedad, setTipoNovedad] = useState("");
   const [tipoDoc, setTipoDoc] = useState("");
   const [identificacion, setIdentificacion] = useState("");
@@ -82,12 +83,19 @@ function App() {
 
   //Formateamos el valor por defecto de el input date, a DD/MM/YYYY
   const [fecha, setFecha] = useState();
+  const [fechaNovedadFormateada, setFechaNovedadFormateada] = useState();
   useEffect(()=>{
+    //Fecha formato para fecha nacimiento
     const fecha = fechaNacimiento; //Varia el nombre del state segun el estado del componente
     const fechaMoment = moment(fecha);
     const fechaFormateada = fechaMoment.format("DD/MM/YYYY");
     setFecha(fechaFormateada);
-  },[fechaNacimiento]);
+    //Fecha formato para dia de novedad
+    const fecha2 = fechaNovedad; //Varia el nombre del state segun el estado del componente
+    const fechaMoment2 = moment(fecha2);
+    const fechaFormateada2 = fechaMoment2.format("DD/MM/YYYY");
+    setFechaNovedadFormateada(fechaFormateada2);
+  },[fechaNacimiento,fechaNovedad]);
 
 
   //Definimos las funciones que cambiaran el estado de los inputs
@@ -113,7 +121,9 @@ function App() {
     const value = e.target.value.toUpperCase();
     setSegApellido(value);
   }
-  
+  const handleFechaNovedad= (e)=>{
+    setFechaNovedad(e.target.value);
+  }
   
   const handleFechaNacimiento= (e)=>{
     setFechaNacimiento(e.target.value);
@@ -164,10 +174,10 @@ function App() {
         I_fechaNacimiento: fecha,
         J_departamento: departamento,
         K_municipio: municipio,
-        M_fechaNovedad: fechaDeHoy
+        M_fechaNovedad: fechaNovedadFormateada
       }));
     });
-  }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, priNombre, segNombre, fecha, departamento, municipio]);
+  }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, priNombre, segNombre, fecha, departamento, municipio,fechaNovedadFormateada]);
 
   
   function convertToCSV(objArray, fileName) {
@@ -179,7 +189,7 @@ function App() {
     // Eliminar el encabezado del CSV
     const csvWithoutHeader = csv.substring(csv.indexOf('\n') + 1);
   
-    const blob = new Blob([csvWithoutHeader], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csvWithoutHeader], { type: 'text/csv;charset=ANSI;' });
     saveAs(blob, fileName);
   
     return csv;
@@ -225,7 +235,7 @@ function App() {
             value={tipoNovedad}
           >
             <option value="">Seleccione el tipo de novedad:</option>
-            <option value="Cambio de DP y MP">Cambio de DP y MP "N04-N25"</option>
+            <option value="Cambio de DP y MP">Cambio de Departamento y Municipio "N04-N25"</option>
             <option value="Actualizacion de CN a RC">Actualizacion de CN a RC "N01-N02-N03"</option>
             <option value="N01">N01 - Actualizacion de documento</option>
             <option value="N02">N02 - Actualizacion de Nombres</option>
@@ -268,6 +278,16 @@ function App() {
             <option value="EPSI06">Subsidiado</option>
             <option value="EPSIC6">Contributivo</option>
           </select>
+        </div>
+        <div>
+          <label htmlFor="fechaNovedad">Fecha de Novedad: </label>
+          <input
+            type="date"
+            id="fechaNovedad"
+            name="fechaNovedad"
+            onChange={(e)=>{handleFechaNovedad(e)}}
+            value={fechaNovedad}
+          />
         </div>
         <div>
           <label htmlFor="tpIdentificacion">Tipo de documento: </label>
@@ -433,7 +453,7 @@ function App() {
           ) : "" // Retornar un valor por defecto si no se cumple ninguna condición
         }
         
-        {/*<pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>*/}
+        <pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>
 
         <button type="submit">Enviar</button>
         <button type="reset" onClick={()=>{

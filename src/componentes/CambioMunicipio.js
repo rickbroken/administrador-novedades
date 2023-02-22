@@ -59,7 +59,9 @@ const CambioMunicipio = ({ setLinea })=>{
           Q_V4: "",
           R_V5: "",
           S_V6: "",
-          T_V7: ""
+          T_V7: "",
+          J_departamento: departamento,
+          K_municipio: municipio
         }
 
       ]);
