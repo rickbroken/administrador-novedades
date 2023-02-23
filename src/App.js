@@ -55,14 +55,8 @@ function App() {
     Object.fromEntries(Object.entries(obj).sort())
   );
   
-  //Damos formato a la decha de novedad, el valor varia dependiendo el dia actual
-  //const fechaHoySinFormato = moment();
-  //const fechaDeHoy = fechaHoySinFormato.format('DD/MM/YYYY');
-
-  //Definimos el nombre de el archivo .cvs que se exporta
-  const fileName = 'LineasNS.csv';
-
-
+  
+  
   //Definimos los estados que se guardaran en en el estado de linea
   const [regimenAfiliado, setRegimenAfiliado] = useState("");
   const [fechaNovedad, setFechaNovedad] = useState("");
@@ -76,17 +70,29 @@ function App() {
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [departamento, setDepartamento] = useState("");
   const [municipio, setMunicipio] = useState("");
+  
+  
+  //Damos formato a la fecha presente, el valor varia dependiendo el dia actual
+  //Para pasarselo a el nombre del archivo .txt
+  const fechaHoySinFormato = moment();
+  const fechaDeHoy = fechaHoySinFormato.format('DDMMYYYY');
+
+
+  //Definimos el nombre de el archivo .cvs que se exporta
+  const fileName = `NS${regimenAfiliado}${fechaDeHoy}.txt`;
+
 
 
   //Definimos los estados para los departamento y municipios para-
   //compararlos y transformar de str a codigo de depart y municipio
   const [departamento2, setDepartamento2] = useState("");
   const [municipio2, setMunicipio2] = useState("");
-
-
+  
+  
   //Formateamos el valor por defecto de el input date, a DD/MM/YYYY
   const [fecha, setFecha] = useState();
   const [fechaNovedadFormateada, setFechaNovedadFormateada] = useState();
+
   useEffect(()=>{
     //Fecha formato para fecha nacimiento
     const fecha = fechaNacimiento; //Varia el nombre del state segun el estado del componente
@@ -140,16 +146,19 @@ function App() {
   //Funcion para limpiar el formulario
   const resetearFormulario = () => {
     setLinea([{}]);
-    setTipoDoc('')
-    setIdentificacion('');
-    setPriNombre('');
-    setSegNombre('');
-    setPriApellido('');
-    setSegApellido('');
-    setFechaNacimiento('');
-    setDepartamento('');
-    setMunicipio('');
-    setRegimenAfiliado('');
+    setTipoDoc("")
+    setIdentificacion("");
+    setPriNombre("");
+    setSegNombre("");
+    setPriApellido("");
+    setSegApellido("");
+    setFechaNacimiento("");
+    setDepartamento("");
+    setMunicipio("");
+    setRegimenAfiliado("");
+    setDepartamento2("");
+    setMunicipio2("");
+    setFechaNovedad("");
   }
 
 
@@ -198,12 +207,26 @@ function App() {
     return csv;
   }
   
-  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     //handleExport();
-    convertToCSV(LineaOrganizada, fileName);
+    //convertToCSV(LineaOrganizada, fileName);
+    //setTipoNovedad('');
+    //resetearFormulario();
+
+    fetch('https://rickbroken.com/api/insertar_linea.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(linea)
+    })
+    .then(response => response.json())
+    .then(linea => console.log(linea))
+    .catch(error => console.error("Hola" + error));
+
   };
 
 
