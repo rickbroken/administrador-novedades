@@ -36,8 +36,8 @@ import N36 from './componentes/N36';
 import N37 from './componentes/N37';
 import N38 from './componentes/N38';
 import N39 from './componentes/N39';
-import Papa from 'papaparse';
-import { saveAs } from 'file-saver';
+//import Papa from 'papaparse';
+//import { saveAs } from 'file-saver';
 import moment from 'moment';
 
 //Desactivar advertencias en consola de momentJs
@@ -74,12 +74,12 @@ function App() {
   
   //Damos formato a la fecha presente, el valor varia dependiendo el dia actual
   //Para pasarselo a el nombre del archivo .txt
-  const fechaHoySinFormato = moment();
-  const fechaDeHoy = fechaHoySinFormato.format('DDMMYYYY');
+  //const fechaHoySinFormato = moment();
+  //const fechaDeHoy = fechaHoySinFormato.format('DDMMYYYY');
 
 
   //Definimos el nombre de el archivo .cvs que se exporta
-  const fileName = `NS${regimenAfiliado}${fechaDeHoy}.txt`;
+  //const fileName = `NS${regimenAfiliado}${fechaDeHoy}.txt`;
 
 
 
@@ -175,7 +175,7 @@ function App() {
     setLinea(linea => {
       return linea.map(obj => ({
         ...obj,
-        A_id: "",
+        A_id: null,
         B_entidad: regimenAfiliado,
         C_tipoDoc: tipoDoc,
         D_identificacion: identificacion,
@@ -192,20 +192,20 @@ function App() {
   }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, priNombre, segNombre, fecha, departamento, municipio,fechaNovedadFormateada]);
 
   
-  function convertToCSV(objArray, fileName) {
-    const csv = Papa.unparse({
-      data: objArray,
-      header: false
-    });
-  
-    // Eliminar el encabezado del CSV
-    const csvWithoutHeader = csv.substring(csv.indexOf('\n') + 1);
-  
-    const blob = new Blob([csvWithoutHeader], { type: 'text/csv;charset=ANSI;' });
-    saveAs(blob, fileName);
-  
-    return csv;
-  }
+  //function convertToCSV(objArray, fileName) {
+  //  const csv = Papa.unparse({
+  //    data: objArray,
+  //    header: false
+  //  });
+  //
+  //  // Eliminar el encabezado del CSV
+  //  const csvWithoutHeader = csv.substring(csv.indexOf('\n') + 1);
+  //
+  //  const blob = new Blob([csvWithoutHeader], { type: 'text/csv;charset=ANSI;' });
+  //  saveAs(blob, fileName);
+  //
+  //  return csv;
+  //}
   
 
 
@@ -216,7 +216,7 @@ function App() {
     //setTipoNovedad('');
     //resetearFormulario();
 
-    fetch('https://rickbroken.com/api/insertar_linea.php', {
+    fetch('https://rickbroken.com/api/insertar_lineas.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -225,8 +225,7 @@ function App() {
     })
     .then(response => response.json())
     .then(linea => console.log(linea))
-    .catch(error => console.error("Hola" + error));
-
+    .catch(error => console.error(error));
   };
 
 
