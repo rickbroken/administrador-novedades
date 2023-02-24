@@ -11,3 +11,58 @@ fieldset {
     box-sizing: border-box;
     border-radius:5px;
 }
+.head-home{
+    box-sizing: border-box;
+    background-color: rgb(233, 233, 233);
+    width: 160px;
+    height: 30px;
+    border-radius:10px 25px 0px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border:1px solid rgb(201, 201, 201);
+    position: relative;
+    cursor: pointer;
+    z-index: 2;
+}
+.head-home::after{
+    content: "";
+    background-color: rgb(201, 201, 201);
+    width: 200%;
+    height: 1px;
+    bottom: -1;
+    left:100%;
+    position: absolute;
+    cursor:default;
+}
+.head-home::before{
+    content: "";
+    background-color: rgb(201, 201, 201);
+    width: 100%;
+    height: 1px;
+    bottom: -1;
+    left: 0;
+    position: absolute;
+}
+.exportar {
+    top:-30px;
+    left:145px;
+    z-index:0;
+}
+.exportar::after {
+    width: 115%;
+}
+.head-activo {
+    background-color: rgb(255, 255, 255);
+    z-index:10;
+}
+.head-activo::before {
+    background-color: rgb(255, 255, 255);
+}
+
+
+
+nav a {
+    text-decoration: none;
+    color:black;
+}

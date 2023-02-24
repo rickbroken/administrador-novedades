@@ -1,0 +1,33 @@
+.cont-inputs {
+    display: flex;
+}
+.cont-inputs > div {
+    box-sizing: border-box;
+    margin-right: 10px;
+    width: 50%;
+}
+.hrExportarNovedades {
+    width: 100%;
+    height: 1px;
+    margin-bottom: 15px;
+}
+.contenedor-checkbox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+.contenedor-checkbox > label {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    width: 100%;
+}
+.contenedor-checkbox > div {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    margin:5px 0;
+}
+.contenedor-checkbox > div > label {
+    width: 80%;
+}
