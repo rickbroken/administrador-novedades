@@ -74,12 +74,13 @@ function ProcesarNovedades() {
   
   //Damos formato a la fecha presente, el valor varia dependiendo el dia actual
   //Para pasarselo a el nombre del archivo .txt
-  //const fechaHoySinFormato = moment();
-  //const fechaDeHoy = fechaHoySinFormato.format('DDMMYYYY');
+  const fechaHoySinFormato = moment();
+  const fechHoyArchivo = fechaHoySinFormato.format('DDMMYYYY');
+  const fechaEnvio = fechaHoySinFormato.format('YYYY-MM-DD HH:mm:ss');
 
 
   //Definimos el nombre de el archivo .cvs que se exporta
-  //const fileName = `NS${regimenAfiliado}${fechaDeHoy}.txt`;
+  //const fileName = `NS${regimenAfiliado}${fechHoyArchivo}.txt`;
 
 
 
@@ -175,6 +176,7 @@ function ProcesarNovedades() {
     setLinea(linea => {
       return linea.map(obj => ({
         ...obj,
+        fechaEnvio: fechaEnvio,
         A_id: null,
         B_entidad: regimenAfiliado,
         C_tipoDoc: tipoDoc,
@@ -189,7 +191,7 @@ function ProcesarNovedades() {
         M_fechaNovedad: fechaNovedadFormateada
       }));
     });
-  }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, priNombre, segNombre, fecha, departamento, municipio,fechaNovedadFormateada]);
+  }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, priNombre, segNombre, fecha, departamento, municipio,fechaNovedadFormateada,fechaEnvio]);
 
   
   //function convertToCSV(objArray, fileName) {
@@ -226,6 +228,7 @@ function ProcesarNovedades() {
     .then(response => response.json())
     .then(linea => console.log(linea))
     .catch(error => console.error(error));
+    console.log('Enviado');
   };
 
 
@@ -477,7 +480,9 @@ function ProcesarNovedades() {
       
     
       
-      {/*<pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>*/}
+      {/*
+      */}
+      <pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>
 
       <button type="submit">Enviar</button>
       <button type="reset" onClick={()=>{

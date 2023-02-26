@@ -15,7 +15,6 @@ function App() {
   //funcion de click con el evento para saber que clase tiene donde se clikea
   //y cambiar dinamicamente el estado si esta activo o no
   const verificar = (e)=>{
-    console.log(e.target.className);
     if(e.target.className === "head-home head-inactivo"){
       setExportarNovedades('head-inactivo');
       setProcesarNovedades('head-activo');
@@ -29,12 +28,12 @@ function App() {
     <div className='container'>
       <nav>
         <NavLink onClick={(e)=>verificar(e)} to="/" className={`head-home ${procesarNovedades}`}>Procesar Novedades</NavLink>
-        <NavLink onClick={(e)=>verificar(e)} to='/exportar-novedades' className={`head-home exportar ${exportarNovedades}`}>Exportar Novedades</NavLink>
+        <NavLink onClick={(e)=>verificar(e)} to='/exportar' className={`head-home exportar ${exportarNovedades}`}>Exportar Novedades</NavLink>
       </nav>
       <Routes>
         <Route path="*" element={<Error404 />}/>
-        <Route path="/" element={<ProcesarNovedades />}/>
-        <Route path="/exportar-novedades" element={<ExportarNovedades />}/>
+        <Route path="/" element={<ExportarNovedades />}/>
+        <Route path="/exportar" element={<ProcesarNovedades />}/>
       </Routes>
     </div>
   );
