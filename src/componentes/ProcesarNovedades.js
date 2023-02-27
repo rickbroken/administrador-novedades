@@ -140,7 +140,6 @@ function ProcesarNovedades() {
   
   const handleFechaNacimiento= (e)=>{
     setFechaNacimiento(e.target.value);
-    setFechaEnvio(fechaState);
   }
 
   const handleRegimenAfiliado = (e) => {
@@ -186,11 +185,19 @@ function ProcesarNovedades() {
         E_priApellido: priApellido,
         F_segApellido: segApellido,
         I_fechaNacimiento: fecha,
-        M_fechaNovedad: fechaNovedadFormateada,
+        M_fechaNovedad: fechaNovedadFormateada
+      }));
+    });
+  }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, fecha,fechaNovedadFormateada]);
+
+  useEffect(() => {
+    setLinea(linea => {
+      return linea.map(obj => ({
+        ...obj,
         Z_fechaEnvio: fechaEnvio
       }));
     });
-  }, [fechaEnvio,regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, fecha,fechaNovedadFormateada]);
+  }, [fechaEnvio]);
 
   useEffect(() => {
     setLinea(linea => {
@@ -235,6 +242,7 @@ function ProcesarNovedades() {
 
   const handleAceptar = ()=>{
     enviarNovedades();
+    setTipoNovedad('');
     resetearFormulario();
     setMostrarConfirmacion(false);
   }
@@ -245,10 +253,9 @@ function ProcesarNovedades() {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    //handleExport();
-    //setTipoNovedad('');
-    //resetearFormulario();
+    setFechaEnvio(fechaState);
     setMostrarConfirmacion(true);
+    //handleExport();
   };
 
 
