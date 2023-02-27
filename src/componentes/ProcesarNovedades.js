@@ -39,7 +39,7 @@ import N36 from '../componentes/N36';
 import N37 from '../componentes/N37';
 import N38 from '../componentes/N38';
 import N39 from '../componentes/N39';
-import cors from 'cors';
+//import cors from 'cors';
 import Confirmacion from './Confirmacion';
 
 //Desactivar advertencias en consola de momentJs
@@ -77,8 +77,9 @@ function ProcesarNovedades() {
   //Damos formato a la fecha presente, el valor varia dependiendo el dia actual
   //Para pasarselo a el nombre del archivo .txt
   const fechaHoySinFormato = moment();
-  const fechHoyArchivo = fechaHoySinFormato.format('DDMMYYYY');
-  const fechaEnvio = fechaHoySinFormato.format('YYYY-MM-DD HH:mm:ss');
+  const fechaState = fechaHoySinFormato.format('YYYY-MM-DD HH:mm:ss');
+  //const fechHoyArchivo = fechaHoySinFormato.format('DDMMYYYY');
+  const [fechaEnvio, setFechaEnvio] = useState("");
 
 
   //Definimos el nombre de el archivo .cvs que se exporta
@@ -139,6 +140,7 @@ function ProcesarNovedades() {
   
   const handleFechaNacimiento= (e)=>{
     setFechaNacimiento(e.target.value);
+    setFechaEnvio(fechaState);
   }
 
   const handleRegimenAfiliado = (e) => {
@@ -178,22 +180,40 @@ function ProcesarNovedades() {
     setLinea(linea => {
       return linea.map(obj => ({
         ...obj,
-        fechaEnvio: fechaEnvio,
         A_id: null,
         B_entidad: regimenAfiliado,
-        C_tipoDoc: tipoDoc,
         D_identificacion: identificacion,
         E_priApellido: priApellido,
         F_segApellido: segApellido,
-        G_priNombre: priNombre,
-        H_segNombre: segNombre,
         I_fechaNacimiento: fecha,
-        J_departamento: departamento,
-        K_municipio: municipio,
-        M_fechaNovedad: fechaNovedadFormateada
+        M_fechaNovedad: fechaNovedadFormateada,
+        Z_fechaEnvio: fechaEnvio
       }));
     });
-  }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, priNombre, segNombre, fecha, departamento, municipio,fechaNovedadFormateada,fechaEnvio]);
+  }, [fechaEnvio,regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, fecha,fechaNovedadFormateada]);
+
+  useEffect(() => {
+    setLinea(linea => {
+      return linea.map(obj => ({
+        ...obj,
+        C_tipoDoc: tipoDoc,
+        G_priNombre: priNombre,
+        H_segNombre: segNombre
+      }));
+    });
+  }, [tipoDoc,priNombre, segNombre]);
+
+
+  useEffect(() => {
+    setLinea(linea => {
+      return linea.map(obj => ({
+        ...obj,
+        J_departamento: departamento,
+        K_municipio: municipio
+      }));
+    });
+  }, [departamento, municipio]);
+
 
   
   const enviarNovedades = () => {
@@ -203,10 +223,10 @@ function ProcesarNovedades() {
         'Content-Type': 'application/json'
       },
       cors: true,
-      body: JSON.stringify(linea)
+      body: JSON.stringify(LineaOrganizada)
     })
     .then(response => response.json())
-    .then(linea => console.log(linea))
+    .then(LineaOrganizada => console.log(LineaOrganizada))
     .catch(error => console.error(error));
     console.log('Enviado');
   }
@@ -215,15 +235,14 @@ function ProcesarNovedades() {
 
   const handleAceptar = ()=>{
     enviarNovedades();
-    
     resetearFormulario();
     setMostrarConfirmacion(false);
   }
-
+  
   const handleCancelar = ()=>{
     setMostrarConfirmacion(false);
   }
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     //handleExport();
@@ -483,8 +502,8 @@ function ProcesarNovedades() {
       
         
         {/*
-        <pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>
       */}
+      <pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>
 
         <button type="submit">Enviar</button>
         <button type="reset" onClick={()=>{
