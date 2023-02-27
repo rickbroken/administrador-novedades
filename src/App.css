@@ -11,6 +11,14 @@ fieldset {
     box-sizing: border-box;
     border-radius:5px;
 }
+
+nav {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    position: relative;
+    top: 30;
+}
 .head-home{
     box-sizing: border-box;
     background-color: rgb(233, 233, 233);

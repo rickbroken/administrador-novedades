@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 //import { useState, useEffect } from "react";
 import { NavLink, Route, Routes } from 'react-router-dom';
@@ -23,6 +23,16 @@ function App() {
       setProcesarNovedades('head-inactivo');
     }
   }
+  useEffect(()=>{
+    if(window.location.pathname === "/"){
+      setExportarNovedades('head-inactivo');
+      setProcesarNovedades('head-activo');
+    } else if(window.location.pathname === "/exportar"){
+      setExportarNovedades('head-activo');
+      setProcesarNovedades('head-inactivo');
+    }
+  },[]);
+
 
   return (
     <div className='container'>
@@ -32,8 +42,8 @@ function App() {
       </nav>
       <Routes>
         <Route path="*" element={<Error404 />}/>
-        <Route path="/" element={<ExportarNovedades />}/>
-        <Route path="/exportar" element={<ProcesarNovedades />}/>
+        <Route path="/" element={<ProcesarNovedades />}/>
+        <Route path="/exportar" element={<ExportarNovedades />}/>
       </Routes>
     </div>
   );

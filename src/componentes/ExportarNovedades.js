@@ -3,6 +3,7 @@ import "../estilos-css/ExportarNovedades.css";
 import Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import moment from 'moment';
+//import cors from 'cors';
 
 //Desactivar advertencias en consola de momentJs
 moment.suppressDeprecationWarnings = true;
@@ -18,6 +19,7 @@ const ExportarNovedades = ()=>{
 	const [fechaFin, setFechaFin] = useState('');
 	const [horaFin, setHoraFin] = useState('');
 	const [fechaFinTotal, setFechaFinTotal] = useState('');
+	const [entidad, setEntidad] = useState('');
 	const [isPuertoGaitan, setIsPuertoGaitan] = useState('');
 	const [isPereira, setIsPereira] = useState('');
 	const [isGuatica, setIsGuatica] = useState('');
@@ -51,6 +53,9 @@ const ExportarNovedades = ()=>{
 	const handleSetHoraFin = (e)=>{
 		setHoraFin(e.target.value);
 	}
+	const handleSetEntidad = (e)=>{
+		setEntidad(e.target.value);
+	}
 	const handleIsMunicipio = (e,codigo,set,estado)=>{
 		if(estado === codigo){
 			set("");
@@ -70,6 +75,7 @@ const ExportarNovedades = ()=>{
 				{
 					fechaInicioTotal: fechaInicioTotal,
 					fechaFinTotal: fechaFinTotal,
+					entidad: entidad,
 					isPuertoGaitan: isPuertoGaitan,
 					isPereira: isPereira,
 					isGuatica: isGuatica,
@@ -92,8 +98,8 @@ const ExportarNovedades = ()=>{
 				}
 			);
 	},[
-		fechaInicio,fechaFin,horaInicio,
-		horaFin,isPuertoGaitan,isPereira,
+		fechaInicioTotal,fechaFinTotal,
+		entidad,isPuertoGaitan,isPereira,
 		isGuatica,isMarsella,isMistrato,
 		isPuebloRico,isQuinchia,isIbague,
 		isChaparral,isCoyaima,isNatagaima,
@@ -110,9 +116,9 @@ const ExportarNovedades = ()=>{
 
 
   //Definimos el nombre de el archivo .cvs que se exporta
-  const fileName = `NSREGIMEN${fechHoyArchivo}.txt`;
+  const fileName = `NS${entidad}${fechHoyArchivo}.txt`;
 
-	function convertToCSV(objArray, fileName) {
+	const convertToCSV = (objArray, fileName) => {
     const csv = Papa.unparse({
       data: objArray,
       header: false
@@ -134,7 +140,8 @@ const ExportarNovedades = ()=>{
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'
-		},
+			},
+			cors: false,
 			body: JSON.stringify(datosExport)
 		})
 		.then(response => response.json())
@@ -147,6 +154,8 @@ const ExportarNovedades = ()=>{
 			convertToCSV(datos, fileName);
 		}
 	},[datos]);
+
+
 
 	return(
 		<>
@@ -166,8 +175,7 @@ const ExportarNovedades = ()=>{
 						id="horaInicio"
 						type="time" 
 						min="00:00" 
-						max="24:00" 
-						step="600"
+						max="24:00"
 						onChange={(e)=>handleSetHoraInicio(e)}
 					/>
 				</div>
@@ -189,11 +197,30 @@ const ExportarNovedades = ()=>{
 					<input
 						id="horaFin"
 						type="time" 
-						step="600"
+						min="00:00" 
+						max="24:00"
 						onChange={(e)=>handleSetHoraFin(e)}
 					/>
 				</div>
 			</div>
+
+			<hr className="hrExportarNovedades"/>
+
+			<div>
+              <label htmlFor="entidad">Regimen: </label>
+              <select
+                id="entidad"
+                name="entidad"
+                onChange={(e)=>{handleSetEntidad(e)}}
+                value={entidad}
+              >
+                <option value="">Seleccione el regimen:</option>
+				<option value="EPSI06">Subsidiado</option>
+				<option value="EPSIC6">Contributivo</option>
+              </select>
+            </div>
+
+
 			<div className="contenedor-checkbox">
 				<label>Seleccionar municipio:</label>
 				<div>
@@ -313,8 +340,8 @@ const ExportarNovedades = ()=>{
 				</div>
 			</div>
 			{/*
+			<pre>{JSON.stringify(datosExport, null, 2)}</pre>
 			*/}
-			<pre>{JSON.stringify(datos, null, 2)}</pre>
 
 			<button type="submit">Descargar .txt</button>
 		</form>
