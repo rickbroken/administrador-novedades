@@ -13,7 +13,7 @@ fieldset {
 }
 
 nav {
-    width: 100%;
+    width: 85%;
     max-width: 500px;
     margin: auto;
     position: relative;
@@ -36,7 +36,7 @@ nav {
 .head-home::after{
     content: "";
     background-color: rgb(201, 201, 201);
-    width: 200%;
+    width: 10%;
     height: 1px;
     bottom: -1;
     left:100%;
@@ -58,7 +58,7 @@ nav {
     z-index:0;
 }
 .exportar::after {
-    width: 115%;
+    width: 0%;
 }
 .head-activo {
     background-color: rgb(255, 255, 255);

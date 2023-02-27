@@ -509,8 +509,8 @@ function ProcesarNovedades() {
       
         
         {/*
-      */}
       <pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>
+      */}
 
         <button type="submit">Enviar</button>
         <button type="reset" onClick={()=>{

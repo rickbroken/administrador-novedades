@@ -16,7 +16,7 @@ form > div {
   width: 100%;
 }
 form {
-  width: 100%;
+  width: 85%;
   display: grid;
   grid-gap: 1rem;
   max-width: 500px;

@@ -24,10 +24,10 @@ function App() {
     }
   }
   useEffect(()=>{
-    if(window.location.pathname === "/"){
+    if(window.location.pathname === "/administrador-novedades/"){
       setExportarNovedades('head-inactivo');
       setProcesarNovedades('head-activo');
-    } else if(window.location.pathname === "/exportar"){
+    } else if(window.location.pathname === "/administrador-novedades/exportar"){
       setExportarNovedades('head-activo');
       setProcesarNovedades('head-inactivo');
     }
@@ -37,13 +37,13 @@ function App() {
   return (
     <div className='container'>
       <nav>
-        <NavLink onClick={(e)=>verificar(e)} to="/" className={`head-home ${procesarNovedades}`}>Procesar Novedades</NavLink>
-        <NavLink onClick={(e)=>verificar(e)} to='/exportar' className={`head-home exportar ${exportarNovedades}`}>Exportar Novedades</NavLink>
+        <NavLink onClick={(e)=>verificar(e)} to="/administrador-novedades/" className={`head-home ${procesarNovedades}`}>Procesar Novedades</NavLink>
+        <NavLink onClick={(e)=>verificar(e)} to='/administrador-novedades/exportar' className={`head-home exportar ${exportarNovedades}`}>Exportar Novedades</NavLink>
       </nav>
       <Routes>
         <Route path="*" element={<Error404 />}/>
-        <Route path="/" element={<ProcesarNovedades />}/>
-        <Route path="/exportar" element={<ExportarNovedades />}/>
+        <Route path="/administrador-novedades/" element={<ProcesarNovedades />}/>
+        <Route path="/administrador-novedades/exportar" element={<ExportarNovedades />}/>
       </Routes>
     </div>
   );
