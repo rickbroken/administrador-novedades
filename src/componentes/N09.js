@@ -26,7 +26,7 @@ const N09 = ({ setLinea })=>{
         {
           ...prevlinea[0],
           L_tpNovedad: "N09",
-          N_V1: fecha,
+          N_V1: "",
           O_V2: "",
           P_V3: "",
           Q_V4: "",

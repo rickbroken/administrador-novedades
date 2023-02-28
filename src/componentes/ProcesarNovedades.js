@@ -238,45 +238,48 @@ function ProcesarNovedades() {
     console.log('Enviado');
   }
 
+
+  //Estado para mostrar el mensaje de confirmacion de envio, esta en false = oculto
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
 
+  //Boton aceptar y acciones que se hacen al enviar el formulario
   const handleAceptar = ()=>{
     enviarNovedades();
     setTipoNovedad('');
     resetearFormulario();
     setMostrarConfirmacion(false);
   }
-  
+  //cambia el estado de mensaje confirmacion a false = oculto
   const handleCancelar = ()=>{
     setMostrarConfirmacion(false);
   }
   
+  //activa el mensaje de confirmacion true = visible
   const handleSubmit = (e) => {
     e.preventDefault();
     setFechaEnvio(fechaState);
     setMostrarConfirmacion(true);
-    //handleExport();
   };
 
 
 
-  //Funciones para convertir el estado de linea a excel utilizando XLSX
-  //function convertToSheet(data) {
-  //  const sheet = XLSX.utils.json_to_sheet(data);
-  //  return sheet;
-  //}
-  //function exportToXLSX(sheet, filename) {
-  //  const wb = XLSX.utils.book_new();
-  //  XLSX.utils.book_append_sheet(wb, sheet, 'Sheet1');
-  //  XLSX.writeFile(wb, filename);
-  //}
-  //function handleExport() {
-  //  const data = linea;
-  //  const sheet = convertToSheet(data);
-  //  exportToXLSX(sheet, 'data.xlsx');
-  //}
-
+  //Se establese estdo para mantener activo el input de TipoDoc,PriNombre,SegNombre
+  const [inputEstado, setInputEstado] = useState(false)
+  //Funcion que cambia el estado cada vez que el estado de Municipio cambia
+  //ya que municipio es el ultimo input para diligenciar
+  const desactivarInput = () => {
+    setInputEstado('disabled');
+    const inputTipoDoc = document.getElementById('tpIdentificacion');
+    const inputDepartamento = document.getElementById('departamento');
+    const inputMunicipio = document.getElementById('municipio');
+    inputTipoDoc.setAttribute('disabled','');
+    inputDepartamento.setAttribute('disabled','');
+    inputMunicipio.setAttribute('disabled','');
+  }
   
+
+
+
   return (
     <>
       <form onSubmit={(e)=>{handleSubmit(e)}}>
@@ -350,9 +353,13 @@ function ProcesarNovedades() {
             name="tpIdentificacion"
             onChange={(e)=>{handleTipoDoc(e)}}
             value={tipoDoc}
-          >
+            >
             <option value="">Seleccione el tipo de documento:</option>
-            <TiposDocumentos />
+              {
+                tipoNovedad === "Actualizacion de CN a RC" ? (
+                  <option value="CN">CN</option>
+                ) : <TiposDocumentos />
+              }
           </select>
         </div>
         <div>
@@ -363,6 +370,7 @@ function ProcesarNovedades() {
             name="identificacion"
             onChange={(e)=>{handleIdentificacion(e)}}
             value={identificacion}
+            readOnly={inputEstado}
           />
         </div>
         <div>
@@ -393,6 +401,7 @@ function ProcesarNovedades() {
             name="pri_nombre"
             onChange={(e)=>{handlePriNombre(e)}}
             value={priNombre}
+            readOnly={inputEstado}
           />
         </div>
         <div>
@@ -403,6 +412,7 @@ function ProcesarNovedades() {
             name="seg_nombre"
             onChange={(e)=>{handleSegNombre(e)}}
             value={segNombre}
+            readOnly={inputEstado}
           />
         </div>
         <div>
@@ -432,7 +442,8 @@ function ProcesarNovedades() {
           <select
             id="municipio"
             name="municipio"
-            onChange={(e)=>handleMunicipio2(e, setMunicipio, setMunicipio2)}
+            onChange={(e)=>{handleMunicipio2(e, setMunicipio, setMunicipio2)}}
+            onBlur={()=>{desactivarInput()}}
             value={municipio2}
           >
             <option value="">Seleccione un municipio</option>

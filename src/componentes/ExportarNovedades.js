@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../estilos-css/ExportarNovedades.css";
-import Papa from 'papaparse';
+import Papa, { unparse } from 'papaparse';
 import { saveAs } from 'file-saver';
 import moment from 'moment';
 //import cors from 'cors';
@@ -56,6 +56,8 @@ const ExportarNovedades = ()=>{
 	const handleSetEntidad = (e)=>{
 		setEntidad(e.target.value);
 	}
+
+	// funcion para actualizar el valor de los checkbox de los municipios
 	const handleIsMunicipio = (e,codigo,set,estado)=>{
 		if(estado === codigo){
 			set("");
@@ -64,6 +66,7 @@ const ExportarNovedades = ()=>{
 		} 
 	}
 	
+	//Cada vez que se actualize el estado se concatena la fecha con la hora en un estado
 	useEffect(()=>{
 		setFechaInicioTotal(`${fechaInicio} ${horaInicio}:00`);
 		setFechaFinTotal(`${fechaFin} ${horaFin}:00`);
@@ -109,7 +112,7 @@ const ExportarNovedades = ()=>{
 	]);
 
 
-	  //Damos formato a la fecha presente, el valor varia dependiendo el dia actual
+	//Damos formato a la fecha presente, el valor varia dependiendo el dia actual
   //Para pasarselo a el nombre del archivo .txt
   const fechaHoySinFormato = moment();
   const fechHoyArchivo = fechaHoySinFormato.format('DDMMYYYY');
@@ -118,24 +121,24 @@ const ExportarNovedades = ()=>{
   //Definimos el nombre de el archivo .cvs que se exporta
   const fileName = `NS${entidad}${fechHoyArchivo}.txt`;
 
-	const convertToCSV = (objArray, fileName) => {
-    const csv = Papa.unparse({
-      data: objArray,
-      header: false
-    });
-  
-    // Eliminar el encabezado del CSV
-    const csvWithoutHeader = csv.substring(csv.indexOf('\n') + 1);
-  
-    const blob = new Blob([csvWithoutHeader], { type: 'text/csv;charset=ANSI;' });
-    saveAs(blob, fileName);
-  
-    return csv;
-  }
 
+	//convertirmos un arreglo a un cvs o txt pasandole como parametro el nombre y el estado.
+	const convertToCSV = (objArray, fileName) => {
+		const csv = unparse(objArray, { header: false });
+		// Eliminar el encabezado del CSV
+		const csvSinEncabezado = csv.substring(csv.indexOf('\n') + 1);
+		const encoder = new TextEncoder('windows-1252');
+		const encodedCSV = encoder.encode(csvSinEncabezado);
+		const blob = new Blob([encodedCSV], { type: 'text/csv;charset=ANSI;' });
+		saveAs(blob, fileName);
+		return csv;
+	}
+
+	
+  
+	//Funcion que al hacer submit hace consulta a la API para recibir los datos
 	const handleSubmit = (e)=>{
 		e.preventDefault(e);
-
 		fetch('https://rickbroken.com/api/leer_datos_novedades.php', {
 			method: 'POST',
 			headers: {
@@ -148,10 +151,24 @@ const ExportarNovedades = ()=>{
 		.then(datosExport => setDatos(datosExport))
 		.catch(error => console.error(error));
 	}
-	
+
+	//Agregamos un consecutivo ascendente a la respuesta de la API
+	const addConsecutivoToObjArray = (objArray) => {
+		let consecutivo = 1;
+		const newObjArray = objArray.map(obj => {
+		  return {
+			consecutivo: consecutivo++,
+			...obj
+		  };
+		});
+		return newObjArray;
+	}
+
+	//Se recibe el estado "datos" que dentro tiene la respuesta de la API, con la 
+	//informacion requerida, apenas se haga un cabio de estados se descargara el txt
 	useEffect(()=>{
 		if(datos !== ""){
-			convertToCSV(datos, fileName);
+			convertToCSV(addConsecutivoToObjArray(datos), fileName);
 		}
 	},[datos]);
 
