@@ -1,7 +1,6 @@
 import React from 'react';
 import '../estilos-css/ProcesarNovedades.css';
 import { useState, useEffect } from "react";
-//import * as XLSX from 'xlsx';
 //import Papa from 'papaparse';
 //import { saveAs } from 'file-saver';
 import moment from 'moment';

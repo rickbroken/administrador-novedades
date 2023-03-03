@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-//import { useState, useEffect } from "react";
 import { NavLink, Route, Routes } from 'react-router-dom';
 import ProcesarNovedades from './componentes/ProcesarNovedades';
 import ExportarNovedades from './componentes/ExportarNovedades';
 import Error404 from './componentes/Error404';
+import moment from 'moment';
 
 
 function App() {
@@ -33,19 +33,28 @@ function App() {
     }
   },[]);
 
+  const fechaHoy = moment();
+  const diaDelAnio = fechaHoy.dayOfYear();
+  console.log(diaDelAnio);
 
   return (
-    <div className='container'>
-      <nav>
-        <NavLink onClick={(e)=>verificar(e)} to="/administrador-novedades/" className={`head-home ${procesarNovedades}`}>Procesar Novedades</NavLink>
-        <NavLink onClick={(e)=>verificar(e)} to='/administrador-novedades/exportar' className={`head-home exportar ${exportarNovedades}`}>Exportar Novedades</NavLink>
-      </nav>
-      <Routes>
-        <Route path="*" element={<Error404 />}/>
-        <Route path="/administrador-novedades/" element={<ProcesarNovedades />}/>
-        <Route path="/administrador-novedades/exportar" element={<ExportarNovedades />}/>
-      </Routes>
-    </div>
+    <>
+      <div className='contenedor-frase'>
+        <p className='frase'>"La diferencia entre lo imposible y lo posible reside en la determinación de una persona."</p>
+        <p className='autor'>Tommy Lasorda</p>
+      </div>
+      <div className='container'>
+        <nav>
+          <NavLink onClick={(e)=>verificar(e)} to="/administrador-novedades/" className={`head-home ${procesarNovedades}`}>Procesar Novedades</NavLink>
+          <NavLink onClick={(e)=>verificar(e)} to='/administrador-novedades/exportar' className={`head-home exportar ${exportarNovedades}`}>Exportar Novedades</NavLink>
+        </nav>
+        <Routes>
+          <Route path="*" element={<Error404 />}/>
+          <Route path="/administrador-novedades/" element={<ProcesarNovedades />}/>
+          <Route path="/administrador-novedades/exportar" element={<ExportarNovedades />}/>
+        </Routes>
+      </div>
+    </>
   );
 }
 

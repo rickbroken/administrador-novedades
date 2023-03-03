@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "../estilos-css/ExportarNovedades.css";
-import Papa, { unparse } from 'papaparse';
+import Papa from 'papaparse';
 import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 import moment from 'moment';
-//import cors from 'cors';
 
 //Desactivar advertencias en consola de momentJs
 moment.suppressDeprecationWarnings = true;
 
 const ExportarNovedades = ()=>{
 	const [datosExport, setDatosExport] = useState({});
-	const [datos, setDatos] = useState("");
+	const [datosTXT, setDatosTXT] = useState("");
+	const [datosEXCEL, setDatosEXCEL] = useState("");
 
 
 	const [fechaInicio, setFechaInicio] = useState('');
@@ -119,26 +120,61 @@ const ExportarNovedades = ()=>{
 
 
   //Definimos el nombre de el archivo .cvs que se exporta
-  const fileName = `NS${entidad}${fechHoyArchivo}.txt`;
+  const fileNameTXT = `NS${entidad}${fechHoyArchivo}.txt`;
+  const fileNameEXCEL = `NS${entidad}${fechHoyArchivo}.xlsx`;
+
+	
+	//Agregamos un consecutivo ascendente a la respuesta de la API
+	const addConsecutivoToObjArray = (objArray) => {
+		let consecutivo = 1;
+		const newObjArray = objArray.map(obj => {
+			return {
+				consecutivo: consecutivo++,
+				...obj
+			};
+		});
+		return newObjArray;
+	}
 
 
 	//convertirmos un arreglo a un cvs o txt pasandole como parametro el nombre y el estado.
 	const convertToCSV = (objArray, fileName) => {
-		const csv = unparse(objArray, { header: false });
+		const csv = Papa.unparse({
+			data: objArray,
+			header: false
+		});
 		// Eliminar el encabezado del CSV
-		const csvSinEncabezado = csv.substring(csv.indexOf('\n') + 1);
-		const encoder = new TextEncoder('windows-1252');
-		const encodedCSV = encoder.encode(csvSinEncabezado);
-		const blob = new Blob([encodedCSV], { type: 'text/csv;charset=ANSI;' });
-		saveAs(blob, fileName);
+		const csvWithoutHeader = csv.substring(csv.indexOf('\n') + 1);
+		//pasar las a que formato se va a exportar el txt
+		const blob = new Blob([csvWithoutHeader], { type: 'text/csv;charset=ANSI;' });
+		saveAs(blob, fileName, { encoding: 'ANSI' });
+	
 		return csv;
 	}
 
-	
-  
-	//Funcion que al hacer submit hace consulta a la API para recibir los datos
-	const handleSubmit = (e)=>{
-		e.preventDefault(e);
+
+
+	//Tres funciones creadas para comvertir un arreglo con objetos dentro a XLSX con
+	//una libreria de npm "XLSX".
+	function convertToSheet(data) {
+		const sheet = XLSX.utils.json_to_sheet(data);
+		return sheet;
+	}
+	function exportToXLSX(sheet, filename) {
+		const wb = XLSX.utils.book_new();
+		XLSX.utils.book_append_sheet(wb, sheet, 'Sheet1');
+		XLSX.writeFile(wb, filename);
+	}
+	function handleExport(nombreArchivo) {
+		const data = datosEXCEL;
+		const sheet2 = addConsecutivoToObjArray(data);
+		const sheet = convertToSheet(sheet2);
+		exportToXLSX(sheet, nombreArchivo);
+	}
+
+
+	//Funcion creada para comunicarse con la API y traer la informacion de las novedades
+  const importarNovevadesAPI = (setName)=>{
 		fetch('https://rickbroken.com/api/leer_datos_novedades.php', {
 			method: 'POST',
 			headers: {
@@ -148,30 +184,38 @@ const ExportarNovedades = ()=>{
 			body: JSON.stringify(datosExport)
 		})
 		.then(response => response.json())
-		.then(datosExport => setDatos(datosExport))
+		.then(datosExport => setName(datosExport))
 		.catch(error => console.error(error));
 	}
 
-	//Agregamos un consecutivo ascendente a la respuesta de la API
-	const addConsecutivoToObjArray = (objArray) => {
-		let consecutivo = 1;
-		const newObjArray = objArray.map(obj => {
-		  return {
-			consecutivo: consecutivo++,
-			...obj
-		  };
-		});
-		return newObjArray;
+
+	//Funcion que al hacer submit hace consulta a la API para recibir los datos
+	const handleSubmit = (e)=>{
+		e.preventDefault(e);
+	}
+	//Funciones creadas para el onClick de los botones de descarga
+	const descargarTXT = ()=>{
+		importarNovevadesAPI(setDatosTXT);
+	}
+	const descargarEXCEL = ()=>{
+		importarNovevadesAPI(setDatosEXCEL);
 	}
 
-	//Se recibe el estado "datos" que dentro tiene la respuesta de la API, con la 
-	//informacion requerida, apenas se haga un cabio de estados se descargara el txt
-	useEffect(()=>{
-		if(datos !== ""){
-			convertToCSV(addConsecutivoToObjArray(datos), fileName);
-		}
-	},[datos]);
 
+	
+	//Se recibe el estado "datos" que dentro tiene la respuesta de la API, con la 
+	//informacion requerida, apenas se haga un cambio de estados se descargara
+	useEffect(()=>{
+		if(datosTXT !== ""){
+			convertToCSV(addConsecutivoToObjArray(datosTXT), fileNameTXT);
+		}
+	},[datosTXT]);
+	useEffect(()=>{
+		if(datosEXCEL !== ""){
+			handleExport(fileNameEXCEL);
+		}
+	},[datosEXCEL]);
+	
 
 
 	return(
@@ -360,7 +404,8 @@ const ExportarNovedades = ()=>{
 			<pre>{JSON.stringify(datosExport, null, 2)}</pre>
 			*/}
 
-			<button type="submit">Descargar .txt</button>
+			<button type="" onClick={()=>descargarTXT()}>Descargar .txt</button>
+			<button className="btn-descargarEXCEL" onClick={()=>descargarEXCEL()}>Descargar en Excel</button>
 		</form>
 		</>
 	);

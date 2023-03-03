@@ -58,8 +58,7 @@ select {
   background-size: 8px;
 }
 
-button[type="submit"],
-button[type="reset"] {
+button {
   width: 100%;
   padding: 0.5rem;
   margin-top: 1rem;
@@ -72,7 +71,12 @@ button[type="reset"] {
   transition: background-color 0.3s ease-in-out;
 }
 
-button[type="submit"]:hover,
-button[type="reset"]:hover {
+button:hover{
   background-color: #5a4dd5;
+}
+.btn-descargarEXCEL{
+  background-color: #2ecc71;
+}
+.btn-descargarEXCEL:hover {
+  background-color: #239954;
 }
