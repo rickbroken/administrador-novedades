@@ -5,6 +5,8 @@ import ProcesarNovedades from './componentes/ProcesarNovedades';
 import ExportarNovedades from './componentes/ExportarNovedades';
 import Error404 from './componentes/Error404';
 import moment from 'moment';
+import frases from './frases/frases';
+import frasesFamosas from './frases/frases';
 
 
 function App() {
@@ -35,13 +37,27 @@ function App() {
 
   const fechaHoy = moment();
   const diaDelAnio = fechaHoy.dayOfYear();
+
+  const [frase, setFrase] = useState('');
+  const [autor, setAutor] = useState('');
+
   console.log(diaDelAnio);
+
+  useEffect(() => {
+    frasesFamosas.map((fraseFamosa, i) => {
+      if (i === diaDelAnio) {
+        console.log(fraseFamosa.frase);
+        setFrase(fraseFamosa.frase);
+        setAutor(fraseFamosa.autor);
+      }
+    });
+  }, []);
 
   return (
     <>
       <div className='contenedor-frase'>
-        <p className='frase'>"La diferencia entre lo imposible y lo posible reside en la determinación de una persona."</p>
-        <p className='autor'>Tommy Lasorda</p>
+        <p className='frase'>"{frase}"</p>
+        <p className='autor'>{autor}</p>
       </div>
       <div className='container'>
         <nav>
@@ -53,6 +69,7 @@ function App() {
           <Route path="/administrador-novedades/" element={<ProcesarNovedades />}/>
           <Route path="/administrador-novedades/exportar" element={<ExportarNovedades />}/>
         </Routes>
+        
       </div>
     </>
   );
