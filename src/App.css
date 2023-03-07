@@ -77,6 +77,8 @@ nav a {
 
 .contenedor-frase {
     position: fixed;
+    left: 2%;
+    top: 40%;
     width: 300px;
     height: 100px;
     background-color: rgb(255, 255, 255);
@@ -104,4 +106,10 @@ nav a {
     padding-top: 5px;
     margin: 0;
     color: rgb(134, 134, 134);
+}
+
+@media screen and (max-width: 1170px){
+    .contenedor-frase {
+        display: none;
+    }
 }

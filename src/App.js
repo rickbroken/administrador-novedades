@@ -5,7 +5,6 @@ import ProcesarNovedades from './componentes/ProcesarNovedades';
 import ExportarNovedades from './componentes/ExportarNovedades';
 import Error404 from './componentes/Error404';
 import moment from 'moment';
-import frases from './frases/frases';
 import frasesFamosas from './frases/frases';
 
 
