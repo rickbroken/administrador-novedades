@@ -34,7 +34,7 @@ const N04 = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N04</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="departamentoNuevo">Nuevo Departamento: </label>
               <select
                 id="departamentoNuevo"
@@ -46,7 +46,7 @@ const N04 = ({ setLinea })=>{
                 <Departamentos />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="municipioNuevo">Nuevo Municipio: </label>
               <select
                 id="municipioNuevo"

@@ -57,7 +57,7 @@ const N36 = ({ setLinea })=>{
         <> 
           <fieldset>
             <legend align="right">Novedad: N36</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoAfiliado">Tipo de afiliado: </label>
               <select
                 id="tipoAfiliado"
@@ -70,7 +70,7 @@ const N36 = ({ setLinea })=>{
               </select>
             </div>
 
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="grupoPoblacional">Tipo de Metodologia Grupo Poblacional: </label>
               <select
                 id="grupoPoblacional"
@@ -83,7 +83,7 @@ const N36 = ({ setLinea })=>{
               </select>
             </div>
 
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="subGrupoSisben">Escriba el sub gupo del SISBEN: </label>
               <input
                 type="text"
@@ -94,7 +94,7 @@ const N36 = ({ setLinea })=>{
               />
             </div>
 
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoPoblacionEspecial">Tipo de Poblacion Espacial </label>
               <select
                 id="tipoPoblacionEspecial"
@@ -106,7 +106,7 @@ const N36 = ({ setLinea })=>{
                 <TipoPoblacionEspecial />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoNivelSisben">Nivel del SISBEN:</label>
               <select
                 id="tipoNivelSisben"

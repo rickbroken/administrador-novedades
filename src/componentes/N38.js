@@ -34,7 +34,7 @@ const N38 = ({ setLinea })=>{
         <> 
           <fieldset>
             <legend align="right">Novedad: N38</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="comunidad">Comunidad indígena o nombre del resguardo: </label>
               <input
                 id="comunidad"

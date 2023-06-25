@@ -35,7 +35,7 @@ const N17 = ({ setLinea })=>{
         <> 
           <fieldset>
             <legend align="right">Novedad: N17</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoSexo">Tipo de sexo: </label>
               <select
                 id="tipoSexo"

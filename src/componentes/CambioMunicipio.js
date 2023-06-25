@@ -71,7 +71,7 @@ const CambioMunicipio = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N04</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="departamentoNuevo">Nuevo Departamento: </label>
               <select
                 id="departamentoNuevo"
@@ -83,7 +83,7 @@ const CambioMunicipio = ({ setLinea })=>{
                 <Departamentos />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="municipioNuevo">Nuevo Municipio: </label>
               <select
                 id="municipioNuevo"
@@ -104,7 +104,7 @@ const CambioMunicipio = ({ setLinea })=>{
           </fieldset>
           <fieldset>
             <legend align="right">Novedad: N25</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="centrosalud">Centro de Salud: </label>
               <select
                 id="centrosalud"

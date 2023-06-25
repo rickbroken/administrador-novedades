@@ -35,7 +35,7 @@ const N19 = ({ setLinea })=>{
         <> 
           <fieldset>
             <legend align="right">Novedad: N19</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoZona">Tipo de Zona: </label>
               <select
                 id="tipoZona"

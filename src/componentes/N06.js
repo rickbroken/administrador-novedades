@@ -46,7 +46,7 @@ const N01 = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N06</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoDocumento">Tipo de documento: </label>
               <select
                 id="tipoDocumento"
@@ -58,7 +58,7 @@ const N01 = ({ setLinea })=>{
                 <TiposDocumentos />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="identificacion">Numero de Documento: </label>
               <input
                 id="identificacion"
@@ -68,7 +68,7 @@ const N01 = ({ setLinea })=>{
                 placeholder="Escriba el numero de documento"
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="idAportante">N de identificacion de aportante: </label>
               <input
                 id="idAportante"
@@ -78,7 +78,7 @@ const N01 = ({ setLinea })=>{
                 placeholder="Escriba el numero del aportante"
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="actividadEconomica">Actividad economica CIIU: </label>
               <input
                 id="actividadEconomica"

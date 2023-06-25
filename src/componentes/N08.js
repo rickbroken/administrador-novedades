@@ -44,7 +44,7 @@ const N08 = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N08</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoCotizante">Tipo de Cotizante: </label>
               <select
                 id="tipoCotizante"
@@ -57,7 +57,7 @@ const N08 = ({ setLinea })=>{
               </select>
             </div>
 
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoDocumento">Tipo de documento del aportante: </label>
               <select
                 id="tipoDocumento"
@@ -69,7 +69,7 @@ const N08 = ({ setLinea })=>{
                 <TiposDocumentos />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="identificacion">Numero de Documento del aportante: </label>
               <input
                 id="identificacion"
@@ -79,7 +79,7 @@ const N08 = ({ setLinea })=>{
                 placeholder="Escriba el numero de documento"
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="actividadEconomica">Actividad economica CIIU del afiliado: </label>
               <input
                 id="actividadEconomica"

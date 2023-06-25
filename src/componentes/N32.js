@@ -50,7 +50,7 @@ const N32 = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N32</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoDocumento">Tipo de documento del cabeza de familia: </label>
               <select
                 id="tipoDocumento"
@@ -62,7 +62,7 @@ const N32 = ({ setLinea })=>{
                 <TiposDocumentos />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="identificacion">Numero de Documento del cabeza de familia: </label>
               <input
                 id="identificacion"
@@ -72,7 +72,7 @@ const N32 = ({ setLinea })=>{
                 placeholder="Escriba el numero de documento"
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoAfiliado">Tipo de afiliado: </label>
               <select
                 id="tipoAfiliado"
@@ -84,7 +84,7 @@ const N32 = ({ setLinea })=>{
                 <TipoAfiliado />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoParentesco">Parentesco con el cabeza de familia: </label>
               <select
                 id="tipoParentesco"
@@ -96,7 +96,7 @@ const N32 = ({ setLinea })=>{
                 <TipoParentesco />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoDiscapacidad">Parentesco con el cabeza de familia: </label>
               <select
                 id="tipoDiscapacidad"

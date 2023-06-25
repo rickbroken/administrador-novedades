@@ -106,7 +106,7 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
         <> 
           <fieldset>
             <legend align="right">Novedad: N01</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoDocumento">Tipo de documento: </label>
               <select
                 id="tipoDocumento"
@@ -118,7 +118,7 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
                 <option value="RC">RC</option>
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="identificacion">Numero de Documento: </label>
               <input
                 id="identificacion"
@@ -128,7 +128,7 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
                 placeholder="Escriba el numero de documento"
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="fechaNacimiento">Fecha de Nacimiento: </label>
               <input
                 type="date"
@@ -138,7 +138,7 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
                 value={fechaNacimiento}
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoCausal">Tipo de causal: </label>
               <select
                 id="tipoCausal"
@@ -154,7 +154,7 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
           </fieldset>
           <fieldset>
             <legend align="right">Novedad: N02</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="priNombre">Primer Nombre: </label>
               <input
                 id="priNombre"
@@ -164,7 +164,7 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
                 placeholder="Escriba el primer Nombre"
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="segNombre">Segundo Nombre:: </label>
               <input
                 id="segNombre"
@@ -177,7 +177,7 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
           </fieldset>
           <fieldset>
             <legend align="right">Novedad: N03</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="priApellido">Primer Apellido: </label>
               <input
                 id="priApellido"
@@ -187,7 +187,7 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
                 placeholder="Escriba el primer apellido"
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="segApellido">Segundo Apellido: </label>
               <input
                 id="segApellido"

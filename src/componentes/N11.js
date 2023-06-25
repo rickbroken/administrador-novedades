@@ -40,7 +40,7 @@ const N11 = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N11</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoDocumento">Tipo de documento del aportante: </label>
               <select
                 id="tipoDocumento"
@@ -52,7 +52,7 @@ const N11 = ({ setLinea })=>{
                 <TiposDocumentos />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="identificacion">Numero de Documento del aportante: </label>
               <input
                 id="identificacion"
@@ -62,7 +62,7 @@ const N11 = ({ setLinea })=>{
                 placeholder="Escriba el numero de documento"
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoCotizante">Tipo de Cotizante: </label>
               <select
                 id="tipoCotizante"

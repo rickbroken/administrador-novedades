@@ -40,7 +40,7 @@ const N14 = ({ setLinea })=>{
         <> 
           <fieldset>
             <legend align="right">Novedad: N14</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="estadoAfiliacion">Estado de Afiliacion: </label>
               <select
                 id="estadoAfiliacion"
@@ -53,7 +53,7 @@ const N14 = ({ setLinea })=>{
               </select>
             </div>
 
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="causalTerminacion">Causal de terminacion: </label>
               <select
                 id="causalTerminacion"

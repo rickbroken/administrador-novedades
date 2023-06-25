@@ -40,7 +40,7 @@ const N02 = ({ setLinea })=>{
         <> 
           <fieldset>
             <legend align="right">Novedad: N02</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="priNombre">Primer Nombre: </label>
               <input
                 id="priNombre"
@@ -50,7 +50,7 @@ const N02 = ({ setLinea })=>{
                 placeholder="Escriba el primer Nombre"
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="segNombre">Segundo Nombre:</label>
               <input
                 id="segNombre"

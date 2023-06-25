@@ -46,7 +46,7 @@ const N13 = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N13</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoCausalTerminacion">Selecione Tipo causal determinacion: </label>
               <select
                 id="tipoCausalTerminacion"
@@ -58,7 +58,7 @@ const N13 = ({ setLinea })=>{
                 <TipoCausalTerminacion />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="fechaInicio">Fecha de Nacimiento: </label>
               <input
                 type="date"

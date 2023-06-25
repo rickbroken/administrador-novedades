@@ -49,7 +49,7 @@ const N07 = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N07</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoDocumento">Tipo de documento del cabeza de familia: </label>
               <select
                 id="tipoDocumento"
@@ -61,7 +61,7 @@ const N07 = ({ setLinea })=>{
                 <TiposDocumentos />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="identificacion">Numero de Documento del cabeza de familia: </label>
               <input
                 id="identificacion"
@@ -71,7 +71,7 @@ const N07 = ({ setLinea })=>{
                 placeholder="Escriba el numero de documento"
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoAfiliado">Tipo de afiliado: </label>
               <select
                 id="tipoAfiliado"
@@ -83,7 +83,7 @@ const N07 = ({ setLinea })=>{
                 <TipoAfiliado />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoParentesco">Parentesco con el cabeza de familia: </label>
               <select
                 id="tipoParentesco"
@@ -95,7 +95,7 @@ const N07 = ({ setLinea })=>{
                 <TipoParentesco />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="actividadEconomica">Actividad economica CIIU del afiliado: </label>
               <input
                 id="actividadEconomica"

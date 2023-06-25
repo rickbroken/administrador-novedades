@@ -55,7 +55,7 @@ const N01 = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N01</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoDocumento">Tipo de documento: </label>
               <select
                 id="tipoDocumento"
@@ -67,7 +67,7 @@ const N01 = ({ setLinea })=>{
                 <TiposDocumentos />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="identificacion">Numero de Documento: </label>
               <input
                 id="identificacion"
@@ -77,7 +77,7 @@ const N01 = ({ setLinea })=>{
                 placeholder="Escriba el numero de documento"
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="fechaNacimiento">Fecha de Nacimiento: </label>
               <input
                 type="date"
@@ -87,7 +87,7 @@ const N01 = ({ setLinea })=>{
                 value={fechaNacimiento}
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoCausal">Tipo de causal: </label>
               <select
                 id="tipoCausal"

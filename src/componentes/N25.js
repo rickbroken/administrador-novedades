@@ -31,7 +31,7 @@ const N25 = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N25</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="centro_salud">Centro de Salud: </label>
               <select
                 id="centro_salud"

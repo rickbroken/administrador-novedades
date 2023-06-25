@@ -43,7 +43,7 @@ const N09 = ({ setLinea })=>{
         <> 
           <fieldset>
             <legend align="right">Novedad: N09</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="fechaMuerte">Fecha de Defuncion: </label>
               <input
                 type="date"

@@ -36,7 +36,7 @@ const N05 = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N05</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoDocumento">Tipo de documento del cotizante principal: </label>
               <select
                 id="tipoDocumento"
@@ -48,7 +48,7 @@ const N05 = ({ setLinea })=>{
                 <TiposDocumentos />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="identificacion">Numero de Documento: </label>
               <input
                 id="identificacion"

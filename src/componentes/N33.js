@@ -46,7 +46,7 @@ const N33 = ({ setLinea })=>{
         <> 
           <fieldset>
             <legend align="right">Novedad: N33</legend>
-              <div>
+              <div className="mx-4 my-1">
                 <label htmlFor="causalTerminacion">Causal de terminacion: </label>
                 <select
                   id="causalTerminacion"
@@ -58,7 +58,7 @@ const N33 = ({ setLinea })=>{
                   <TipoCausalTerminacion />
                 </select>
               </div>
-              <div>
+              <div className="mx-4 my-1">
                 <label htmlFor="fechaFin">Fecha din del periodo solicitado: </label>
                 <input
                   type="date"

@@ -31,7 +31,7 @@ const N12 = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N12</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoDiscapacidad">Condicion de discapacidad: </label>
               <select
                 id="tipoDiscapacidad"

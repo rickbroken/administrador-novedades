@@ -50,7 +50,7 @@ const N35 = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N35</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="tipoDocumento">Tipo de documento: </label>
               <select
                 id="tipoDocumento"
@@ -62,7 +62,7 @@ const N35 = ({ setLinea })=>{
                 <TiposDocumentos />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="identificacion">Numero de Documento: </label>
               <input
                 id="identificacion"
@@ -72,7 +72,7 @@ const N35 = ({ setLinea })=>{
                 placeholder="Escriba el numero de documento"
               />
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="fechaAfiliacion">Fecha de afiliaciony/o Novedad: </label>
               <input
                 type="date"

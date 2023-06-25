@@ -40,7 +40,7 @@ const N39 = ({ setLinea })=>{
         <>
           <fieldset>
             <legend align="right">Novedad: N39</legend>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="causalPortabilidad">Causal de Portabilidad: </label>
               <select
                 id="causalPortabilidad"
@@ -52,7 +52,7 @@ const N39 = ({ setLinea })=>{
                 <TipoCausalPortabilidad />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="departamentoNuevo">Nuevo Departamento: </label>
               <select
                 id="departamentoNuevo"
@@ -64,7 +64,7 @@ const N39 = ({ setLinea })=>{
                 <Departamentos />
               </select>
             </div>
-            <div>
+            <div className="mx-4 my-1">
               <label htmlFor="municipioNuevo">Nuevo Municipio: </label>
               <select
                 id="municipioNuevo"
