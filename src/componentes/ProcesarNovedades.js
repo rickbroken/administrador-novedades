@@ -38,9 +38,11 @@ import N37 from '../componentes/N37';
 import N38 from '../componentes/N38';
 import N39 from '../componentes/N39';
 //import cors from 'cors';
-import Confirmacion from './Confirmacion';
+import Confirmacion from './Confirmacion.js';
 import InputOption from './InputOption';
 import { Helmet } from 'react-helmet';
+import BotonCerrarSesion from './BotonCerrarSesion.jsx';
+import { useAuth } from '../contextos/useAuth.js';
 
 //Desactivar advertencias en consola de momentJs
 moment.suppressDeprecationWarnings = true;
@@ -50,7 +52,8 @@ function ProcesarNovedades() {
   //definimos el estado de linea que a su vez se guarda en un array-
   //dentro los objetos
   const [linea, setLinea] = useState([{}]);
-  
+
+  const {usuario} = useAuth();
 
   //Organizar las columnas de los objetos de linea, alfabeticamente
   const LineaOrganizada = linea.map(obj =>
@@ -173,6 +176,14 @@ function ProcesarNovedades() {
     resetearFormulario();
   }
 
+  useEffect(()=>{
+    setLinea(linea => {
+      return linea.map(obj => ({
+        ...obj,
+        U_idUsuario: usuario.uid
+      }));
+    });
+  },[usuario,regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, fecha,fechaNovedadFormateada,fechaEnvio])
 
 
   useEffect(() => {
@@ -285,7 +296,8 @@ function ProcesarNovedades() {
       <Helmet>
         <title>Procesar novedades</title>
       </Helmet>
-      <form onSubmit={(e)=>{handleSubmit(e)}}>
+      <form onSubmit={(e)=>{handleSubmit(e)}} className='relative'>
+        <BotonCerrarSesion />
       <div>
           <label htmlFor="tipoNovedad">Novedad a realizar: </label>
           <select
@@ -522,9 +534,9 @@ function ProcesarNovedades() {
         
       
         
-        {/*
-      <pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>
-      */}
+        {
+          <pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>
+        }
 
         <button className='bg-[#2ecc71] hover:bg-[#219953]' type="submit">Enviar</button>
         <button className='bg-[#ff212c] hover:bg-[#b91820]' type="reset" onClick={()=>{

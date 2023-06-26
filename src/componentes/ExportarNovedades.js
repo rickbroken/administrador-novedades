@@ -5,6 +5,8 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import moment from 'moment';
 import { Helmet } from "react-helmet";
+import BotonCerrarSesion from "./BotonCerrarSesion";
+import { useAuth } from "../contextos/useAuth";
 
 //Desactivar advertencias en consola de momentJs
 moment.suppressDeprecationWarnings = true;
@@ -13,6 +15,7 @@ const ExportarNovedades = ()=>{
 	const [datosExport, setDatosExport] = useState({});
 	const [datosTXT, setDatosTXT] = useState("");
 	const [datosEXCEL, setDatosEXCEL] = useState("");
+	const {usuario} = useAuth();
 
 
 	const [fechaInicio, setFechaInicio] = useState('');
@@ -99,7 +102,8 @@ const ExportarNovedades = ()=>{
 					isPurificacion: isPurificacion,
 					isSaldana: isSaldana,
 					isAtaco: isAtaco,
-					isPrado: isPrado
+					isPrado: isPrado,
+					idUsuario: usuario.uid
 				}
 			);
 	},[
@@ -226,7 +230,8 @@ const ExportarNovedades = ()=>{
 			<Helmet>
 				<title>Exportar Novedades</title>
 			</Helmet>
-			<form onSubmit={(e)=>handleSubmit(e)}>
+			<form onSubmit={(e)=>handleSubmit(e)} className="relative">
+				<BotonCerrarSesion />
 				<div className="cont-inputs">
 					<div>
 						<label htmlFor="fechaInicio">Fecha Inicio de exportacion:</label>

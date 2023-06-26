@@ -6,6 +6,9 @@ import ExportarNovedades from './componentes/ExportarNovedades';
 import moment from 'moment';
 import frasesFamosas from './frases/frases';
 import { Helmet } from 'react-helmet';
+import InicioSesion from './componentes/InicioSesion';
+import { useAuth } from './contextos/useAuth';
+import RutaPrivada from './componentes/RutaPrivada';
 
 
 function App() {
@@ -13,6 +16,10 @@ function App() {
   const [procesarNovedades, setProcesarNovedades] = useState('head-inactivo');
   const [exportarNovedades, setExportarNovedades] = useState('head-inactivo');
   const location = useLocation();
+
+  const {usuario} = useAuth();
+
+  console.log(usuario);
 
   //funcion de click con el evento para saber que clase tiene donde se clikea
   //y cambiar dinamicamente el estado si esta activo o no
@@ -28,10 +35,10 @@ function App() {
 
   console.log(location.pathname);
   useEffect(()=>{
-    if(location.pathname === "/administrador-novedades/"){
+    if(location.pathname === "/"){
       setExportarNovedades('head-inactivo');
       setProcesarNovedades('head-activo');
-    } else if(location.pathname === "/administrador-novedades/exportar"){
+    } else if(location.pathname === "/exportar"){
       setExportarNovedades('head-activo');
       setProcesarNovedades('head-inactivo');
     } else if(location.pathname === "/"){
@@ -63,19 +70,44 @@ function App() {
       <Helmet>
         <title>Administrador de novedades</title>
       </Helmet>
-      <div className='contenedor-frase'>
-        <p className='frase'>"{frase}"</p>
-        <p className='autor'>{autor}</p>
-      </div>
+      {
+        location.pathname !== '/iniciar-sesion' ?
+          <div className='contenedor-frase'>
+            <p className='frase'>"{frase}"</p>
+            <p className='autor'>{autor}</p>
+          </div>
+          : false
+      }
       <div className='container'>
         <nav>
-          <NavLink onClick={(e)=>verificar(e)} to="/administrador-novedades/" className={`left-4 head-home ${procesarNovedades}`}>Procesar Novedades</NavLink>
-          <NavLink onClick={(e)=>verificar(e)} to='/administrador-novedades/exportar' className={`head-home exportar ${exportarNovedades}`}>Exportar Novedades</NavLink>
+          {
+            location.pathname !== '/iniciar-sesion'  ? <><NavLink onClick={(e)=>verificar(e)} to="/" className={`left-4 head-home ${procesarNovedades}`}>Procesar Novedades</NavLink>
+            <NavLink onClick={(e)=>verificar(e)} to='/exportar' className={`head-home exportar ${exportarNovedades}`}>Exportar Novedades</NavLink></> : false
+          }
+          
         </nav>
         <Routes>
-          <Route path="*" element={<ProcesarNovedades />}/>
-          <Route path="/administrador-novedades/" element={<ProcesarNovedades />}/>
-          <Route path="/administrador-novedades/exportar" element={<ExportarNovedades />}/>
+          <Route path="/iniciar-sesion" element={<InicioSesion />}/>
+          
+
+          <Route path="*" element={
+            <RutaPrivada>
+              <ProcesarNovedades />
+            </RutaPrivada>
+          }/>
+
+          <Route path="/" element={
+            <RutaPrivada>
+              <ProcesarNovedades />
+            </RutaPrivada>
+          }/>
+
+
+          <Route path="/exportar" element={
+            <RutaPrivada>
+              <ExportarNovedades />
+            </RutaPrivada>
+          }/>
         </Routes>
         
       </div>
