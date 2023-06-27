@@ -122,6 +122,7 @@ function ProcesarNovedades() {
       if(tipoNovedad === "Actualizacion de CN a RC"){
         if(identificacion.length === 14 || identificacion.length === 9 || identificacion.length === 0){
           console.log('Total: ' + identificacion.length);
+          setTipoDoc('CN');
         } else {
           alert('El tipo de Documento tiene que tener 14 o 9 digitos');
         }
@@ -265,7 +266,7 @@ function ProcesarNovedades() {
     .then(response => response.json())
     .then(LineaOrganizada => console.log(LineaOrganizada))
     .catch(error => console.error(error));
-    console.log('Enviado');
+    console.log('Enviado')
   }
 
 
@@ -297,15 +298,29 @@ function ProcesarNovedades() {
   const [inputEstado, setInputEstado] = useState(false)
   //Funcion que cambia el estado cada vez que el estado de Municipio cambia
   //ya que municipio es el ultimo input para diligenciar
+  const inputTipoDoc = document.getElementById('tpIdentificacion');
+  const inputDepartamento = document.getElementById('departamento');
+  const inputMunicipio = document.getElementById('municipio');
+
+  //Funcion para inabilitar los inputs cuando se finaliza primer etapa de formulario
   const desactivarInput = () => {
     setInputEstado('disabled');
-    const inputTipoDoc = document.getElementById('tpIdentificacion');
-    const inputDepartamento = document.getElementById('departamento');
-    const inputMunicipio = document.getElementById('municipio');
     inputTipoDoc.setAttribute('disabled','');
     inputDepartamento.setAttribute('disabled','');
     inputMunicipio.setAttribute('disabled','');
   }
+
+  //Se establese que al cargar la app los inputs nuevamente esten habilidatos
+  useEffect(()=>{
+    if(inputEstado === 'disabled'){
+      if(inputTipoDoc.hasAttribute('disabled')){
+        setInputEstado(false);
+        inputTipoDoc.removeAttribute('disabled');
+        inputDepartamento.removeAttribute('disabled');
+        inputMunicipio.removeAttribute('disabled');
+      }
+    }
+  },[inputDepartamento,inputEstado,inputTipoDoc,inputMunicipio])
   
 
   const handleHoy = () => {
@@ -570,7 +585,7 @@ function ProcesarNovedades() {
         
         {/*
           <pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>
-        */}
+      */}
 
         <button className='bg-[#2ecc71] hover:bg-[#219953]' type="submit">Enviar</button>
         <button className='bg-[#ff212c] hover:bg-[#b91820]' type="reset" onClick={()=>{
