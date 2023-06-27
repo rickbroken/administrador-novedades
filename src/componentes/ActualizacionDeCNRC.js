@@ -114,7 +114,6 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
                 onChange={(e)=>{handleTipoDocumento(e)}}
                 value={tipoDocumento}
               >
-                <option value="">Seleccione el tipo de documento:</option>
                 <option value="RC">RC</option>
               </select>
             </div>

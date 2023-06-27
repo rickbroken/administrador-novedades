@@ -7,7 +7,6 @@ import moment from 'moment';
 import frasesFamosas from './frases/frases';
 import { Helmet } from 'react-helmet';
 import InicioSesion from './componentes/InicioSesion';
-import { useAuth } from './contextos/useAuth';
 import RutaPrivada from './componentes/RutaPrivada';
 
 
@@ -17,9 +16,8 @@ function App() {
   const [exportarNovedades, setExportarNovedades] = useState('head-inactivo');
   const location = useLocation();
 
-  const {usuario} = useAuth();
 
-  console.log(usuario);
+  
 
   //funcion de click con el evento para saber que clase tiene donde se clikea
   //y cambiar dinamicamente el estado si esta activo o no
@@ -33,7 +31,7 @@ function App() {
     }
   }
 
-  console.log(location.pathname);
+  
   useEffect(()=>{
     if(location.pathname === "/"){
       setExportarNovedades('head-inactivo');
@@ -70,14 +68,14 @@ function App() {
       <Helmet>
         <title>Administrador de novedades</title>
       </Helmet>
-      {
+      {/* MOSTRAR CONTENEDOR DE FRASES
         location.pathname !== '/iniciar-sesion' ?
           <div className='contenedor-frase'>
             <p className='frase'>"{frase}"</p>
             <p className='autor'>{autor}</p>
           </div>
           : false
-      }
+      */}
       <div className='container'>
         <nav>
           {

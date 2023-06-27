@@ -118,9 +118,28 @@ function ProcesarNovedades() {
   const handleTipoDoc= (e)=>{
     setTipoDoc(e.target.value);
   }
-  const handleIdentificacion= (e)=>{
-    setIdentificacion(e.target.value);
+  const handleValidacionCN = () => {
+      if(tipoNovedad === "Actualizacion de CN a RC"){
+        if(identificacion.length === 14 || identificacion.length === 9 || identificacion.length === 0){
+          console.log('Total: ' + identificacion.length);
+        } else {
+          alert('El tipo de Documento tiene que tener 14 o 9 digitos');
+        }
+      }
   }
+  const handleIdentificacion= (e)=>{
+    const numericValue = e.target.value.replace(/\D/g, '');
+    setIdentificacion(numericValue);
+  }
+
+  //Ingresar por default 'HIJO DE' si se selecciona la opcion "Actualizacion de CN a RC"
+  useEffect(()=>{
+    if(tipoNovedad === "Actualizacion de CN a RC"){
+      setPriNombre('HIJO DE');
+    }
+  },[tipoNovedad]);
+
+
   const handlePriNombre= (e)=>{
     const value = e.target.value.toUpperCase();
     setPriNombre(value);
@@ -289,7 +308,10 @@ function ProcesarNovedades() {
   }
   
 
-
+  const handleHoy = () => {
+    const fechaHoy = fechaHoySinFormato.format('YYYY-MM-DD');
+    setFechaNovedad(fechaHoy);
+  }
 
   return (
     <>
@@ -353,13 +375,21 @@ function ProcesarNovedades() {
         </div>
         <div>
           <label htmlFor="fechaNovedad">Fecha de Novedad: </label>
-          <input
-            type="date"
-            id="fechaNovedad"
-            name="fechaNovedad"
-            onChange={(e)=>{handleFechaNovedad(e)}}
-            value={fechaNovedad}
-          />
+          <div className='flex items-center'>
+            <input
+              className='w-10/12'
+              type="date"
+              id="fechaNovedad"
+              name="fechaNovedad"
+              onChange={(e)=>{handleFechaNovedad(e)}}
+              value={fechaNovedad}
+            />
+            <button 
+              type='button' 
+              className='m-0 mx-1 w-2/12 py-[8px] bg-[#6c63ff] rounded-md text-white'
+              onClick={()=>handleHoy()}
+              >Hoy</button>
+          </div>
         </div>
         <div>
           <label htmlFor="tpIdentificacion">Tipo de documento: </label>
@@ -369,11 +399,14 @@ function ProcesarNovedades() {
             onChange={(e)=>{handleTipoDoc(e)}}
             value={tipoDoc}
             >
-            <option value="">Seleccione el tipo de documento:</option>
               {
                 tipoNovedad === "Actualizacion de CN a RC" ? (
-                  <option value="CN">CN</option>
-                ) : <TiposDocumentos />
+                    <option value="CN">CN</option>
+                ) : 
+                <>
+                  <option value="">Seleccione el tipo de documento:</option>
+                  <TiposDocumentos />
+                </>
               }
           </select>
         </div>
@@ -386,6 +419,7 @@ function ProcesarNovedades() {
             onChange={(e)=>{handleIdentificacion(e)}}
             value={identificacion}
             readOnly={inputEstado}
+            onBlur={tipoNovedad === "Actualizacion de CN a RC" ? handleValidacionCN : undefined}
           />
         </div>
         <div>
@@ -534,9 +568,9 @@ function ProcesarNovedades() {
         
       
         
-        {
+        {/*
           <pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>
-        }
+        */}
 
         <button className='bg-[#2ecc71] hover:bg-[#219953]' type="submit">Enviar</button>
         <button className='bg-[#ff212c] hover:bg-[#b91820]' type="reset" onClick={()=>{
