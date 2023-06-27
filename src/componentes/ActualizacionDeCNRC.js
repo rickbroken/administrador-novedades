@@ -57,7 +57,6 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
     }
 
     useEffect(()=>{
-     if(priApellido === '' && segApellido === ''){
       setLinea(prevlinea => [
         {
           ...prevlinea[0],
@@ -82,51 +81,23 @@ const ActualizacionDeCNRC = ({ setLinea })=>{
           T_V7: "",
           C_tipoDoc: tipoDocumento,
           D_identificacion: identificacion
+        },
+        {
+          ...prevlinea[2],
+          L_tpNovedad: "N03",
+          N_V1: priApellido,
+          O_V2: segApellido,
+          P_V3: "",
+          Q_V4: "",
+          R_V5: "",
+          S_V6: "",
+          T_V7: "",
+          C_tipoDoc: tipoDocumento,
+          D_identificacion: identificacion,
+          G_priNombre: priNombre,
+          H_segNombre: segNombre
         }
       ]);
-     } else {
-       setLinea(prevlinea => [
-         {
-           ...prevlinea[0],
-           L_tpNovedad: "N01",
-           N_V1: tipoDocumento,
-           O_V2: identificacion,
-           P_V3: fecha,
-           Q_V4: tipoCausal,
-           R_V5: "",
-           S_V6: "",
-           T_V7: ""
-         },
-         {
-           ...prevlinea[1],
-           L_tpNovedad: "N02",
-           N_V1: priNombre,
-           O_V2: segNombre,
-           P_V3: "",
-           Q_V4: "",
-           R_V5: "",
-           S_V6: "",
-           T_V7: "",
-           C_tipoDoc: tipoDocumento,
-           D_identificacion: identificacion
-         },
-         {
-           ...prevlinea[2],
-           L_tpNovedad: "N03",
-           N_V1: priApellido,
-           O_V2: segApellido,
-           P_V3: "",
-           Q_V4: "",
-           R_V5: "",
-           S_V6: "",
-           T_V7: "",
-           C_tipoDoc: tipoDocumento,
-           D_identificacion: identificacion,
-           G_priNombre: priNombre,
-           H_segNombre: segNombre
-         }
-       ]);
-     }
     }, [tipoDocumento,identificacion,fecha,tipoCausal,priNombre,segNombre,priApellido,segApellido,setLinea]);
     
 

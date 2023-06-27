@@ -288,6 +288,14 @@ function ProcesarNovedades() {
   //activa el mensaje de confirmacion true = visible
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(tipoNovedad === 'Actualizacion de CN a RC'){
+      //console.log(LineaOrganizada[2].priApellido);
+      if(LineaOrganizada[2].N_V1 === ''){
+        console.log(LineaOrganizada[2].N_V1);
+        LineaOrganizada.pop();
+        console.log(LineaOrganizada);
+      }
+    }
     setFechaEnvio(fechaState);
     setMostrarConfirmacion(true);
   };
