@@ -18,10 +18,11 @@ const useObtenerGastos = () => {
     },[])
     const importarLineasFirebase = () => {
         console.log(moment(fechaInicioUnix).unix());
+        
         const fechaInicio = moment(fechaInicioUnix).unix();
-        //const fechaInicioUnix = fechaInicio.unix();
+
         const fechaFin = moment(fechaFinUnix).unix();
-        //const fechaFinUnix = fechaFin.unix();
+
 
         //console.log(moment.unix(fechaInicioUnix).format('DD/MM/YYYY HH:mm:ss'));
         //console.log(moment.unix(1687990188).format('DD/MM/YYYY HH:mm:ss'));
