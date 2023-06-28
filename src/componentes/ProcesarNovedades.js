@@ -121,7 +121,7 @@ function ProcesarNovedades() {
   const handleValidacionCN = () => {
       if(tipoNovedad === "Actualizacion de CN a RC"){
         if(identificacion.length === 14 || identificacion.length === 9 || identificacion.length === 0){
-          console.log('Total: ' + identificacion.length);
+          //console.log('Total: ' + identificacion.length);
           setTipoDoc('CN');
         } else {
           alert('El tipo de Documento tiene que tener 14 o 9 digitos');
@@ -276,6 +276,7 @@ function ProcesarNovedades() {
   //Boton aceptar y acciones que se hacen al enviar el formulario
   const handleAceptar = ()=>{
     enviarNovedades();
+    console.log(linea);
     setTipoNovedad('');
     resetearFormulario();
     setMostrarConfirmacion(false);
@@ -286,14 +287,13 @@ function ProcesarNovedades() {
   }
   
   //activa el mensaje de confirmacion true = visible
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     if(tipoNovedad === 'Actualizacion de CN a RC'){
       //console.log(LineaOrganizada[2].priApellido);
-      if(LineaOrganizada[2].N_V1 === ''){
-        console.log(LineaOrganizada[2].N_V1);
-        LineaOrganizada.pop();
-        console.log(LineaOrganizada);
+      if(linea[2].N_V1 === ''){
+        console.log(linea[2].N_V1);
+        linea.pop();
+        console.log(linea);
       }
     }
     setFechaEnvio(fechaState);
@@ -341,7 +341,7 @@ function ProcesarNovedades() {
       <Helmet>
         <title>Procesar novedades</title>
       </Helmet>
-      <form onSubmit={(e)=>{handleSubmit(e)}} className='relative'>
+      <form className='relative'>
         <BotonCerrarSesion />
       <div>
           <label htmlFor="tipoNovedad">Novedad a realizar: </label>
@@ -595,7 +595,7 @@ function ProcesarNovedades() {
           <pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>
       */}
 
-        <button className='bg-[#2ecc71] hover:bg-[#219953]' type="submit">Enviar</button>
+        <button className='bg-[#2ecc71] hover:bg-[#219953]' type="button" onClick={()=>handleSubmit()}>Enviar</button>
         <button className='bg-[#ff212c] hover:bg-[#b91820]' type="reset" onClick={()=>{
             setTipoNovedad('');
             resetearFormulario();
