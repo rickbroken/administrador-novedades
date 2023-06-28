@@ -7,6 +7,7 @@ import moment from 'moment';
 import { Helmet } from "react-helmet";
 import BotonCerrarSesion from "./BotonCerrarSesion";
 import { useAuth } from "../contextos/useAuth";
+import useObtenerLineas from './../hooks/ObtenerLineas';
 
 //Desactivar advertencias en consola de momentJs
 moment.suppressDeprecationWarnings = true;
@@ -15,7 +16,12 @@ const ExportarNovedades = ()=>{
 	const [datosExport, setDatosExport] = useState({});
 	const [datosTXT, setDatosTXT] = useState("");
 	const [datosEXCEL, setDatosEXCEL] = useState("");
+
+
 	const {usuario} = useAuth();
+
+	const {lineas,setFechaInicioUnix,setfechaFinUnix,importarLineasFirebase} = useObtenerLineas();
+
 
 
 	const [fechaInicio, setFechaInicio] = useState('');
@@ -44,6 +50,11 @@ const ExportarNovedades = ()=>{
 	const [isSaldana, setIsSaldana] = useState('');
 	const [isAtaco, setIsAtaco] = useState('');
 	const [isPrado, setIsPrado] = useState('');
+
+	useEffect(()=>{
+		setFechaInicioUnix(fechaInicioTotal);
+		setfechaFinUnix(fechaFinTotal);
+	},[fechaFin,fechaInicio])
 
 	const handleSetFechaInicio = (e) => {
 		setFechaInicio(e.target.value);
@@ -415,7 +426,7 @@ const ExportarNovedades = ()=>{
 				<pre>{JSON.stringify(datosExport, null, 2)}</pre>
 				*/}
 
-				<button type="" onClick={()=>descargarTXT()}>Descargar .txt</button>
+				<button type="" onClick={()=>importarLineasFirebase()}>Descargar .txt</button>
 				<button className="btn-descargarEXCEL" onClick={()=>descargarEXCEL()}>Descargar en Excel</button>
 			</form>
 		</>

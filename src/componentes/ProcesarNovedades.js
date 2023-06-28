@@ -43,6 +43,8 @@ import InputOption from './InputOption';
 import { Helmet } from 'react-helmet';
 import BotonCerrarSesion from './BotonCerrarSesion.jsx';
 import { useAuth } from '../contextos/useAuth.js';
+import agregarLineas from '../firebase/agregarLineas.js';
+import getUnixTime from 'date-fns/getUnixTime';
 
 //Desactivar advertencias en consola de momentJs
 moment.suppressDeprecationWarnings = true;
@@ -55,6 +57,7 @@ function ProcesarNovedades() {
 
   const {usuario} = useAuth();
 
+  
   //Organizar las columnas de los objetos de linea, alfabeticamente
   const LineaOrganizada = linea.map(obj =>
     Object.fromEntries(Object.entries(obj).sort())
@@ -98,6 +101,7 @@ function ProcesarNovedades() {
   
   //Formateamos el valor por defecto de el input date, a DD/MM/YYYY
   const [fecha, setFecha] = useState();
+  const fechaSinUnix = moment();
   const [fechaNovedadFormateada, setFechaNovedadFormateada] = useState();
 
   useEffect(()=>{
@@ -205,18 +209,19 @@ function ProcesarNovedades() {
     });
   },[usuario,regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, fecha,fechaNovedadFormateada,fechaEnvio])
 
-
+ 
   useEffect(() => {
     setLinea(linea => {
       return linea.map(obj => ({
         ...obj,
-        A_id: null,
+        A_id: 'false',
         B_entidad: regimenAfiliado,
         D_identificacion: identificacion,
         E_priApellido: priApellido,
         F_segApellido: segApellido,
         I_fechaNacimiento: fecha,
-        M_fechaNovedad: fechaNovedadFormateada
+        M_fechaNovedad: fechaNovedadFormateada,
+        Y_fechaUnix: fechaSinUnix.unix(),
       }));
     });
   }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, fecha,fechaNovedadFormateada]);
@@ -252,9 +257,11 @@ function ProcesarNovedades() {
     });
   }, [departamento, municipio]);
 
-
+  
   
   const enviarNovedades = () => {
+    console.log(LineaOrganizada.length);
+    agregarLineas(LineaOrganizada);
     fetch('https://rickbroken.com/api/insertar_lineas.php', {
       method: 'POST',
       headers: {
@@ -266,7 +273,6 @@ function ProcesarNovedades() {
     .then(response => response.json())
     .then(LineaOrganizada => console.log(LineaOrganizada))
     .catch(error => console.error(error));
-    console.log('Enviado')
   }
 
 
@@ -276,7 +282,7 @@ function ProcesarNovedades() {
   //Boton aceptar y acciones que se hacen al enviar el formulario
   const handleAceptar = ()=>{
     enviarNovedades();
-    console.log(linea);
+    //console.log(linea);
     setTipoNovedad('');
     resetearFormulario();
     setMostrarConfirmacion(false);
