@@ -11,7 +11,7 @@ const useObtenerGastos = () => {
     const [lineas, setLineas] = useState([]);
     const [fechaInicioUnix, setFechaInicioUnix] = useState('');
     const [fechaFinUnix, setfechaFinUnix] = useState('');
-    const {usuario} = useAuth()
+    const {usuario} = useAuth();
 
 
     useEffect(()=>{
@@ -30,7 +30,7 @@ const useObtenerGastos = () => {
     
         const unsuscribe = onSnapshot(consulta, (snapshot) => {
             setLineas(snapshot.docs.map((linea)=>{
-                return {...linea.data(), id: linea.id}
+                return linea.data();
             }));
         });
         return unsuscribe;

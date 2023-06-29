@@ -216,7 +216,15 @@ const ExportarNovedades = ()=>{
 	}
 	//Funciones creadas para el onClick de los botones de descarga
 	const descargarTXT = ()=>{
-		console.log(lineas);
+		//console.log(Object.keys(lineas).sort());
+
+		//Ordenamos de la A a la Z las propiedades de los objetos dentro del array que se recibe de ObtenerLineas.js
+		const ordered = lineas.map(({A_id,Z_fechaEnvio,Y_fechaUnix,U_idUsuario,	...rest}) => {
+			return Object.keys(rest).sort().reduce((r, k) => (r[k] = rest[k], r), {});
+		});
+
+		//llamamos a la funcion que convierte el array en un archivo CSV y a su vez agregamos un indice por cada linea
+		convertToCSV(addConsecutivoToObjArray(ordered), fileNameTXT);
 		//importarNovevadesAPI(setDatosTXT);
 	}
 	const descargarEXCEL = ()=>{
@@ -229,7 +237,7 @@ const ExportarNovedades = ()=>{
 	//informacion requerida, apenas se haga un cambio de estados se descargara
 	useEffect(()=>{
 		if(datosTXT !== ""){
-			convertToCSV(addConsecutivoToObjArray(datosTXT), fileNameTXT);
+			convertToCSV(addConsecutivoToObjArray(lineas.sort()), fileNameTXT);
 		}
 	},[datosTXT,fileNameTXT]);
 	useEffect(()=>{
