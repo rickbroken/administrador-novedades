@@ -44,7 +44,6 @@ import { Helmet } from 'react-helmet';
 import BotonCerrarSesion from './BotonCerrarSesion.jsx';
 import { useAuth } from '../contextos/useAuth.js';
 import agregarLineas from '../firebase/agregarLineas.js';
-import getUnixTime from 'date-fns/getUnixTime';
 
 //Desactivar advertencias en consola de momentJs
 moment.suppressDeprecationWarnings = true;
@@ -224,7 +223,7 @@ function ProcesarNovedades() {
         Y_fechaUnix: fechaSinUnix.unix(),
       }));
     });
-  }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, fecha,fechaNovedadFormateada]);
+  }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, fecha,fechaNovedadFormateada,fechaSinUnix]);
 
   useEffect(() => {
     setLinea(linea => {

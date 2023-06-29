@@ -24,6 +24,7 @@ const ExportarNovedades = ()=>{
 
 
 
+
 	const [fechaInicio, setFechaInicio] = useState('');
 	const [horaInicio, setHoraInicio] = useState('');
 	const [fechaInicioTotal, setFechaInicioTotal] = useState('');
@@ -54,11 +55,13 @@ const ExportarNovedades = ()=>{
 	useEffect(()=>{
 		setFechaInicioUnix(fechaInicioTotal);
 		setfechaFinUnix(fechaFinTotal);
-	},[fechaFin,fechaInicio])
+	},[fechaFin,fechaInicio,fechaFinTotal,fechaInicioTotal])
 
 	const handleSetFechaInicio = (e) => {
 		setFechaInicio(e.target.value);
+		
 	}
+	
 	const handleSetHoraInicio = (e) => {
 		setHoraInicio(e.target.value);
 	}
@@ -426,7 +429,7 @@ const ExportarNovedades = ()=>{
 				<pre>{JSON.stringify(datosExport, null, 2)}</pre>
 				*/}
 
-				<button type="" onClick={()=>importarLineasFirebase()}>Descargar .txt</button>
+				<button type="" onClick={()=>descargarTXT()}>Descargar .txt</button>
 				<button className="btn-descargarEXCEL" onClick={()=>descargarEXCEL()}>Descargar en Excel</button>
 			</form>
 		</>

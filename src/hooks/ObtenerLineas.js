@@ -13,19 +13,14 @@ const useObtenerGastos = () => {
     const [fechaFinUnix, setfechaFinUnix] = useState('');
     const {usuario} = useAuth()
 
-    useEffect(()=>{
-        setLineas([]);
-    },[])
+
     const importarLineasFirebase = () => {
-        console.log(moment(fechaInicioUnix).unix());
         
         const fechaInicio = moment(fechaInicioUnix).unix();
 
         const fechaFin = moment(fechaFinUnix).unix();
 
 
-        //console.log(moment.unix(fechaInicioUnix).format('DD/MM/YYYY HH:mm:ss'));
-        //console.log(moment.unix(1687990188).format('DD/MM/YYYY HH:mm:ss'));
         const consulta = query(
             collection(db, 'AllLineas'),
             where('U_idUsuario', '==', usuario.uid),
@@ -44,9 +39,7 @@ const useObtenerGastos = () => {
 
     }
 
-    console.log(lineas);
-
-    return {lineas,setFechaInicioUnix,setfechaFinUnix,importarLineasFirebase};
+    return {lineas,setFechaInicioUnix,setfechaFinUnix,importarLineasFirebase,setLineas};
 }
  
 export default useObtenerGastos;
