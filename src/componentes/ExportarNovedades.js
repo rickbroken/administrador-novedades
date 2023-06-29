@@ -186,12 +186,12 @@ const ExportarNovedades = ()=>{
 		XLSX.writeFile(wb, filename);
 	}
 
-	const handleExport = useCallback((nombreArchivo) => {
-		const data = datosEXCEL;
+	const handleExport = useCallback((nombreArchivo, datos) => {
+		const data = datos;
 		const sheet2 = addConsecutivoToObjArray(data);
 		const sheet = convertToSheet(sheet2);
 		exportToXLSX(sheet, nombreArchivo);
-	}, [datosEXCEL]);
+	}, [lineas]);
 
 
 	//Funcion creada para comunicarse con la API y traer la informacion de las novedades
@@ -216,7 +216,6 @@ const ExportarNovedades = ()=>{
 	}
 	//Funciones creadas para el onClick de los botones de descarga
 	const descargarTXT = ()=>{
-		//console.log(Object.keys(lineas).sort());
 
 		//Ordenamos de la A a la Z las propiedades de los objetos dentro del array que se recibe de ObtenerLineas.js
 		const ordered = lineas.map(({A_id,Z_fechaEnvio,Y_fechaUnix,U_idUsuario,	...rest}) => {
@@ -225,10 +224,19 @@ const ExportarNovedades = ()=>{
 
 		//llamamos a la funcion que convierte el array en un archivo CSV y a su vez agregamos un indice por cada linea
 		convertToCSV(addConsecutivoToObjArray(ordered), fileNameTXT);
+
+		//Funcion para exportar las novedades de la API
 		//importarNovevadesAPI(setDatosTXT);
 	}
+
+
 	const descargarEXCEL = ()=>{
-		importarNovevadesAPI(setDatosEXCEL);
+		const ordered = lineas.map(({A_id,Z_fechaEnvio,Y_fechaUnix,U_idUsuario,	...rest}) => {
+			return Object.keys(rest).sort().reduce((r, k) => (r[k] = rest[k], r), {});
+		});
+
+		handleExport(fileNameEXCEL, ordered);
+		//importarNovevadesAPI(setDatosEXCEL);
 	}
 
 

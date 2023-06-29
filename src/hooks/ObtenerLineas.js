@@ -25,7 +25,7 @@ const useObtenerGastos = () => {
             where('U_idUsuario', '==', usuario.uid),
             where("Y_fechaUnix", ">=", fechaInicio),
             where("Y_fechaUnix", "<=", fechaFin),
-            orderBy('Y_fechaUnix', 'desc')
+            orderBy('Y_fechaUnix', 'asc')
         );
     
         const unsuscribe = onSnapshot(consulta, (snapshot) => {

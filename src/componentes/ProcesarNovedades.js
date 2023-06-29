@@ -100,7 +100,7 @@ function ProcesarNovedades() {
   
   //Formateamos el valor por defecto de el input date, a DD/MM/YYYY
   const [fecha, setFecha] = useState();
-  const fechaSinUnix =moment();
+  let fechaSinUnix = moment().unix();
   const [fechaNovedadFormateada, setFechaNovedadFormateada] = useState();
 
   useEffect(()=>{
@@ -211,17 +211,20 @@ function ProcesarNovedades() {
  
   useEffect(() => {
     setLinea(linea => {
-      return linea.map(obj => ({
-        ...obj,
-        A_id: 'false',
-        B_entidad: regimenAfiliado,
-        D_identificacion: identificacion,
-        E_priApellido: priApellido,
-        F_segApellido: segApellido,
-        I_fechaNacimiento: fecha,
-        M_fechaNovedad: fechaNovedadFormateada,
-        Y_fechaUnix: fechaSinUnix.unix(),
-      }));
+      return linea.map((obj, i) => {
+        let fechaFormatUnix = fechaSinUnix + i;
+        return {
+          ...obj,
+          A_id: 'false',
+          B_entidad: regimenAfiliado,
+          D_identificacion: identificacion,
+          E_priApellido: priApellido,
+          F_segApellido: segApellido,
+          I_fechaNacimiento: fecha,
+          M_fechaNovedad: fechaNovedadFormateada,
+          Y_fechaUnix: fechaFormatUnix,
+        }
+      });
     });
   }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, fecha ,fechaNovedadFormateada]);
   
