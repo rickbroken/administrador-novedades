@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import { db } from '../firebase/firebaseConfig';
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { useAuth } from '../contextos/useAuth';
@@ -14,13 +14,12 @@ const useObtenerGastos = () => {
     const {usuario} = useAuth()
 
 
-    const importarLineasFirebase = () => {
-        
+    useEffect(()=>{
         const fechaInicio = moment(fechaInicioUnix).unix();
-
+    
         const fechaFin = moment(fechaFinUnix).unix();
-
-
+    
+    
         const consulta = query(
             collection(db, 'AllLineas'),
             where('U_idUsuario', '==', usuario.uid),
@@ -28,18 +27,19 @@ const useObtenerGastos = () => {
             where("Y_fechaUnix", "<=", fechaFin),
             orderBy('Y_fechaUnix', 'desc')
         );
-
+    
         const unsuscribe = onSnapshot(consulta, (snapshot) => {
             setLineas(snapshot.docs.map((linea)=>{
                 return {...linea.data(), id: linea.id}
             }));
-          });
-
+        });
         return unsuscribe;
+    },[setLineas,fechaInicioUnix,fechaFinUnix, usuario.uid])
+        
 
-    }
+    
 
-    return {lineas,setFechaInicioUnix,setfechaFinUnix,importarLineasFirebase,setLineas};
+    return {lineas,setFechaInicioUnix,setfechaFinUnix,setLineas};
 }
  
 export default useObtenerGastos;

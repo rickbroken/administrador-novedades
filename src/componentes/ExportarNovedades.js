@@ -20,7 +20,7 @@ const ExportarNovedades = ()=>{
 
 	const {usuario} = useAuth();
 
-	const {lineas,setFechaInicioUnix,setfechaFinUnix,importarLineasFirebase} = useObtenerLineas();
+	const {lineas,setFechaInicioUnix,setfechaFinUnix} = useObtenerLineas();
 
 
 
@@ -216,7 +216,8 @@ const ExportarNovedades = ()=>{
 	}
 	//Funciones creadas para el onClick de los botones de descarga
 	const descargarTXT = ()=>{
-		importarNovevadesAPI(setDatosTXT);
+		console.log(lineas);
+		//importarNovevadesAPI(setDatosTXT);
 	}
 	const descargarEXCEL = ()=>{
 		importarNovevadesAPI(setDatosEXCEL);
