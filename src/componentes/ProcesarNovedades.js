@@ -127,6 +127,7 @@ function ProcesarNovedades() {
           //console.log('Total: ' + identificacion.length);
           setTipoDoc('CN');
         } else {
+          setTipoDoc('CN');
           alert('El tipo de Documento tiene que tener 14 o 9 digitos');
         }
       }
@@ -226,7 +227,7 @@ function ProcesarNovedades() {
         }
       });
     });
-  }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, fecha ,fechaNovedadFormateada]);
+  }, [regimenAfiliado,tipoDoc, identificacion, priApellido, segApellido, fecha ,fechaNovedadFormateada,setTipoDoc]);
   
   useEffect(() => {
     setLinea(linea => {
