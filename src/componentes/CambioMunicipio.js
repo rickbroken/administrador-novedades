@@ -24,6 +24,7 @@ import IPS585 from "./Ips/IPS585";
 import IPS671 from "./Ips/IPS671";
 import IPS067 from "./Ips/IPS067";
 import IPS563 from "./Ips/IPS563";
+import MunicipiosRisaralda from "./MuicipiosRisaralda";
 
 const CambioMunicipio = ({ setLinea })=>{
     const [departamento, setDepartamento] = useState("");
@@ -60,12 +61,13 @@ const CambioMunicipio = ({ setLinea })=>{
           R_V5: "",
           S_V6: "",
           T_V7: "",
-          J_departamento: departamento,
-          K_municipio: municipio
+          J_departamento: departamento2,
+          K_municipio: municipio2
         }
 
       ]);
-    }, [departamento,municipio,centroSalud,setLinea]);
+    }, [departamento,municipio,centroSalud,municipio2,departamento2,setLinea]);
+
     
     return(
         <>
@@ -97,6 +99,8 @@ const CambioMunicipio = ({ setLinea })=>{
                     <MunicipiosTolima />
                   ) : departamento === "50" ? (
                     <MunicipiosMeta />
+                  ) : departamento === "66" ? (
+                    <MunicipiosRisaralda />
                   ) : "" // Retornar un valor por defecto si no se cumple ninguna condición
                 }
               </select>
@@ -114,44 +118,46 @@ const CambioMunicipio = ({ setLinea })=>{
               >
                 <option value="">Seleccione un centro de salud</option>
                 {
-                  municipio2 === "Puerto Gaitan" ? (
+                  municipio2 === "568" ? (
                     <IPS568 />
-                  ) :municipio2 === "Pereira" ? (
+                  ) :municipio2 === "001" && departamento2 === "66" ? (
                     <IPS66001 />
-                  ) :municipio2 === "Guatica" ? (
+                  ) :municipio2 === "318" ? (
                     <IPS318 />
-                  ) :municipio2 === "Marsella" ? (
+                  ) :municipio2 === "440" ? (
                     <IPS440 />
-                  ) :municipio2 === "Mistrato" ? (
+                  ) :municipio2 === "456" ? (
                     <IPS456 />
-                  ) :municipio2 === "Pueblo Rico" ? (
+                  ) :municipio2 === "572" ? (
                     <IPS572 />
-                  ) :municipio2 === "Quinchia" ? (
+                  ) :municipio2 === "594" ? (
                     <IPS594 />
-                  ) :municipio2 === "Ibague" ? (
+                  ) :municipio2 === "001" ? (
                     <IPS001 />
-                  ) :municipio2 === "Chaparral" ? (
+                  ) :municipio2 === "168" ? (
                     <IPS168 />
-                  ) :municipio2 === "Coyaima" ? (
+                  ) :municipio2 === "217" ? (
                     <IPS217 />
-                  ) :municipio2 === "Natagaima" ? (
+                  ) :municipio2 === "483" ? (
                     <IPS483 />
-                  ) :municipio2 === "Ortega" ? (
+                  ) :municipio2 === "504" ? (
                     <IPS504 />
-                  ) :municipio2 === "Planadas" ? (
+                  ) :municipio2 === "555" ? (
                     <IPS555 />
-                  ) :municipio2 === "Rioblanco" ? (
+                  ) :municipio2 === "616" ? (
                     <IPS616 />
-                  ) :municipio2 === "San Antonio" ? (
+                  ) :municipio2 === "675" ? (
                     <IPS675 />
-                  ) :municipio2 === "Purificacion" ? (
+                  ) :municipio2 === "585" ? (
                     <IPS585 />
-                  ) :municipio2 === "Saldaña" ? (
+                  ) :municipio2 === "585" ? (
                     <IPS671 />
-                  ) :municipio2 === "Ataco" ? (
+                  ) :municipio2 === "671" ? (
                     <IPS067 />
-                  ) :municipio2 === "Prado" ? (
+                  ) :municipio2 === "563" ? (
                     <IPS563 />
+                  ) :municipio2 === "067" ? (
+                    <IPS067 />
                   ) : ""
                 }
               </select>

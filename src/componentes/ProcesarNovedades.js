@@ -44,6 +44,7 @@ import { Helmet } from 'react-helmet';
 import BotonCerrarSesion from './BotonCerrarSesion.jsx';
 import { useAuth } from '../contextos/useAuth.js';
 import agregarLineas from '../firebase/agregarLineas.js';
+import MunicipiosRisaralda from './MuicipiosRisaralda.js';
 
 //Desactivar advertencias en consola de momentJs
 moment.suppressDeprecationWarnings = true;
@@ -533,6 +534,8 @@ function ProcesarNovedades() {
               <MunicipiosTolima />
             ) : departamento === "50" ? (
               <MunicipiosMeta />
+            ) : departamento === "66" ? (
+              <MunicipiosRisaralda />
             ) : "" // Retornar un valor por defecto si no se cumple ninguna condición
           }
           </select>
@@ -600,9 +603,9 @@ function ProcesarNovedades() {
         
       
         
-        {/*
+        {
           <pre>{JSON.stringify(LineaOrganizada, null, 2)}</pre>
-      */}
+        }
 
         <button className='bg-[#2ecc71] hover:bg-[#219953]' type="button" onClick={()=>handleSubmit()}>Enviar</button>
         <button className='bg-[#ff212c] hover:bg-[#b91820]' type="reset" onClick={()=>{

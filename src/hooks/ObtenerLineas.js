@@ -25,6 +25,9 @@ const useObtenerGastos = () => {
             //
             codigoMunicipios.map((codigo)=>{
                 if(codigo.checked === true){
+                    if(codigo.name === '66001'){
+                        //PENDIENTE 
+                    }
                     console.log(codigo.name);
                     const consulta = query(
                         collection(db, 'AllLineas'),

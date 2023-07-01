@@ -1,12 +1,12 @@
 import React from "react";
 
-const Municipios = () => {
+const MunicipiosMeta = () => {
   return(
 		<>
-			<option value="Puerto Gaitan">Puerto Gaitan</option>
+			<option value="568">Puerto Gaitan</option>
 		</>
   );
 }
 
 
-export default Municipios;
+export default MunicipiosMeta;

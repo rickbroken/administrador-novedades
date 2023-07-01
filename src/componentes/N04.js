@@ -5,6 +5,7 @@ import { handleDepartamento2 } from '../funciones/Departamentos.js';
 import MunicipiosTolima from './MuicipiosTolima';
 import MunicipiosMeta from './MuicipiosMeta';
 import Departamentos from "./Departamentos.js";
+import MunicipiosRisaralda from "./MuicipiosRisaralda.js";
 
 const N04 = ({ setLinea })=>{
     const [departamento, setDepartamento] = useState("");
@@ -60,6 +61,8 @@ const N04 = ({ setLinea })=>{
                     <MunicipiosTolima />
                   ) : departamento === "50" ? (
                     <MunicipiosMeta />
+                  ) : departamento === "66" ? (
+                    <MunicipiosRisaralda />
                   ) : "" // Retornar un valor por defecto si no se cumple ninguna condición
                 }
               </select>
