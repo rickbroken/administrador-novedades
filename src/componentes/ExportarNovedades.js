@@ -6,7 +6,7 @@ import * as XLSX from 'xlsx';
 import moment from 'moment';
 import { Helmet } from "react-helmet";
 import BotonCerrarSesion from "./BotonCerrarSesion";
-import { useAuth } from "../contextos/useAuth";
+//import { useAuth } from "../contextos/useAuth";
 import useObtenerLineas from './../hooks/ObtenerLineas';
 
 //Desactivar advertencias en consola de momentJs
@@ -87,33 +87,40 @@ const ExportarNovedades = ()=>{
 	//}
 	useEffect(()=>{
 		setCodigoMunicipios([
-			{ name: '568', checked: false },
-			{ name: '66001', checked: false },
-			{ name: '318', checked: false },
-			{ name: '440', checked: false },
-			{ name: '456', checked: false },
-			{ name: '572', checked: false },
-			{ name: '594', checked: false },
-			{ name: '001', checked: false },
-			{ name: '168', checked: false },
-			{ name: '217', checked: false },
-			{ name: '483', checked: false },
-			{ name: '504', checked: false },
-			{ name: '555', checked: false },
-			{ name: '616', checked: false },
-			{ name: '675', checked: false },
-			{ name: '585', checked: false },
-			{ name: '671', checked: false },
-			{ name: '067', checked: false },
-			{ name: '563', checked: false },
+			{ municipio: '568', departamento: '50',checked: true },
+			{ municipio: '001', departamento: '66',checked: true },
+			{ municipio: '318', departamento: '66',checked: true },
+			{ municipio: '440', departamento: '66',checked: true },
+			{ municipio: '456', departamento: '66',checked: true },
+			{ municipio: '572', departamento: '66',checked: true },
+			{ municipio: '594', departamento: '66',checked: true },
+			{ municipio: '001', departamento: '73',checked: true },
+			{ municipio: '168', departamento: '73',checked: true },
+			{ municipio: '217', departamento: '73',checked: true },
+			{ municipio: '483', departamento: '73',checked: true },
+			{ municipio: '504', departamento: '73',checked: true },
+			{ municipio: '555', departamento: '73',checked: true },
+			{ municipio: '616', departamento: '73',checked: true },
+			{ municipio: '675', departamento: '73',checked: true },
+			{ municipio: '585', departamento: '73',checked: true },
+			{ municipio: '671', departamento: '73',checked: true },
+			{ municipio: '067', departamento: '73',checked: true },
+			{ municipio: '563', departamento: '73',checked: true },
 		]);
 	},[])
 	
   const handleCheckboxMunicipio = (e) => {
-    const { value, checked } = e.target;
+    const { name, value, checked } = e.target;
     setCodigoMunicipios((prevCheckboxes) =>
-      prevCheckboxes.map((checkbox) =>
-        checkbox.name === value ? { ...checkbox, checked } : checkbox
+      prevCheckboxes.map((checkbox) => {
+		if(checkbox.municipio === value &&  checkbox.departamento === name){
+			return { ...checkbox, checked }
+		} else if (checkbox.municipio === value && name === '') {
+			return { ...checkbox, checked }
+		} else {
+			return checkbox;
+		}
+	  	}
       )
     );
   };
@@ -253,10 +260,22 @@ const ExportarNovedades = ()=>{
 		if(lineas.length === 0){
 			alert('No hay datos registrados con las condiciones que seleccionaste')
 		} else {
+			//Ordenamos las lineas de menor fecha a mayor fecha en la cual se realizo la novedad
+			const LineasOrdenadasPorTiempo = lineas.sort((a, b) => a.Y_fechaUnix - b.Y_fechaUnix);
+
+			
 			//Ordenamos de la A a la Z las propiedades de los objetos dentro del array que se recibe de ObtenerLineas.js
-			const ordered = lineas.map(({A_id,Z_fechaEnvio,Y_fechaUnix,U_idUsuario,	...rest}) => {
-				return Object.keys(rest).sort().reduce((r, k) => (r[k] = rest[k], r), {});
-			});
+			const ordered = LineasOrdenadasPorTiempo.map(({ A_id, Z_fechaEnvio, Y_fechaUnix, U_idUsuario, ...rest }) => {
+				const orderedObj = {};
+				Object.keys(rest)
+				  .sort()
+				  .forEach((key) => {
+					orderedObj[key] = rest[key];
+				  });
+				return {...orderedObj};
+			  });
+
+			console.log(ordered);
 	
 			//llamamos a la funcion que convierte el array en un archivo CSV y a su vez agregamos un indice por cada linea
 			convertToCSV(addConsecutivoToObjArray(ordered), fileNameTXT);
@@ -272,9 +291,17 @@ const ExportarNovedades = ()=>{
 		if(lineas.length === 0){
 			alert('No hay datos registrados con las condiciones que seleccionaste')
 		} else {
-			const ordered = lineas.map(({A_id,Z_fechaEnvio,Y_fechaUnix,U_idUsuario,	...rest}) => {
-				return Object.keys(rest).sort().reduce((r, k) => (r[k] = rest[k], r), {});
-			});
+			const LineasOrdenadasPorTiempo = lineas.sort((a, b) => a.Y_fechaUnix - b.Y_fechaUnix);
+
+			const ordered = LineasOrdenadasPorTiempo.map(({ A_id, Z_fechaEnvio, Y_fechaUnix, U_idUsuario, ...rest }) => {
+				const orderedObj = {};
+				Object.keys(rest)
+				  .sort()
+				  .forEach((key) => {
+					orderedObj[key] = rest[key];
+				  });
+				return {...orderedObj};
+			  });
 	
 			handleExport(fileNameEXCEL, ordered);
 		}
@@ -366,7 +393,7 @@ const ExportarNovedades = ()=>{
 							</div>
 
 
-				<div className="contenedor-checkbox">
+				{/*<div className="contenedor-checkbox">
 					<label>Seleccionar municipio:</label>
 					<div>
 						<label htmlFor="puerto_gaitan">PUERTO GAITAN</label>
@@ -378,7 +405,7 @@ const ExportarNovedades = ()=>{
 						<label htmlFor="pereira">PEREIRA</label>
 						<input 
 							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="pereira" value="66001" />
+							type="checkbox" name='66' id="pereira" value="001" />
 					</div>
 
 					<div>
@@ -415,7 +442,7 @@ const ExportarNovedades = ()=>{
 						<label htmlFor="ibague">IBAGUE</label>
 						<input 
 							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="ibague" value="001"/>
+							type="checkbox" name='73' id="ibague" value="001"/>
 					</div>
 					<div>
 						<label htmlFor="chaparral">CHAPARRAL</label>
@@ -483,7 +510,7 @@ const ExportarNovedades = ()=>{
 							onChange={(e)=>handleCheckboxMunicipio(e)}
 							type="checkbox" id="prado" value="563"/>
 					</div>
-				</div>
+				</div>*/}
 				{/*
 				<pre>{JSON.stringify(datosExport, null, 2)}</pre>
 				*/}

@@ -14,39 +14,40 @@ const useObtenerGastos = () => {
     const [regimen, setRegimen] = useState('');
     const {usuario} = useAuth();
     const [codigoMunicipios, setCodigoMunicipios] = useState([]);
+    const [novedadesN04N25, setNovedadesN04N25] = useState([]);
 
 
     useEffect(()=>{
         const fechaInicio = moment(fechaInicioUnix).unix();
         const fechaFin = moment(fechaFinUnix).unix();
-        
+
         //Ejecutamos el codigo solo cuando se actualize el estado de codigoMunicipios y se puedan iterar
         if(codigoMunicipios.length !== 0){
             //
             codigoMunicipios.map((codigo)=>{
                 if(codigo.checked === true){
-                    if(codigo.name === '66001'){
-                        //PENDIENTE 
-                    }
-                    console.log(codigo.name);
+
                     const consulta = query(
                         collection(db, 'AllLineas'),
                         where('U_idUsuario', '==', usuario.uid),
                         where("Y_fechaUnix", ">=", fechaInicio),
                         where("Y_fechaUnix", "<=", fechaFin),
                         where("B_entidad", "==", regimen),
-                        where("K_municipio", "==", codigo.name),
+                        where("J_departamento", "==", codigo.departamento),
+                        where("K_municipio", "==", codigo.municipio),
                         orderBy('Y_fechaUnix', 'asc')
                     );
                 
                     const unsuscribe = onSnapshot(consulta, (snapshot) => {
                         //Si el check de un municipio es treu, guardamos todas las lineas en un arreglo de objetos
                         const nuevoObjeto = snapshot.docs.map(linea => linea.data());
-
+    
                         //unimos el arreglo de objetos que ya teniamos en lineas y le agregamos los nuevos objetos del array nuevoObjeto
                         setLineas(prev => [...prev, ...nuevoObjeto]);
                     });
-                    return unsuscribe;
+
+                    return unsuscribe;  
+                    
                 } else {
                     setLineas([]);
                 }
@@ -56,7 +57,8 @@ const useObtenerGastos = () => {
     },[setLineas,fechaInicioUnix,fechaFinUnix, usuario.uid,regimen,codigoMunicipios])
         
 
-    console.log(lineas);
+    //console.log(novedadesN04N25);
+    //console.log(lineas);
 
     return {lineas,setFechaInicioUnix,setfechaFinUnix,setLineas,setRegimen,setCodigoMunicipios,codigoMunicipios};
 }
