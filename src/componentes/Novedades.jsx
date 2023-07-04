@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import BotonCerrarSesion from './BotonCerrarSesion';
-import { Icon } from '@iconify/react';
 import { Helmet } from 'react-helmet';
 import ObtenerLineasNovedades from '../hooks/ObtenerLineasNovedades';
+import LineaNS from './LineaNS';
 
 
 const Novedades = () => {
@@ -18,24 +18,21 @@ const Novedades = () => {
 		setRegimen(entidad);
 	}, [fechaInicio,fechaFin,setEntidad,entidad,setFechaFin,setFechaInicio]);
 
+
 	const handleSetFechaInicio = (e) => {
 		setFechaInicio(e.target.value);
 	}
 
-	const handleSubmit = () => {
-		ObtenerLinasNS();
-	}
-
-	useEffect(()=>{
-		console.log(lineas);
-	},[lineas])
-
 	const handleSetFechaFin = (e)=>{
 		setFechaFin(e.target.value);
 	}
-
+	
 	const handleSetEntidad = (e)=>{
 		setEntidad(e.target.value);
+	}
+	
+	const handleSubmit = () => {
+		ObtenerLinasNS();
 	}
 
 
@@ -82,7 +79,7 @@ const Novedades = () => {
 			</div>
 		
 
-			<table className=''>
+			<table>
 				<thead>
 					<tr>
 						<th>N°</th>
@@ -93,7 +90,7 @@ const Novedades = () => {
 						<th>2 Apellido</th>
 						<th>1 Nombre</th>
 						<th>2 Nombre</th>
-						<th>Fech Nacimiento</th>
+						<th>Fech Nac</th>
 						<th>DP</th>
 						<th>MP</th>
 						<th>NOV</th>
@@ -110,37 +107,33 @@ const Novedades = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{ lineas.length !== 0 ?
-						<>
-							{lineas.map((linea, i)=>{
-								return <tr>
-									<td>{i + 1}</td>
-									<td>{linea.B_entidad}</td>
-									<td>{linea.C_tipoDoc}</td>
-									<td>{linea.D_identificacion}</td>
-									<td>{linea.E_priApellido}</td>
-									<td>{linea.F_segApellido}</td>
-									<td>{linea.G_priNombre}</td>
-									<td>{linea.H_segNombre}</td>
-									<td>{linea.I_fechaNacimiento}</td>
-									<td>{linea.J_departamento}</td>
-									<td>{linea.K_municipio}</td>
-									<td>{linea.L_tpNovedad}</td>
-									<td>{linea.M_fechaNovedad}</td>
-									<td>{linea.N_V1}</td>
-									<td>{linea.O_V2}</td>
-									<td>{linea.P_V3}</td>
-									<td>{linea.Q_V4}</td>
-									<td>{linea.R_V5}</td>
-									<td>{linea.S_V6}</td>
-									<td>{linea.T_V7}</td>
-									<td><Icon icon="lucide:file-edit" color="green" width="22" /></td>
-									<td><Icon icon="tabler:trash-x-filled" color="red" width="22" /></td>
-								</tr>
-							})}
-						</>
-						
-						: false
+					{ lineas.length !== 0 &&
+						lineas.map((linea, i)=>(
+							<LineaNS 
+								consecutivo={i + 1}
+								key={linea.id}
+								id={linea.id}
+								entidad={linea.B_entidad}
+								tipoDoc={linea.C_tipoDoc}
+								identificacion={linea.D_identificacion}
+								priApellido={linea.E_priApellido}
+								segApellido={linea.F_segApellido}
+								priNombre={linea.G_priNombre}
+								segNombre={linea.H_segNombre}
+								fechaNacimiento={linea.I_fechaNacimiento}
+								departamento={linea.J_departamento}
+								municipio={linea.K_municipio}
+								tpNovedad={linea.L_tpNovedad}
+								fechaNovedad={linea.M_fechaNovedad}
+								V1={linea.N_V1}
+								V2={linea.O_V2}
+								V3={linea.P_V3}
+								V4={linea.Q_V4}
+								V5={linea.R_V5}
+								V6={linea.S_V6}
+								V7={linea.T_V7}
+							/>
+						))
 					}
 				</tbody>
 			</table>

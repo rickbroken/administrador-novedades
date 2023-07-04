@@ -16,9 +16,6 @@ const useObtenerLineasNovedades = () => {
 
 
     const ObtenerLinasNS = ()=>{
-        console.log(fechaInicioUnix);
-        console.log(fechaFinUnix);
-        console.log(regimen);
         const fechaInicio = moment(fechaInicioUnix).unix();
         const fechaFin = moment(fechaFinUnix).unix();
 
@@ -34,7 +31,9 @@ const useObtenerLineasNovedades = () => {
                 
         const unsuscribe = onSnapshot(consulta, (snapshot) => {
             //unimos el arreglo de objetos que ya teniamos en lineas y le agregamos los nuevos objetos del array nuevoObjeto
-            setLineas(snapshot.docs.map(linea => linea.data()));
+            setLineas(snapshot.docs.map(linea => {
+                return {...linea.data(), id: linea.id};
+            }));
         });
 
         return unsuscribe;  
