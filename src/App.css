@@ -16,8 +16,10 @@ nav {
     width: 85%;
     max-width: 500px;
     margin: auto;
+    margin-top: 60px;
     position: relative;
     top: 30;
+    
 }
 .head-home{
     box-sizing: border-box;
@@ -29,7 +31,8 @@ nav {
     align-items: center;
     justify-content: center;
     border:1px solid rgb(201, 201, 201);
-    position: relative;
+    position: absolute;
+    top: -60px;
     cursor: pointer;
     z-index: 2;
 }
@@ -53,9 +56,14 @@ nav {
     position: absolute;
 }
 .exportar {
-    top:-30px;
     left:160px;
+    z-index:2;
+}
+.novedades {
+    top:-60px;
+    left:305px;
     z-index:0;
+    width: 70px;
 }
 .exportar::after {
     width: 0%;

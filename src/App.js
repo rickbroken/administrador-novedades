@@ -8,12 +8,15 @@ import frasesFamosas from './frases/frases';
 import { Helmet } from 'react-helmet';
 import InicioSesion from './componentes/InicioSesion';
 import RutaPrivada from './componentes/RutaPrivada';
+import Novedades from './componentes/Novedades';
+import { Icon } from '@iconify/react';
 
 
 function App() {
   //Estados para dinamisar las clases de el header
   const [procesarNovedades, setProcesarNovedades] = useState('head-inactivo');
   const [exportarNovedades, setExportarNovedades] = useState('head-inactivo');
+  const [novedades, setNovedades] = useState('head-inactivo');
   const location = useLocation();
 
 
@@ -22,11 +25,17 @@ function App() {
   //funcion de click con el evento para saber que clase tiene donde se clikea
   //y cambiar dinamicamente el estado si esta activo o no
   const verificar = (e)=>{
-    if(e.target.className === "head-home head-inactivo"){
-      setExportarNovedades('head-inactivo');
+    if(e.target.name === "home"){
       setProcesarNovedades('head-activo');
-    } else if (e.target.className === "head-home exportar head-inactivo"){
+      setExportarNovedades('head-inactivo');
+      setNovedades('head-inactivo');
+    } else if (e.target.name === "exportar"){
       setExportarNovedades('head-activo');
+      setProcesarNovedades('head-inactivo');
+      setNovedades('head-inactivo');
+    } else if (e.target.name === "novedades"){
+      setNovedades('head-activo');
+      setExportarNovedades('head-inactivo');
       setProcesarNovedades('head-inactivo');
     }
   }
@@ -34,16 +43,19 @@ function App() {
   
   useEffect(()=>{
     if(location.pathname === "/"){
-      setExportarNovedades('head-inactivo');
       setProcesarNovedades('head-activo');
+      setExportarNovedades('head-inactivo');
+      setNovedades('head-inactivo');
     } else if(location.pathname === "/exportar"){
       setExportarNovedades('head-activo');
       setProcesarNovedades('head-inactivo');
-    } else if(location.pathname === "/"){
+      setNovedades('head-inactivo');
+    } else if(location.pathname === "/novedades"){
+      setNovedades('head-activo');
+      setProcesarNovedades('head-inactivo');
       setExportarNovedades('head-inactivo');
-      setProcesarNovedades('head-activo');
     }
-  },[procesarNovedades,exportarNovedades,location.pathname]);
+  },[procesarNovedades,exportarNovedades,location.pathname,novedades]);
 
   const fechaHoy = moment();
   const diaDelAnio = fechaHoy.dayOfYear();
@@ -79,8 +91,13 @@ function App() {
       <div className='container'>
         <nav>
           {
-            location.pathname !== '/iniciar-sesion'  ? <><NavLink onClick={(e)=>verificar(e)} to="/" className={`left-4 head-home ${procesarNovedades}`}>Procesar Novedades</NavLink>
-            <NavLink onClick={(e)=>verificar(e)} to='/exportar' className={`head-home exportar ${exportarNovedades}`}>Exportar Novedades</NavLink></> : false
+            location.pathname !== '/iniciar-sesion'  
+            ? 
+            <>
+              <NavLink onClick={(e)=>verificar(e)} name="home" to="/" className={`left-4 head-home ${procesarNovedades}`}>Procesar Novedades</NavLink>
+              <NavLink onClick={(e)=>verificar(e)} name="exportar" to='/exportar' className={`head-home exportar ${exportarNovedades}`}>Exportar Novedades</NavLink>
+              <NavLink onClick={(e)=>verificar(e)} name="novedades" to='/novedades' className={`head-home novedades ${novedades}`}><Icon icon="mdi:table-search" width="23" /></NavLink>
+            </> : false
           }
           
         </nav>
@@ -104,6 +121,12 @@ function App() {
           <Route path="/exportar" element={
             <RutaPrivada>
               <ExportarNovedades />
+            </RutaPrivada>
+          }/>
+
+          <Route path="/novedades" element={
+            <RutaPrivada>
+              <Novedades />
             </RutaPrivada>
           }/>
         </Routes>

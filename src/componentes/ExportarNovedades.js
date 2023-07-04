@@ -109,21 +109,23 @@ const ExportarNovedades = ()=>{
 		]);
 	},[])
 	
-  const handleCheckboxMunicipio = (e) => {
-    const { name, value, checked } = e.target;
-    setCodigoMunicipios((prevCheckboxes) =>
-      prevCheckboxes.map((checkbox) => {
-		if(checkbox.municipio === value &&  checkbox.departamento === name){
-			return { ...checkbox, checked }
-		} else if (checkbox.municipio === value && name === '') {
-			return { ...checkbox, checked }
-		} else {
-			return checkbox;
-		}
-	  	}
-      )
-    );
-  };
+
+	//Validar municipios y alterar su cheched si estan activos en la lsita de inputs tipo cheked
+  	//const handleCheckboxMunicipio = (e) => {
+  	//  const { name, value, checked } = e.target;
+  	//  setCodigoMunicipios((prevCheckboxes) =>
+  	//    prevCheckboxes.map((checkbox) => {
+	//		if(checkbox.municipio === value &&  checkbox.departamento === name){
+	//			return { ...checkbox, checked }
+	//		} else if (checkbox.municipio === value && name === '') {
+	//			return { ...checkbox, checked }
+	//		} else {
+	//			return checkbox;
+	//		}
+	//	  	}
+  	//    )
+  	//  );
+  	//};
 
 	
 	//Cada vez que se actualize el estado se concatena la fecha con la hora en un estado
@@ -379,18 +381,18 @@ const ExportarNovedades = ()=>{
 				<hr className="hrExportarNovedades"/>
 
 				<div>
-								<label htmlFor="entidad">Regimen: </label>
-								<select
-									id="entidad"
-									name="entidad"
-									onChange={(e)=>{handleSetEntidad(e)}}
-									value={entidad}
-								>
-									<option value="">Seleccione el regimen:</option>
+					<label htmlFor="entidad">Regimen: </label>
+					<select
+						id="entidad"
+						name="entidad"
+						onChange={(e)=>{handleSetEntidad(e)}}
+						value={entidad}
+					>
+						<option value="">Seleccione el regimen:</option>
 					<option value="EPSI06">Subsidiado</option>
 					<option value="EPSIC6">Contributivo</option>
-								</select>
-							</div>
+					</select>
+				</div>
 
 
 				{/*<div className="contenedor-checkbox">
