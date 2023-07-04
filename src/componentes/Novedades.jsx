@@ -2,27 +2,33 @@ import React, { useState, useEffect } from 'react';
 import BotonCerrarSesion from './BotonCerrarSesion';
 import { Icon } from '@iconify/react';
 import { Helmet } from 'react-helmet';
+import ObtenerLineasNovedades from '../hooks/ObtenerLineasNovedades';
+
 
 const Novedades = () => {
 	const [fechaInicio, setFechaInicio] = useState('');
 	const [fechaFin, setFechaFin] = useState('');
-	const [fechaInicioTotal, setFechaInicioTotal] = useState('');
-	const [fechaFinTotal, setFechaFinTotal] = useState('');
 	const [entidad, setEntidad] = useState('');
 
-
+	const {lineas, setfechaFinUnix, setFechaInicioUnix, setRegimen, ObtenerLinasNS} = ObtenerLineasNovedades();
 
 	useEffect(()=>{
-		setFechaInicioTotal(`${fechaInicio}`);
-		setFechaFinTotal(`${fechaFin}`);
-		console.log(fechaInicioTotal);
-		console.log(fechaFinTotal);
-	}, [fechaInicio,fechaFin]);
+		setFechaInicioUnix(`${fechaInicio} 00:00:00`);
+		setfechaFinUnix(`${fechaFin} 00:00:00`);
+		setRegimen(entidad);
+	}, [fechaInicio,fechaFin,setEntidad,entidad,setFechaFin,setFechaInicio]);
 
 	const handleSetFechaInicio = (e) => {
 		setFechaInicio(e.target.value);
-		
 	}
+
+	const handleSubmit = () => {
+		ObtenerLinasNS();
+	}
+
+	useEffect(()=>{
+		console.log(lineas);
+	},[lineas])
 
 	const handleSetFechaFin = (e)=>{
 		setFechaFin(e.target.value);
@@ -72,7 +78,7 @@ const Novedades = () => {
 					<option value="EPSIC6">Contributivo</option>
 					</select>
 				</div>
-				<button type='button' className='bg-[#6c63ff] w-auto px-8 m-0 h-12'>Buscar</button>
+				<button type='button' onClick={handleSubmit} className='bg-[#6c63ff] w-auto px-8 m-0 h-12'>Buscar</button>
 			</div>
 		
 
@@ -104,55 +110,38 @@ const Novedades = () => {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>EPSI06</td>
-						<td>RC</td>
-						<td>1124840108</td>
-						<td>LEON</td>
-						<td>AMAYA</td>
-						<td>JAROL</td>
-						<td>ESNEIDER</td>
-						<td>15/06/2023</td>
-						<td>50</td>
-						<td>568</td>
-						<td>N03</td>
-						<td>20/06/2023</td>
-						<td>FRANCO</td>
-						<td>LEON</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><Icon icon="lucide:file-edit" color="green" width="22" /></td>
-						<td><Icon icon="tabler:trash-x-filled" color="red" width="22" /></td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>EPSI06</td>
-						<td>RC</td>
-						<td>1124840108</td>
-						<td>LEON</td>
-						<td>AMAYA</td>
-						<td>JAROL</td>
-						<td>ESNEIDER</td>
-						<td>15/06/2023</td>
-						<td>50</td>
-						<td>568</td>
-						<td>N03</td>
-						<td>20/06/2023</td>
-						<td>FRANCO</td>
-						<td>LEON</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><Icon icon="lucide:file-edit" color="green" width="22" /></td>
-						<td><Icon icon="tabler:trash-x-filled" color="red" width="22" /></td>
-					</tr>
-					
+					{ lineas.length !== 0 ?
+						<>
+							{lineas.map((linea, i)=>{
+								return <tr>
+									<td>{i + 1}</td>
+									<td>{linea.B_entidad}</td>
+									<td>{linea.C_tipoDoc}</td>
+									<td>{linea.D_identificacion}</td>
+									<td>{linea.E_priApellido}</td>
+									<td>{linea.F_segApellido}</td>
+									<td>{linea.G_priNombre}</td>
+									<td>{linea.H_segNombre}</td>
+									<td>{linea.I_fechaNacimiento}</td>
+									<td>{linea.J_departamento}</td>
+									<td>{linea.K_municipio}</td>
+									<td>{linea.L_tpNovedad}</td>
+									<td>{linea.M_fechaNovedad}</td>
+									<td>{linea.N_V1}</td>
+									<td>{linea.O_V2}</td>
+									<td>{linea.P_V3}</td>
+									<td>{linea.Q_V4}</td>
+									<td>{linea.R_V5}</td>
+									<td>{linea.S_V6}</td>
+									<td>{linea.T_V7}</td>
+									<td><Icon icon="lucide:file-edit" color="green" width="22" /></td>
+									<td><Icon icon="tabler:trash-x-filled" color="red" width="22" /></td>
+								</tr>
+							})}
+						</>
+						
+						: false
+					}
 				</tbody>
 			</table>
 		</form>

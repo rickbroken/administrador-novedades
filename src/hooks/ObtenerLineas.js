@@ -14,7 +14,6 @@ const useObtenerGastos = () => {
     const [regimen, setRegimen] = useState('');
     const {usuario} = useAuth();
     const [codigoMunicipios, setCodigoMunicipios] = useState([]);
-    const [novedadesN04N25, setNovedadesN04N25] = useState([]);
 
 
     useEffect(()=>{
