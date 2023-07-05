@@ -84,17 +84,17 @@ const LineaNS = ({id,consecutivo,entidad,tipoDoc,identificacion,priApellido,segA
 	{editandoLinea ?
 		<tr>
 			<td>{consecutivo}</td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_entidad} onChange={(e)=>setNuevo_entidad(e.target.value.toUpperCase())}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_tipoDoc} onChange={(e)=>setNuevo_tipoDoc(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10 w-[60px]' value={Nuevo_entidad} onChange={(e)=>setNuevo_entidad(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10 w-[50px]' value={Nuevo_tipoDoc} onChange={(e)=>setNuevo_tipoDoc(e.target.value.toUpperCase())}/></td>
 			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_identificacion} onChange={(e)=>setNuevo_identificacion(e.target.value.toUpperCase())}/></td>
 			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_priApellido} onChange={(e)=>setNuevo_priApellido(e.target.value.toUpperCase())}/></td>
 			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_segApellido} onChange={(e)=>setNuevo_segApellido(e.target.value.toUpperCase())}/></td>
 			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_priNombre} onChange={(e)=>setNuevo_priNombre(e.target.value.toUpperCase())}/></td>
 			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_segNombre} onChange={(e)=>setNuevo_segNombre(e.target.value.toUpperCase())}/></td>
 			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_fechaNacimiento} onChange={(e)=>setNuevo_fechaNacimiento(e.target.value.toUpperCase())}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_departamento} onChange={(e)=>setNuevo_departamento(e.target.value.toUpperCase())}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_municipio} onChange={(e)=>setNuevo_municipio(e.target.value.toUpperCase())}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_tpNovedad} onChange={(e)=>setNuevo_tpNovedad(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10 w-[30px]' value={Nuevo_departamento} onChange={(e)=>setNuevo_departamento(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10 w-[35px]' value={Nuevo_municipio} onChange={(e)=>setNuevo_municipio(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10 w-[40px]' value={Nuevo_tpNovedad} onChange={(e)=>setNuevo_tpNovedad(e.target.value.toUpperCase())}/></td>
 			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_fechaNovedad} onChange={(e)=>setNuevo_fechaNovedad(e.target.value.toUpperCase())}/></td>
 			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V1} onChange={(e)=>setNuevo_V1(e.target.value.toUpperCase())}/></td>
 			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V2} onChange={(e)=>setNuevo_V2(e.target.value.toUpperCase())}/></td>
@@ -109,17 +109,17 @@ const LineaNS = ({id,consecutivo,entidad,tipoDoc,identificacion,priApellido,segA
 		:
 		<tr>
 			<td>{consecutivo}</td>
-			<td>{entidad}</td>
-			<td>{tipoDoc}</td>
+			<td width={60}>{entidad}</td>
+			<td width={50}>{tipoDoc}</td>
 			<td>{identificacion}</td>
 			<td>{priApellido}</td>
 			<td>{segApellido}</td>
 			<td>{priNombre}</td>
 			<td>{segNombre}</td>
 			<td>{fechaNacimiento}</td>
-			<td>{departamento}</td>
-			<td>{municipio}</td>
-			<td>{tpNovedad}</td>
+			<td width={30}>{departamento}</td>
+			<td width={35}>{municipio}</td>
+			<td width={40}>{tpNovedad}</td>
 			<td>{fechaNovedad}</td>
 			<td>{V1}</td>
 			<td>{V2}</td>
@@ -128,8 +128,8 @@ const LineaNS = ({id,consecutivo,entidad,tipoDoc,identificacion,priApellido,segA
 			<td>{V5}</td>
 			<td>{V6}</td>
 			<td>{V7}</td>
-			<td><Icon icon="lucide:file-edit" onClick={()=>setEditandoLinea(!editandoLinea)} color="green" width="22" /></td>
-			<td><Icon icon="tabler:trash-x-filled" onClick={()=>setMostrarVentana(true)} color="red" width="22" /></td>
+			<td width={30}><Icon icon="lucide:file-edit" onClick={()=>setEditandoLinea(!editandoLinea)} color="green" width="22" /></td>
+			<td width={30}><Icon icon="tabler:trash-x-filled" onClick={()=>setMostrarVentana(true)} color="red" width="22" /></td>
 		</tr>
 	}
   </>
