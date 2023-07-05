@@ -3,6 +3,7 @@ import BotonCerrarSesion from './BotonCerrarSesion';
 import { Helmet } from 'react-helmet';
 import ObtenerLineasNovedades from '../hooks/ObtenerLineasNovedades';
 import LineaNS from './LineaNS';
+import { Icon } from '@iconify/react';
 
 
 const Novedades = () => {
@@ -10,7 +11,7 @@ const Novedades = () => {
 	const [fechaFin, setFechaFin] = useState('');
 	const [entidad, setEntidad] = useState('');
 
-	const {lineas, setfechaFinUnix, setFechaInicioUnix, setRegimen, ObtenerLinasNS} = ObtenerLineasNovedades();
+	const {lineas, setfechaFinUnix, setFechaInicioUnix, setRegimen, ObtenerLinasNS,mostrarCargando,setMostrarCargando} = ObtenerLineasNovedades();
 
 	useEffect(()=>{
 		setFechaInicioUnix(`${fechaInicio} 00:00:00`);
@@ -32,8 +33,21 @@ const Novedades = () => {
 	}
 	
 	const handleSubmit = () => {
-		ObtenerLinasNS();
+		if(fechaInicio === ''){
+			alert('Ingrese una fecha valida de inicio');
+			return;
+		} else if(fechaFin === '') {
+			alert('Ingrese una fecha valida de Fin')
+			return;
+		} else if(entidad === '') {
+			alert('Seleccione un regimen')
+			return;
+		} else {
+			setMostrarCargando(true);
+			ObtenerLinasNS();
+		}
 	}
+	
 
 
   return (
@@ -41,7 +55,7 @@ const Novedades = () => {
     <Helmet>
     <title>Procesar novedades</title>
     </Helmet>
-		<form className='relative w-[95%] max-w-none'>
+		<form className='relative w-[95%] max-w-none box-border pb-14'>
   		<BotonCerrarSesion />
 			 <div className="flex items-end">
 				<div className='w-56 mx-2'>
@@ -106,6 +120,7 @@ const Novedades = () => {
 						<th>Borrar</th>
 					</tr>
 				</thead>
+					
 				<tbody>
 					{ lineas.length !== 0 &&
 						lineas.map((linea, i)=>(
@@ -137,6 +152,12 @@ const Novedades = () => {
 					}
 				</tbody>
 			</table>
+			<div className='w-full flex justify-center h-8'>
+				{mostrarCargando &&
+					lineas.length === 0 &&
+						<Icon className='animate-spin' icon="eos-icons:loading" color="#6964cf" width="40" />
+				}
+			</div>
 		</form>
   </>
   );

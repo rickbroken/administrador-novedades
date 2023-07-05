@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useEffect, useState} from 'react';
 import { db } from '../firebase/firebaseConfig';
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { useAuth } from '../contextos/useAuth';
@@ -13,6 +13,7 @@ const useObtenerLineasNovedades = () => {
     const [fechaFinUnix, setfechaFinUnix] = useState('');
     const [regimen, setRegimen] = useState('');
     const {usuario} = useAuth();
+    const [mostrarCargando, setMostrarCargando] = useState(false);
 
 
     const ObtenerLinasNS = ()=>{
@@ -31,21 +32,35 @@ const useObtenerLineasNovedades = () => {
                 
         const unsuscribe = onSnapshot(consulta, (snapshot) => {
             //unimos el arreglo de objetos que ya teniamos en lineas y le agregamos los nuevos objetos del array nuevoObjeto
+            const lineasNuevas = snapshot.docs.map(linea => {
+                return {...linea.data(), id: linea.id};
+            })
+
+            if(lineasNuevas.length === 0){
+                setMostrarCargando(true);
+                setTimeout(()=>{
+                    setMostrarCargando(false);
+                },500)
+            } else {
+                setMostrarCargando(false);
+            }
+
             setLineas(snapshot.docs.map(linea => {
                 return {...linea.data(), id: linea.id};
             }));
         });
 
-        return unsuscribe;  
-                    
-               
-    }
         
+        //setMostrarCargando(false);
+        return unsuscribe;  
+    }
+
+    //console.log(lineas)
 
     //console.log(novedadesN04N25);
     //console.log(lineas);
 
-    return {lineas,setFechaInicioUnix,setfechaFinUnix,setLineas,setRegimen,ObtenerLinasNS};
+    return {lineas,setFechaInicioUnix,setfechaFinUnix,setLineas,setRegimen,ObtenerLinasNS,setMostrarCargando,mostrarCargando};
 }
  
 export default useObtenerLineasNovedades;
