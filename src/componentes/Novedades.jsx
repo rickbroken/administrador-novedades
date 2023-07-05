@@ -14,7 +14,7 @@ const Novedades = () => {
 
 	useEffect(()=>{
 		setFechaInicioUnix(`${fechaInicio} 00:00:00`);
-		setfechaFinUnix(`${fechaFin} 00:00:00`);
+		setfechaFinUnix(`${fechaFin} 23:59:59`);
 		setRegimen(entidad);
 	}, [fechaInicio,fechaFin,setEntidad,entidad,setFechaFin,setFechaInicio]);
 
@@ -86,15 +86,15 @@ const Novedades = () => {
 						<th>EPS</th>
 						<th>TP</th>
 						<th>Documento</th>
-						<th>1 Apellido</th>
-						<th>2 Apellido</th>
-						<th>1 Nombre</th>
-						<th>2 Nombre</th>
-						<th>Fech Nac</th>
+						<th>1 Ape</th>
+						<th>2 Ape</th>
+						<th>1 Nom</th>
+						<th>2 Nom</th>
+						<th>Fec Nac</th>
 						<th>DP</th>
 						<th>MP</th>
 						<th>NOV</th>
-						<th>Fech NOV</th>
+						<th>Fec NOV</th>
 						<th>V1</th>
 						<th>V2</th>
 						<th>V3</th>

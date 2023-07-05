@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import { updateDoc, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import VentanaConfirmar from './VentanaConfirmar';
 
 
 const LineaNS = ({id,consecutivo,entidad,tipoDoc,identificacion,priApellido,segApellido,priNombre,segNombre,fechaNacimiento,departamento,municipio,tpNovedad,fechaNovedad,V1,V2,V3,V4,V5,V6,V7}) => {
 	const [editandoLinea, setEditandoLinea] = useState(false);
+	const [mostrarVentana, setMostrarVentana] = useState(false)
 
 	const [Nuevo_entidad,setNuevo_entidad] =useState(entidad);
 	const [Nuevo_tipoDoc,setNuevo_tipoDoc] =useState(tipoDoc);
@@ -65,31 +67,44 @@ const LineaNS = ({id,consecutivo,entidad,tipoDoc,identificacion,priApellido,segA
 		}
 	}
 
+	const ventanaConfirmar = (id) => {
+		eliminarContacto(id)
+		setMostrarVentana(false);
+	}
+
   return (
   <>
+	{mostrarVentana && 
+		<VentanaConfirmar
+			id={id}
+			ventanaConfirmar={(id)=>ventanaConfirmar(id)}
+			setMostrarVentana={()=>setMostrarVentana(false)}
+		/>
+	}
 	{editandoLinea ?
 		<tr>
 			<td>{consecutivo}</td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_entidad} onChange={(e)=>setNuevo_entidad(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_tipoDoc} onChange={(e)=>setNuevo_tipoDoc(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_identificacion} onChange={(e)=>setNuevo_identificacion(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_priApellido} onChange={(e)=>setNuevo_priApellido(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_segApellido} onChange={(e)=>setNuevo_segApellido(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_priNombre} onChange={(e)=>setNuevo_priNombre(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_segNombre} onChange={(e)=>setNuevo_segNombre(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_fechaNacimiento} onChange={(e)=>setNuevo_fechaNacimiento(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_departamento} onChange={(e)=>setNuevo_departamento(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_municipio} onChange={(e)=>setNuevo_municipio(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_tpNovedad} onChange={(e)=>setNuevo_tpNovedad(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_fechaNovedad} onChange={(e)=>setNuevo_fechaNovedad(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V1} onChange={(e)=>setNuevo_V1(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V2} onChange={(e)=>setNuevo_V2(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V3} onChange={(e)=>setNuevo_V3(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V4} onChange={(e)=>setNuevo_V4(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V5} onChange={(e)=>setNuevo_V5(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V6} onChange={(e)=>setNuevo_V6(e.target.value)}/></td>
-			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V7} onChange={(e)=>setNuevo_V7(e.target.value)}/></td>
-			<td colspan="2"><button type='button' className='m-0 h-11 p-0 bg-[#5a4dd5]' onClick={handleActualizar}>Guardar</button></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_entidad} onChange={(e)=>setNuevo_entidad(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_tipoDoc} onChange={(e)=>setNuevo_tipoDoc(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_identificacion} onChange={(e)=>setNuevo_identificacion(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_priApellido} onChange={(e)=>setNuevo_priApellido(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_segApellido} onChange={(e)=>setNuevo_segApellido(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_priNombre} onChange={(e)=>setNuevo_priNombre(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_segNombre} onChange={(e)=>setNuevo_segNombre(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_fechaNacimiento} onChange={(e)=>setNuevo_fechaNacimiento(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_departamento} onChange={(e)=>setNuevo_departamento(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_municipio} onChange={(e)=>setNuevo_municipio(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_tpNovedad} onChange={(e)=>setNuevo_tpNovedad(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_fechaNovedad} onChange={(e)=>setNuevo_fechaNovedad(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V1} onChange={(e)=>setNuevo_V1(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V2} onChange={(e)=>setNuevo_V2(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V3} onChange={(e)=>setNuevo_V3(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V4} onChange={(e)=>setNuevo_V4(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V5} onChange={(e)=>setNuevo_V5(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V6} onChange={(e)=>setNuevo_V6(e.target.value.toUpperCase())}/></td>
+			<td><input type="text" className='text-center border-[1px] border-green-600 h-10' value={Nuevo_V7} onChange={(e)=>setNuevo_V7(e.target.value.toUpperCase())}/></td>
+			<td><Icon icon="icon-park-twotone:check-one" onClick={handleActualizar} color="green" width="23" /></td>
+			<td><Icon icon="line-md:cancel-twotone" onClick={()=>setEditandoLinea(false)} color="red" width="23" /></td>
 		</tr>
 		:
 		<tr>
@@ -114,7 +129,7 @@ const LineaNS = ({id,consecutivo,entidad,tipoDoc,identificacion,priApellido,segA
 			<td>{V6}</td>
 			<td>{V7}</td>
 			<td><Icon icon="lucide:file-edit" onClick={()=>setEditandoLinea(!editandoLinea)} color="green" width="22" /></td>
-			<td><Icon icon="tabler:trash-x-filled" onClick={()=>eliminarContacto(id)} color="red" width="22" /></td>
+			<td><Icon icon="tabler:trash-x-filled" onClick={()=>setMostrarVentana(true)} color="red" width="22" /></td>
 		</tr>
 	}
   </>
