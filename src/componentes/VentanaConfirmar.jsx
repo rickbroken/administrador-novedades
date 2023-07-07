@@ -2,7 +2,7 @@ import React from 'react';
 
 const VentanaConfirmar = ({id,ventanaConfirmar,setMostrarVentana}) => {
     return (
-    <div className='fixed w-screen h-screen bg-[#0000001a] top-0 left-0 z-20 flex items-center justify-center'>
+    <div className='fixed w-screen h-screen bg-[#00000038] top-0 left-0 z-20 flex items-center justify-center'>
         <div className='fixed w-96 h-48 bg-white rounded-xl flex flex-col justify-center items-center'>
             <p className='text-xl'>¿Seguro de elimiar este elemento?</p>
             <div>
