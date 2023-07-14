@@ -97,14 +97,14 @@ const N32 = ({ setLinea })=>{
               </select>
             </div>
             <div className="mx-4 my-1">
-              <label htmlFor="tipoDiscapacidad">Parentesco con el cabeza de familia: </label>
+              <label htmlFor="tipoDiscapacidad">Afiliado en condicion de discapacidad: </label>
               <select
                 id="tipoDiscapacidad"
                 name="tipoDiscapacidad"
                 onChange={(e)=>{handleTipoDiscapacidad(e)}}
                 value={tipoDiscapacidad}
               >
-                <option value="">Seleccione el tipo de parentesco:</option>
+                <option value="">Seleccione la opcion:</option>
                 <TipoDiscapacidad />
               </select>
             </div>
