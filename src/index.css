@@ -90,6 +90,7 @@ button:hover{
 .btn-descargarEXCEL:hover {
   background-color: #239954;
 }
+
 table thead tr th {
   padding: 0 5px;
 }
@@ -99,7 +100,7 @@ table thead tr {
   color: #ffffff;
 }
 table tbody tr {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #138335;
   line-height: 35px;
   text-align: center;
 }
@@ -107,11 +108,8 @@ table tbody tr svg {
   margin: auto;
   cursor: pointer;
 }
-table tbody tr td {
-  border-left: 1px solid #5b4dd534;
-}
 table tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3; 
+  background-color: #0e5319; 
 } 
 table tbody tr:last-of-type {
   border-bottom: 1px solid #5b4dd5b4; 
