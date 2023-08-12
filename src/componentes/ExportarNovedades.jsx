@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "../estilos-css/ExportarNovedades.css";
 import Papa from 'papaparse';
 import { saveAs } from 'file-saver';
@@ -6,8 +6,10 @@ import * as XLSX from 'xlsx';
 import moment from 'moment';
 import { Helmet } from "react-helmet";
 import BotonCerrarSesion from "./BotonCerrarSesion";
-//import { useAuth } from "../contextos/useAuth";
-import useObtenerLineas from './../hooks/ObtenerLineas';
+import { useAuth } from "../contextos/useAuth";
+import useObtenerLineas from '../hooks/ObtenerLineas';
+import agregarHistorial from "../firebase/agregarHistorial";
+import ObtenerFechaExportacion from "../hooks/ObtenerFechaExportacion";
 
 //Desactivar advertencias en consola de momentJs
 moment.suppressDeprecationWarnings = true;
@@ -17,13 +19,14 @@ const ExportarNovedades = ()=>{
 	//const [datosTXT, setDatosTXT] = useState("");
 	//const [datosEXCEL, setDatosEXCEL] = useState("");
 
+  const {fechaExportacion} = ObtenerFechaExportacion();
 
-	//const {usuario} = useAuth();
+	const {usuario} = useAuth();
 
 	const {lineas, setFechaInicioUnix, setfechaFinUnix, setRegimen, setCodigoMunicipios, codigoMunicipios} = useObtenerLineas();
 
-
-
+  const fechaHoy = moment();
+  const fechaUnix = fechaHoy.unix();
 
 	const [fechaInicio, setFechaInicio] = useState('');
 	const [horaInicio, setHoraInicio] = useState('');
@@ -32,25 +35,6 @@ const ExportarNovedades = ()=>{
 	const [horaFin, setHoraFin] = useState('');
 	const [fechaFinTotal, setFechaFinTotal] = useState('');
 	const [entidad, setEntidad] = useState('');
-	//const [isPuertoGaitan, setIsPuertoGaitan] = useState('');
-	//const [isPereira, setIsPereira] = useState('');
-	//const [isGuatica, setIsGuatica] = useState('');
-	//const [isMarsella, setIsMarsella] = useState('');
-	//const [isMistrato, setIsMistrato] = useState('');
-	//const [isPuebloRico, setIsPuebloRico] = useState('');
-	//const [isQuinchia, setIsQuinchia] = useState('');
-	//const [isIbague, setIsIbague] = useState('');
-	//const [isChaparral, setIsChaparral] = useState('');
-	//const [isCoyaima, setIsCoyaima] = useState('');
-	//const [isNatagaima, setIsNatagaima] = useState('');
-	//const [isOrtega, setIsOrtega] = useState('');
-	//const [isPlanadas, setIsPlanadas] = useState('');
-	//const [isRioBlanco, setIsRioBlanco] = useState('');
-	//const [isSanAntonio, setIsSanAntonio] = useState('');
-	//const [isPurificacion, setIsPurificacion] = useState('');
-	//const [isSaldana, setIsSaldana] = useState('');
-	//const [isAtaco, setIsAtaco] = useState('');
-	//const [isPrado, setIsPrado] = useState('');
 
 	useEffect(()=>{
 		setFechaInicioUnix(fechaInicioTotal);
@@ -77,14 +61,7 @@ const ExportarNovedades = ()=>{
 		setRegimen(e.target.value);
 	}
 
-	// funcion para actualizar el valor de los checkbox de los municipios
-	//const handleIsMunicipio = (e,codigo,set,estado)=>{
-	//	if(estado === codigo){
-	//		set("");
-	//	} else if (estado === ""){
-	//		set(e.target.value);
-	//	} 
-	//}
+
 	useEffect(()=>{
 		setCodigoMunicipios([
 			{ municipio: '568', departamento: '50',checked: true },
@@ -110,22 +87,6 @@ const ExportarNovedades = ()=>{
 	},[])
 	
 
-	//Validar municipios y alterar su cheched si estan activos en la lsita de inputs tipo cheked
-  	//const handleCheckboxMunicipio = (e) => {
-  	//  const { name, value, checked } = e.target;
-  	//  setCodigoMunicipios((prevCheckboxes) =>
-  	//    prevCheckboxes.map((checkbox) => {
-	//		if(checkbox.municipio === value &&  checkbox.departamento === name){
-	//			return { ...checkbox, checked }
-	//		} else if (checkbox.municipio === value && name === '') {
-	//			return { ...checkbox, checked }
-	//		} else {
-	//			return checkbox;
-	//		}
-	//	  	}
-  	//    )
-  	//  );
-  	//};
 
 	
 	//Cada vez que se actualize el estado se concatena la fecha con la hora en un estado
@@ -134,45 +95,6 @@ const ExportarNovedades = ()=>{
 		setFechaFinTotal(`${fechaFin} ${horaFin}:00`);
 	}, [fechaInicio,horaInicio,fechaFin,horaFin]);
 
-
-	//useEffect(()=>{
-	//		setDatosExport(
-	//			{
-	//				fechaInicioTotal: fechaInicioTotal,
-	//				fechaFinTotal: fechaFinTotal,
-	//				entidad: entidad,
-	//				isPuertoGaitan: isPuertoGaitan,
-	//				isPereira: isPereira,
-	//				isGuatica: isGuatica,
-	//				isMarsella: isMarsella,
-	//				isMistrato: isMistrato,
-	//				isPuebloRico: isPuebloRico,
-	//				isQuinchia: isQuinchia,
-	//				isIbague: isIbague,
-	//				isChaparral: isChaparral,
-	//				isCoyaima: isCoyaima,
-	//				isNatagaima: isNatagaima,
-	//				isOrtega: isOrtega,
-	//				isPlanadas: isPlanadas,
-	//				isRioBlanco: isRioBlanco,
-	//				isSanAntonio: isSanAntonio,
-	//				isPurificacion: isPurificacion,
-	//				isSaldana: isSaldana,
-	//				isAtaco: isAtaco,
-	//				isPrado: isPrado,
-	//				idUsuario: usuario.uid
-	//			}
-	//		);
-	//},[
-	//	fechaInicioTotal,fechaFinTotal,
-	//	entidad,isPuertoGaitan,isPereira,
-	//	isGuatica,isMarsella,isMistrato,
-	//	isPuebloRico,isQuinchia,isIbague,
-	//	isChaparral,isCoyaima,isNatagaima,
-	//	isOrtega,isPlanadas,isRioBlanco,
-	//	isSanAntonio,isPurificacion,isSaldana,
-	//	isAtaco,isPrado,usuario.uid
-	//]);
 
 
 	//Damos formato a la fecha presente, el valor varia dependiendo el dia actual
@@ -237,34 +159,22 @@ const ExportarNovedades = ()=>{
 	}, []);
 
 
-	//Funcion creada para comunicarse con la API y traer la informacion de las novedades
-  	//const importarNovevadesAPI = (setName)=>{
-	//	fetch('https://rickbroken.com/api/leer_datos_novedades.php', {
-	//		method: 'POST',
-	//		headers: {
-	//		'Content-Type': 'application/json'
-	//		},
-	//		cors: false,
-	//		body: JSON.stringify(datosExport)
-	//	})
-	//	.then(response => response.json())
-	//	.then(datosExport => setName(datosExport))
-	//	.catch(error => console.error(error));
-	//}
-
-
 	//Funcion que al hacer submit hace consulta a la API para recibir los datos
 	const handleSubmit = (e)=>{
 		e.preventDefault(e);
 	}
+
+
 	//Funciones creadas para el onClick de los botones de descarga
 	const descargarTXT = ()=>{
 		if(lineas.length === 0){
 			alert('No hay datos registrados con las condiciones que seleccionaste')
 		} else {
+      //Agregamos fecha de exportaciona  una collection
+      agregarHistorial(fechaUnix,usuario.uid);
+
 			//Ordenamos las lineas de menor fecha a mayor fecha en la cual se realizo la novedad
 			const LineasOrdenadasPorTiempo = lineas.sort((a, b) => a.Y_fechaUnix - b.Y_fechaUnix);
-
 			
 			//Ordenamos de la A a la Z las propiedades de los objetos dentro del array que se recibe de ObtenerLineas.js
 			const ordered = LineasOrdenadasPorTiempo.map(({ A_id, Z_fechaEnvio, Y_fechaUnix, U_idUsuario, ...rest }) => {
@@ -281,9 +191,7 @@ const ExportarNovedades = ()=>{
 	
 			//llamamos a la funcion que convierte el array en un archivo CSV y a su vez agregamos un indice por cada linea
 			convertToCSV(addConsecutivoToObjArray(ordered), fileNameTXT);
-	
-			//Funcion para exportar las novedades de la API
-			//importarNovevadesAPI(setDatosTXT);
+
 		}
 
 	}
@@ -293,6 +201,9 @@ const ExportarNovedades = ()=>{
 		if(lineas.length === 0){
 			alert('No hay datos registrados con las condiciones que seleccionaste')
 		} else {
+      //Agregamos fecha de exportaciona  una collection
+      agregarHistorial(fechaUnix,usuario.uid);
+
 			const LineasOrdenadasPorTiempo = lineas.sort((a, b) => a.Y_fechaUnix - b.Y_fechaUnix);
 
 			const ordered = LineasOrdenadasPorTiempo.map(({ A_id, Z_fechaEnvio, Y_fechaUnix, U_idUsuario, ...rest }) => {
@@ -307,24 +218,7 @@ const ExportarNovedades = ()=>{
 	
 			handleExport(fileNameEXCEL, ordered);
 		}
-		//importarNovevadesAPI(setDatosEXCEL);
 	}
-
-
-	
-	//Se recibe el estado "datos" que dentro tiene la respuesta de la API, con la 
-	//informacion requerida, apenas se haga un cambio de estados se descargara
-	//useEffect(()=>{
-	//	if(datosTXT !== ""){
-	//		convertToCSV(addConsecutivoToObjArray(lineas.sort()), fileNameTXT);
-	//	}
-	//},[datosTXT,fileNameTXT]);
-	//useEffect(()=>{
-	//	if(datosEXCEL !== ""){
-	//		handleExport(fileNameEXCEL);
-	//	}
-	//},[datosEXCEL,fileNameEXCEL,handleExport]);
-	
 
 
 	return(
@@ -334,6 +228,7 @@ const ExportarNovedades = ()=>{
 			</Helmet>
 			<form onSubmit={(e)=>handleSubmit(e)} className="relative">
 				<BotonCerrarSesion />
+        <p><span className="font-bold">Fecha ultima exportacion:</span> {fechaExportacion !== undefined && moment.unix(fechaExportacion).format('DD/MM/YYYY hh:mm:ss a')}</p>
 				<div className="cont-inputs">
 					<div>
 						<label htmlFor="fechaInicio">Fecha Inicio de exportacion:</label>
@@ -393,126 +288,6 @@ const ExportarNovedades = ()=>{
 					<option value="EPSIC6">Contributivo</option>
 					</select>
 				</div>
-
-
-				{/*<div className="contenedor-checkbox">
-					<label>Seleccionar municipio:</label>
-					<div>
-						<label htmlFor="puerto_gaitan">PUERTO GAITAN</label>
-						<input  
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="puerto_gaitan" value="568" />
-					</div>
-					<div>
-						<label htmlFor="pereira">PEREIRA</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" name='66' id="pereira" value="001" />
-					</div>
-
-					<div>
-						<label htmlFor="guatica">GUATICA</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="guatica" value="318" />
-					</div>
-					<div>
-						<label htmlFor="marsella">MARSELLA</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="marsella" value="440"/>
-					</div>
-					<div>
-						<label htmlFor="mistrato">MISTRATO</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="mistrato" value="456"/>
-					</div>
-					<div>
-						<label htmlFor="pueblo_rico">PUEBLO RICO</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="pueblo_rico" value="572"/>
-					</div>
-					<div>
-						<label htmlFor="quinchia">QUINCHIA</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="quinchia" value="594"/>
-					</div>
-					<div>
-						<label htmlFor="ibague">IBAGUE</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" name='73' id="ibague" value="001"/>
-					</div>
-					<div>
-						<label htmlFor="chaparral">CHAPARRAL</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="chaparral" value="168"/>
-					</div>
-					<div>
-						<label htmlFor="coyaima">COYAIMA</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="coyaima" value="217"/>
-					</div>
-					<div>
-						<label htmlFor="natagaima">NATAGAIMA</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="natagaima" value="483"/>
-					</div>
-					<div>
-						<label htmlFor="ortega">ORTEGA</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="ortega" value="504"/>
-					</div>
-					<div>
-						<label htmlFor="planadas">PLANADAS</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="planadas" value="555"/>
-					</div>
-					<div>
-						<label htmlFor="rioblanco">RIOBLANCO</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="rioblanco" value="616"/>
-					</div>
-					<div>
-						<label htmlFor="san_antonio">SAN ANTONIO</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="san_antonio" value="675"/>
-					</div>
-					<div>
-						<label htmlFor="purificacion">PURIFICACION</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-								type="checkbox" id="purificacion" value="585"/>
-					</div>
-					<div>
-						<label htmlFor="saldana">SALDAÑA</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="saldana" value="671"/>
-					</div>
-					<div>
-						<label htmlFor="ataco">ATACO</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="ataco" value="067"/>
-					</div>
-					<div>
-						<label htmlFor="prado">PRADO</label>
-						<input 
-							onChange={(e)=>handleCheckboxMunicipio(e)}
-							type="checkbox" id="prado" value="563"/>
-					</div>
-				</div>*/}
 				{/*
 				<pre>{JSON.stringify(datosExport, null, 2)}</pre>
 				*/}

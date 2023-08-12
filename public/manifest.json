@@ -1,6 +1,6 @@
 {
-  "short_name": "Administrador Novedades BDUA",
-  "name": "Administrador Novedades subsidiado contributivo",
+  "short_name": "Admin Novedades",
+  "name": "Administrador Novedades",
   "icons": [
     {
       "src": "favicon.ico",
