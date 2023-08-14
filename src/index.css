@@ -100,7 +100,7 @@ table thead tr {
   color: #ffffff;
 }
 table tbody tr {
-  border-bottom: 1px solid #138335;
+  border-bottom: 1px solid #13837a49;
   line-height: 35px;
   text-align: center;
 }
@@ -109,7 +109,7 @@ table tbody tr svg {
   cursor: pointer;
 }
 table tbody tr:nth-of-type(even) {
-  background-color: #0e5319; 
+  background-color: #99d8c42a; 
 } 
 table tbody tr:last-of-type {
   border-bottom: 1px solid #5b4dd5b4; 

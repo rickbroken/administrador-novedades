@@ -12,7 +12,6 @@ const InicioSesion = () => {
 	const navigate = useNavigate();
 	const {usuario} = useAuth();
 
-	console.log(usuario);
 
 	useEffect(()=>{
 		if(usuario){
