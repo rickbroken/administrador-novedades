@@ -20,6 +20,7 @@ const ExportarNovedades = ()=>{
 	//const [datosEXCEL, setDatosEXCEL] = useState("");
 
   const {fechaExportacion} = ObtenerFechaExportacion();
+  //console.log(fechaExportacion);
 
 	const {usuario} = useAuth();
 
@@ -228,7 +229,7 @@ const ExportarNovedades = ()=>{
 			</Helmet>
 			<form onSubmit={(e)=>handleSubmit(e)} className="relative">
 				<BotonCerrarSesion />
-        <p><span className="font-bold">Fecha ultima exportacion:</span> {fechaExportacion !== undefined && moment.unix(fechaExportacion).format('DD/MM/YYYY hh:mm:ss a')}</p>
+        <p><span className="font-bold">Fecha ultima exportacion:</span> {fechaExportacion !== false && fechaExportacion !== undefined ? moment.unix(fechaExportacion).format('DD/MM/YYYY hh:mm:ss a'): "No tienes novedades enviadas con este usuario"}</p>
 				<div className="cont-inputs">
 					<div>
 						<label htmlFor="fechaInicio">Fecha Inicio de exportacion:</label>

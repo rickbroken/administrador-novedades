@@ -14,16 +14,14 @@ const ObtenerFechaExportacion = () => {
       where('idUsuario', '==', usuario.uid),
       orderBy('fechaExportacion', 'desc')
     );
-
     const unsuscribe = onSnapshot(consulta, (snapshot)=>{
       setFechaExportacion(snapshot.docs.map(fecha => fecha.data())[0]);
     });
 
     return unsuscribe;
   },[])
-  
-
-  return fechaExportacion;
+  console.log(fechaExportacion);
+  return fechaExportacion !== undefined ? fechaExportacion : false;
 }
  
 export default ObtenerFechaExportacion;

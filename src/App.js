@@ -80,14 +80,13 @@ function App() {
       <Helmet>
         <title>Administrador de novedades</title>
       </Helmet>
-      {/* MOSTRAR CONTENEDOR DE FRASES
-        location.pathname !== '/iniciar-sesion' ?
+      {
+        location.pathname !== '/iniciar-sesion' && location.pathname !== '/novedades' &&
           <div className='contenedor-frase'>
             <p className='frase'>"{frase}"</p>
             <p className='autor'>{autor}</p>
           </div>
-          : false
-      */}
+      }
       <div className='container'>
         <nav>
           {
