@@ -23,6 +23,11 @@ Bienvenido a nuestro Gestor de Datos para Salud, una solución  que simplifica l
 
 <br>
 
+### **Crear cuenta firebase:**
+
+Crea una cuenta de [Firebase Cloud](https://firebase.com/) y comienza un nuevo proyecto, sigue los pasos que te proporciona la [Documentación de firebase](https://firebase.google.com/docs/web/setup?authuser=0&hl=es) para crear un proyecto gratis y ten encuentra las claves del SDK para mas adelante ingresarlas como variables de entorno.
+
+
 ### **Cómo Comenzar**
 
 **1. Clona este repositorio:**
@@ -36,8 +41,12 @@ cd administrador-novedades
 npm install
 ```
 
+**3. Crea tus variables de entorno:**
 
-**3. Ejecuta el proyecto:**
+Crea un archivo ``` .env ``` en la raiz del proyecto, y remplaza las KEYS con las que te proporciona Firebase Cloud al crear un nuevo proyecto.
+
+
+**4. Ejecuta el proyecto:**
 ```bash
 npm start
 ```
