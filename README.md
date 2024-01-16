@@ -32,8 +32,8 @@ git clone https://github.com/rickbroken/administrador-novedades.git
 
 **2. Instala las dependencias:**
 ```bash
-cd administrador-novedades*
-npm install*
+cd administrador-novedades
+npm install
 ```
 
 
